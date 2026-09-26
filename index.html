@@ -699,8 +699,8 @@
                     <input type="text" id="authName" class="w-full bg-mlbb-dark border border-mlbb-border rounded-xl px-3.5 py-2.5 focus:border-purple-500 focus:outline-none text-xs">
                 </div>
                 <div>
-                    <label class="block text-[11px] font-bold mb-1">Email</label>
-                    <input type="email" id="authEmail" required class="w-full bg-mlbb-dark border border-mlbb-border rounded-xl px-3.5 py-2.5 focus:border-purple-500 focus:outline-none text-xs">
+                    <label class="block text-[11px] font-bold mb-1">Gmail (მხოლოდ რეალური @gmail.com)</label>
+                    <input type="email" id="authEmail" placeholder="example@gmail.com" required class="w-full bg-mlbb-dark border border-mlbb-border rounded-xl px-3.5 py-2.5 focus:border-purple-500 focus:outline-none text-xs">
                 </div>
                 <div>
                     <div class="flex justify-between items-center mb-1">
@@ -709,6 +709,14 @@
                     </div>
                     <input type="password" id="authPassword" required minlength="6" class="w-full bg-mlbb-dark border border-mlbb-border rounded-xl px-3.5 py-2.5 focus:border-purple-500 focus:outline-none text-xs">
                 </div>
+
+                <!-- OTP Verification Container (Hidden by default) -->
+                <div id="otpSection" class="hidden space-y-2 p-3 bg-mlbb-dark border border-purple-500/50 rounded-xl">
+                    <label class="block text-[11px] font-bold text-mlbb-gold">შეიყვანეთ 4-ნიშნა კოდი Gmail-იდან:</label>
+                    <input type="text" id="otpInput" maxlength="4" placeholder="1234" class="w-full bg-mlbb-card border border-mlbb-border rounded-xl px-3.5 py-2 text-center font-orbitron font-bold tracking-widest text-lg focus:border-purple-500 focus:outline-none">
+                    <p class="text-[9px] text-gray-400 text-center">კოდი გაიგზავნა მითითებულ მეილზე</p>
+                </div>
+
                 <button type="submit" id="authSubmitBtn" class="w-full gold-btn py-2.5 rounded-xl font-bold uppercase tracking-wide text-xs mt-1">ავტორიზაცია</button>
 
                 <div class="pt-1">
@@ -875,6 +883,10 @@
         let randomQueue = JSON.parse(localStorage.getItem('royal_random_queue')) || [];
         let draftTeams = JSON.parse(localStorage.getItem('royal_draft_teams')) || [];
         let authMode = 'login';
+        
+        let pendingRegistrationData = null;
+        let generatedOtpCode = null;
+        let isAwaitingOtp = false;
 
         const gamingAvatars = [
             { name: 'Valkyrie', img: 'https://api.dicebear.com/7.x/bottts/svg?seed=ValkyrieBlade&backgroundColor=241038' },
@@ -924,6 +936,9 @@
 
         function switchAuthTab(mode) {
             authMode = mode;
+            isAwaitingOtp = false;
+            document.getElementById('otpSection').classList.add('hidden');
+            
             const nameField = document.getElementById('authNameField');
             const forgotBtn = document.getElementById('forgotPwdBtn');
             const nameInput = document.getElementById('authName');
@@ -936,7 +951,14 @@
             if (nameInput) nameInput.required = (mode === 'register');
             if (tabL) tabL.className = mode === 'login' ? 'flex-1 py-2 rounded-lg bg-purple-600 text-white text-xs font-bold shadow-md transition' : 'flex-1 py-2 rounded-lg text-gray-400 hover:text-white text-xs font-bold transition';
             if (tabR) tabR.className = mode === 'register' ? 'flex-1 py-2 rounded-lg bg-purple-600 text-white text-xs font-bold shadow-md transition' : 'flex-1 py-2 rounded-lg text-gray-400 hover:text-white text-xs font-bold transition';
-            if (subBtn) subBtn.innerText = mode === 'login' ? "ავტორიზაცია" : "შექმნა";
+            if (subBtn) subBtn.innerText = mode === 'login' ? "ავტორიზაცია" : "კოდის გაგზავნა";
+        }
+
+        // STRICT GMAIL VALIDATOR
+        function isValidGmail(email) {
+            const cleanEmail = email.trim().toLowerCase();
+            const gmailRegex = /^[a-zA-Z0-9._%+-]+@gmail\.com$/;
+            return gmailRegex.test(cleanEmail);
         }
 
         function handleAuthSubmit(e) {
@@ -944,22 +966,58 @@
             const emailInput = document.getElementById('authEmail');
             const pwdInput = document.getElementById('authPassword');
             if (!emailInput || !pwdInput) return;
-            const email = emailInput.value.trim();
+            const email = emailInput.value.trim().toLowerCase();
             const pwd = pwdInput.value;
 
+            // STRICT CHECK
+            if (!isValidGmail(email)) {
+                return showToast("გთხოვთ შეიყვანოთ მხოლოდ რეალური @gmail.com მისამართი!", 'error');
+            }
+
             if (authMode === 'register') {
-                if (db[email]) return showToast("მეილი უკვე არსებობს!", 'error');
-                const nameInput = document.getElementById('authName');
-                const name = nameInput ? nameInput.value.trim() : "Player";
-                db[email] = { email: email, password: pwd, nickname: name, avatarUrl: gamingAvatars[0].img, teamData: null };
-                localStorage.setItem('royal_db', JSON.stringify(db));
-                activeUserId = email;
-                showToast("რეგისტრაცია წარმატებულია!");
+                if (db[email]) return showToast("ეს Gmail უკვე რეგისტრირებულია!", 'error');
+                
+                if (!isAwaitingOtp) {
+                    // Step 1: Generate OTP and ask for verification
+                    generatedOtpCode = Math.floor(1000 + Math.random() * 9000).toString();
+                    const nameInput = document.getElementById('authName');
+                    const name = nameInput ? nameInput.value.trim() : "Player";
+                    
+                    pendingRegistrationData = { email, pwd, name };
+                    
+                    // Show OTP section
+                    isAwaitingOtp = true;
+                    document.getElementById('otpSection').classList.remove('hidden');
+                    document.getElementById('authSubmitBtn').innerText = "რეგისტრაციის დასრულება";
+                    
+                    showToast(`ტესტო კოდი Gmail-ისთვის: ${generatedOtpCode}`, 'info');
+                    return;
+                } else {
+                    // Step 2: Verify OTP
+                    const userOtp = document.getElementById('otpInput').value.trim();
+                    if (userOtp !== generatedOtpCode) {
+                        return showToast("არასწორი დადასტურების კოდი!", 'error');
+                    }
+
+                    db[pendingRegistrationData.email] = {
+                        email: pendingRegistrationData.email,
+                        password: pendingRegistrationData.pwd,
+                        nickname: pendingRegistrationData.name,
+                        avatarUrl: gamingAvatars[0].img,
+                        teamData: null
+                    };
+                    localStorage.setItem('royal_db', JSON.stringify(db));
+                    activeUserId = pendingRegistrationData.email;
+                    isAwaitingOtp = false;
+                    document.getElementById('otpSection').classList.add('hidden');
+                    showToast("რეგისტრაცია და მეილი წარმატებით დადასტურდა!");
+                }
             } else {
-                if (!db[email] || db[email].password !== pwd) return showToast("არასწორი პაროლი!", 'error');
+                if (!db[email] || db[email].password !== pwd) return showToast("არასწორი Gmail ან პაროლი!", 'error');
                 activeUserId = email;
                 showToast("ავტორიზაცია წარმატებულია!");
             }
+            
             localStorage.setItem('royal_active_user', activeUserId);
             initAuthUI();
             toggleElement('loginModal');
@@ -1020,8 +1078,9 @@
 
         function handleForgotPassword() {
             const emailInput = document.getElementById('authEmail');
-            if (!emailInput || !emailInput.value.trim()) return showToast("ჩაწერეთ მეილი ველში", 'error');
-            showToast("აღდგენის ლინკი გამოიგზავნა!", 'success');
+            if (!emailInput || !emailInput.value.trim()) return showToast("ჩაწერეთ Gmail მისამართი ველში", 'error');
+            if (!isValidGmail(emailInput.value)) return showToast("გთხოვთ მიუთითოთ ვალიდური @gmail.com", 'error');
+            showToast("აღდგენის ინსტრუქცია გამოიგზავნა თქვენს Gmail-ზე!", 'success');
         }
 
         function logout() {
