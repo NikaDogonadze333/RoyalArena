@@ -4,8 +4,11 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Royal Arena Georgia - MLBB Esports Portal</title>
+    <!-- Favicon -->
     <link rel="icon" type="image/png" href="Royal.png">
-    <title>ʀᴏʏᴀʟ ᴀʀᴇɴᴀ ᴍᴏʙɪʟᴇ ʟᴇɢᴇɴᴅꜱ</title>
+    
+    <!-- Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
     <script>
         tailwind.config = {
@@ -14,14 +17,9 @@
                 extend: {
                     colors: {
                         mlbb: {
-                            dark: '#0a0c16',
-                            card: '#121629',
-                            border: '#232a4d',
-                            gold: '#ffcc00',
-                            goldHover: '#e6b800',
-                            purple: '#9d4edf',
-                            purpleDark: '#241038',
-                            accent: '#3b82f6'
+                            dark: '#0a0c16', card: '#121629', border: '#232a4d',
+                            gold: '#ffcc00', goldHover: '#e6b800', purple: '#9d4edf',
+                            purpleDark: '#241038', accent: '#3b82f6'
                         }
                     },
                     fontFamily: {
@@ -32,12 +30,10 @@
             }
         }
     </script>
-    <!-- FontAwesome Icons -->
+    
+    <!-- FontAwesome & Google Fonts -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <!-- Google Fonts -->
-    <link
-        href="https://fonts.googleapis.com/css2?family=Orbitron:wght@500;700;900&family=Noto+Sans+Georgian:wght@400;500;600;700;800&display=swap"
-        rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@500;700;900&family=Noto+Sans+Georgian:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 
     <style>
         body {
@@ -47,20 +43,15 @@
             -webkit-tap-highlight-color: transparent;
         }
 
-        button,
-        a,
-        input,
-        select {
+        button, a, input, select {
             touch-action: manipulation;
         }
 
-        /* Dark Theme Default */
         body.dark {
             background-color: #0a0c16;
             color: #e2e8f0;
         }
 
-        /* Light Theme Colors */
         body.light {
             background-color: #f3f4f6;
             color: #1f2937;
@@ -98,26 +89,10 @@
             border-color: #d1d5db !important;
         }
 
-        body.light .hero-glow-bg {
-            background: radial-gradient(circle at 50% 30%, rgba(157, 78, 223, 0.1) 0%, rgba(243, 244, 246, 0.95) 70%),
-                linear-gradient(180deg, rgba(243, 244, 246, 0.4) 0%, rgba(243, 244, 246, 1) 100%) !important;
-        }
-
         .gold-gradient-text {
             background: linear-gradient(135deg, #fff2a1 0%, #ffcc00 50%, #d49400 100%);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
-        }
-
-        .purple-gradient-text {
-            background: linear-gradient(135deg, #e0aaff 0%, #9d4edf 50%, #7b2cbf 100%);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-        }
-
-        .hero-glow-bg {
-            background: radial-gradient(circle at 50% 30%, rgba(157, 78, 223, 0.25) 0%, rgba(10, 12, 22, 0.95) 70%),
-                linear-gradient(180deg, rgba(10, 12, 22, 0.4) 0%, rgba(10, 12, 22, 1) 100%);
         }
 
         .gold-btn {
@@ -172,15 +147,8 @@
         }
 
         @keyframes dropdownFade {
-            from {
-                opacity: 0;
-                transform: scaleY(0.9);
-            }
-
-            to {
-                opacity: 1;
-                transform: scaleY(1);
-            }
+            from { opacity: 0; transform: scaleY(0.9); }
+            to { opacity: 1; transform: scaleY(1); }
         }
 
         .toast-enter {
@@ -192,27 +160,13 @@
         }
 
         @keyframes slideUpFade {
-            from {
-                opacity: 0;
-                transform: translateY(100%) translateX(-50%);
-            }
-
-            to {
-                opacity: 1;
-                transform: translateY(0) translateX(-50%);
-            }
+            from { opacity: 0; transform: translateY(100%) translateX(-50%); }
+            to { opacity: 1; transform: translateY(0) translateX(-50%); }
         }
 
         @keyframes slideDownFade {
-            from {
-                opacity: 1;
-                transform: translateY(0) translateX(-50%);
-            }
-
-            to {
-                opacity: 0;
-                transform: translateY(100%) translateX(-50%);
-            }
+            from { opacity: 1; transform: translateY(0) translateX(-50%); }
+            to { opacity: 0; transform: translateY(100%) translateX(-50%); }
         }
 
         .hero-avatar-btn {
@@ -236,37 +190,20 @@
         }
 
         @keyframes spin {
-            100% {
-                transform: rotate(360deg);
-            }
+            100% { transform: rotate(360deg); }
         }
 
         .music-bar {
             animation: bounce 1s infinite ease-in-out;
         }
 
-        .music-bar:nth-child(1) {
-            animation-delay: 0s;
-        }
-
-        .music-bar:nth-child(2) {
-            animation-delay: 0.2s;
-        }
-
-        .music-bar:nth-child(3) {
-            animation-delay: 0.4s;
-        }
+        .music-bar:nth-child(1) { animation-delay: 0s; }
+        .music-bar:nth-child(2) { animation-delay: 0.2s; }
+        .music-bar:nth-child(3) { animation-delay: 0.4s; }
 
         @keyframes bounce {
-
-            0%,
-            100% {
-                transform: scaleY(0.5);
-            }
-
-            50% {
-                transform: scaleY(1);
-            }
+            0%, 100% { transform: scaleY(0.5); }
+            50% { transform: scaleY(1); }
         }
 
         input[type=range] {
@@ -296,101 +233,80 @@
             background: linear-gradient(135deg, rgba(255, 204, 0, 0.1) 0%, rgba(157, 78, 223, 0.15) 100%);
             box-shadow: 0 0 20px rgba(255, 204, 0, 0.2);
         }
+
+        #heroCanvas {
+            position: absolute;
+            inset: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 1;
+        }
     </style>
 </head>
 
 <body class="min-h-screen flex flex-col justify-between selection:bg-yellow-400 selection:text-black dark">
 
     <audio id="bgMusic" loop>
-        <source
-            src="https://cdn.pixabay.com/download/audio/2022/05/27/audio_1808fbf07a.mp3?filename=lofi-study-112191.mp3"
-            type="audio/mpeg">
+        <source src="https://cdn.pixabay.com/download/audio/2022/05/27/audio_1808fbf07a.mp3?filename=lofi-study-112191.mp3" type="audio/mpeg">
     </audio>
 
     <header class="sticky top-0 z-50 bg-[#0a0c16]/95 backdrop-blur-md border-b border-mlbb-border">
         <div class="max-w-[1500px] mx-auto px-4 sm:px-6 lg:px-8 h-20 flex items-center justify-between gap-4 lg:gap-8">
-
-            <!-- Brand Logo using Desktop/New Folder (2)/images/royal.png -->
+            <!-- Brand Logo -->
             <div class="flex items-center gap-3 cursor-pointer flex-shrink-0" onclick="switchTab('home')">
-                <div
-                    class="w-11 h-11 rounded-xl bg-gradient-to-br from-amber-400 via-purple-600 to-indigo-900 flex items-center justify-center p-0.5 shadow-lg shadow-purple-900/50 overflow-hidden">
-                    <img src="Royal.png" alt="Royal Arena"
-                        class="w-full h-full object-cover rounded-[10px]"
-                        onerror="this.onerror=null; this.src='Royal.png';">
+                <div class="w-11 h-11 rounded-xl bg-gradient-to-br from-amber-400 via-purple-600 to-indigo-900 flex items-center justify-center p-0.5 shadow-lg shadow-purple-900/50 overflow-hidden">
+                    <img src="Royal.png" alt="Royal Arena" class="w-full h-full object-cover rounded-[10px]" onerror="this.onerror=null; this.src='https://placehold.co/100x100/241038/ffcc00?text=RA';">
                 </div>
                 <div>
-                    <span
-                        class="font-orbitron font-black text-sm sm:text-base tracking-wider flex items-center gap-1.5">
+                    <span class="font-orbitron font-black text-sm sm:text-base tracking-wider flex items-center gap-1.5">
                         ROYAL<span class="gold-gradient-text">ARENA</span>
                     </span>
-                    <div
-                        class="flex items-center gap-1.5 text-[9px] text-purple-400 font-semibold tracking-widest uppercase">
+                    <div class="flex items-center gap-1.5 text-[9px] text-purple-400 font-semibold tracking-widest uppercase">
                         <span>Georgia MLBB</span>
                         <span class="inline-block w-1.5 h-1.5 rounded-full bg-red-500"></span>
                     </div>
                 </div>
             </div>
 
-            <!-- Desktop Navigation Menu -->
-            <nav
-                class="hidden lg:flex items-center gap-3 bg-mlbb-card/80 p-1.5 rounded-full border border-mlbb-border shadow-md px-5">
-                <button id="nav-home" onclick="switchTab('home')"
-                    class="nav-btn flex items-center gap-2 px-4 py-2 rounded-full bg-[#3a256a] border border-[#553b94] text-white shadow transition text-xs font-bold">
-                    <i class="fa-solid fa-house text-xs text-mlbb-gold"></i>
-                    <span data-i18n="nav_home">მთავარი</span>
+            <!-- Desktop Navigation -->
+            <nav class="hidden lg:flex items-center gap-3 bg-mlbb-card/80 p-1.5 rounded-full border border-mlbb-border shadow-md px-5">
+                <button id="nav-home" onclick="switchTab('home')" class="nav-btn flex items-center gap-2 px-4 py-2 rounded-full bg-[#3a256a] border border-[#553b94] text-white shadow transition text-xs font-bold">
+                    <i class="fa-solid fa-house text-xs text-mlbb-gold"></i> <span data-i18n="nav_home">მთავარი</span>
                 </button>
-                <button id="nav-tournaments" onclick="switchTab('tournaments')"
-                    class="nav-btn flex items-center gap-2 px-4 py-2 rounded-full text-gray-400 hover:text-white hover:bg-mlbb-border/50 border border-transparent transition text-xs font-semibold">
-                    <i class="fa-solid fa-trophy text-xs text-yellow-500"></i>
-                    <span data-i18n="nav_tournaments">ტურნირები</span>
+                <button id="nav-tournaments" onclick="switchTab('tournaments')" class="nav-btn flex items-center gap-2 px-4 py-2 rounded-full text-gray-400 hover:text-white hover:bg-mlbb-border/50 border border-transparent transition text-xs font-semibold">
+                    <i class="fa-solid fa-trophy text-xs text-yellow-500"></i> <span data-i18n="nav_tournaments">ტურნირები</span>
                 </button>
-                <button id="nav-bracket" onclick="switchTab('bracket')"
-                    class="nav-btn flex items-center gap-2 px-4 py-2 rounded-full text-gray-400 hover:text-white hover:bg-mlbb-border/50 border border-transparent transition text-xs font-semibold">
-                    <i class="fa-solid fa-sitemap text-xs text-purple-400"></i>
-                    <span data-i18n="nav_bracket">ბადე</span>
+                <button id="nav-bracket" onclick="switchTab('bracket')" class="nav-btn flex items-center gap-2 px-4 py-2 rounded-full text-gray-400 hover:text-white hover:bg-mlbb-border/50 border border-transparent transition text-xs font-semibold">
+                    <i class="fa-solid fa-sitemap text-xs text-purple-400"></i> <span data-i18n="nav_bracket">ბადე</span>
                 </button>
-                <button id="nav-register" onclick="switchTab('register')"
-                    class="nav-btn flex items-center gap-2 px-4 py-2 rounded-full text-gray-400 hover:text-white hover:bg-mlbb-border/50 border border-transparent transition text-xs font-semibold">
-                    <i class="fa-solid fa-user-plus text-xs text-emerald-400"></i>
-                    <span data-i18n="nav_register">რეგისტრაცია</span>
+                <button id="nav-register" onclick="switchTab('register')" class="nav-btn flex items-center gap-2 px-4 py-2 rounded-full text-gray-400 hover:text-white hover:bg-mlbb-border/50 border border-transparent transition text-xs font-semibold">
+                    <i class="fa-solid fa-user-plus text-xs text-emerald-400"></i> <span data-i18n="nav_register">რეგისტრაცია</span>
                 </button>
-                <button id="nav-rules" onclick="switchTab('rules')"
-                    class="nav-btn flex items-center gap-2 px-4 py-2 rounded-full text-gray-400 hover:text-white hover:bg-mlbb-border/50 border border-transparent transition text-xs font-semibold">
-                    <i class="fa-solid fa-scroll text-xs text-blue-400"></i>
-                    <span data-i18n="nav_rules">წესდება</span>
+                <button id="nav-rules" onclick="switchTab('rules')" class="nav-btn flex items-center gap-2 px-4 py-2 rounded-full text-gray-400 hover:text-white hover:bg-mlbb-border/50 border border-transparent transition text-xs font-semibold">
+                    <i class="fa-solid fa-scroll text-xs text-blue-400"></i> <span data-i18n="nav_rules">წესდება</span>
                 </button>
             </nav>
 
             <!-- Actions Header Right -->
             <div class="hidden md:flex items-center gap-3.5 flex-shrink-0">
-                <!-- Theme Toggle Button -->
-                <button onclick="toggleTheme()"
-                    class="w-9 h-9 rounded-xl bg-mlbb-card border border-mlbb-border flex items-center justify-center text-mlbb-gold hover:border-purple-500 transition shadow-sm"
-                    title="Toggle Theme">
+                <button onclick="toggleTheme()" class="w-9 h-9 rounded-xl bg-mlbb-card border border-mlbb-border flex items-center justify-center text-mlbb-gold hover:border-purple-500 transition shadow-sm">
                     <i class="fa-solid fa-moon dark:hidden"></i>
                     <i class="fa-solid fa-sun hidden dark:block text-amber-400"></i>
                 </button>
-
-                <!-- Community Links -->
                 <div class="flex items-center gap-2">
-                    <a href="https://discord.gg/RwPbJd3NW" target="_blank"
-                        class="w-9 h-9 rounded-xl bg-[#5865F2]/20 border border-[#5865F2]/40 text-[#5865F2] hover:bg-[#5865F2] hover:text-white text-xs font-bold transition flex items-center justify-center"
-                        title="Discord">
+                    <a href="https://discord.gg/RwPbJd3NW" target="_blank" class="w-9 h-9 rounded-xl bg-[#5865F2]/20 border border-[#5865F2]/40 text-[#5865F2] hover:bg-[#5865F2] hover:text-white text-xs font-bold transition flex items-center justify-center">
                         <i class="fa-brands fa-discord text-sm"></i>
                     </a>
-                    <a href="https://www.tiktok.com/@kingofsorrow076?_r=1&_t=ZS-9A2I1S2Maou" target="_blank"
-                        class="w-9 h-9 rounded-xl bg-pink-500/20 border border-pink-500/40 text-pink-400 hover:bg-pink-500 hover:text-white text-xs font-bold transition flex items-center justify-center"
-                        title="TikTok">
+                    <a href="https://www.tiktok.com/@kingofsorrow076?_r=1&_t=ZS-9A2I1S2Maou" target="_blank" class="w-9 h-9 rounded-xl bg-pink-500/20 border border-pink-500/40 text-pink-400 hover:bg-pink-500 hover:text-white text-xs font-bold transition flex items-center justify-center">
                         <i class="fa-brands fa-tiktok text-sm"></i>
                     </a>
                 </div>
-
                 <!-- Music Player Widget -->
                 <div class="flex items-center gap-2.5 px-3.5 py-1.5 rounded-xl bg-mlbb-card border border-mlbb-border">
                     <button onclick="toggleAudio()" class="group flex items-center gap-2 focus:outline-none">
                         <div class="relative w-5 h-5 flex items-center justify-center">
-                            <i class="fa-solid fa-compact-disc text-base text-gray-400 group-hover:text-mlbb-gold transition spin-slow spin-paused"
-                                id="musicDisc"></i>
+                            <i class="fa-solid fa-compact-disc text-base text-gray-400 group-hover:text-mlbb-gold transition spin-slow spin-paused" id="musicDisc"></i>
                             <div class="absolute inset-0 flex items-center justify-center hidden" id="musicBars">
                                 <div class="flex gap-0.5 items-end h-2.5">
                                     <div class="w-0.5 bg-mlbb-gold rounded-t-sm music-bar h-2"></div>
@@ -401,64 +317,46 @@
                         </div>
                         <span class="text-[11px] font-semibold" id="musicStatus" data-i18n="music_play">ჩართვა</span>
                     </button>
-                    <!-- Volume Slider -->
                     <div class="flex items-center gap-1 pl-2.5 border-l border-mlbb-border">
                         <i class="fa-solid fa-volume-low text-[10px] text-gray-400"></i>
-                        <input type="range" id="volumeSlider" min="0" max="1" step="0.05" value="0.5"
-                            oninput="changeVolume(this.value)"
-                            class="w-14 h-1 bg-mlbb-dark rounded-lg appearance-none cursor-pointer">
+                        <input type="range" id="volumeSlider" min="0" max="1" step="0.05" value="0.5" oninput="changeVolume(this.value)" class="w-14 h-1 bg-mlbb-dark rounded-lg appearance-none cursor-pointer">
                     </div>
                 </div>
 
-                <!-- Language Dropdown -->
+                <!-- Language -->
                 <div class="relative">
-                    <button onclick="toggleElement('langDropdown')"
-                        class="flex items-center gap-1.5 px-3 py-2 rounded-xl bg-mlbb-card border border-mlbb-border text-xs hover:border-purple-500 transition">
+                    <button onclick="toggleElement('langDropdown')" class="flex items-center gap-1.5 px-3 py-2 rounded-xl bg-mlbb-card border border-mlbb-border text-xs hover:border-purple-500 transition">
                         <span id="currentLangIcon">🇬🇪</span>
                         <span id="currentLangText" class="font-bold uppercase">KA</span>
                         <i class="fa-solid fa-chevron-down text-[9px] text-gray-400"></i>
                     </button>
-                    <div id="langDropdown"
-                        class="hidden absolute right-0 mt-2 w-32 bg-mlbb-card border border-mlbb-border rounded-xl shadow-xl dropdown-animate z-50 overflow-hidden">
-                        <button onclick="changeLang('ka')"
-                            class="w-full flex items-center gap-2.5 px-3 py-2.5 hover:bg-mlbb-dark text-xs transition"><span>🇬🇪</span>
-                            ქართული</button>
-                        <button onclick="changeLang('en')"
-                            class="w-full flex items-center gap-2.5 px-3 py-2.5 hover:bg-mlbb-dark text-xs transition"><span>🇬🇧</span>
-                            English</button>
+                    <div id="langDropdown" class="hidden absolute right-0 mt-2 w-32 bg-mlbb-card border border-mlbb-border rounded-xl shadow-xl dropdown-animate z-50 overflow-hidden">
+                        <button onclick="changeLang('ka')" class="w-full flex items-center gap-2.5 px-3 py-2.5 hover:bg-mlbb-dark text-xs transition"><span>🇬🇪</span> ქართული</button>
+                        <button onclick="changeLang('en')" class="w-full flex items-center gap-2.5 px-3 py-2.5 hover:bg-mlbb-dark text-xs transition"><span>🇬🇧</span> English</button>
                     </div>
                 </div>
 
-                <!-- Auth / Profile -->
+                <!-- Auth -->
                 <div id="authSection" class="relative">
-                    <button id="loginBtn" onclick="toggleElement('loginModal')"
-                        class="gold-btn px-4 py-2 rounded-xl text-xs uppercase tracking-wider font-extrabold flex items-center gap-1.5">
+                    <button id="loginBtn" onclick="toggleElement('loginModal')" class="gold-btn px-4 py-2 rounded-xl text-xs uppercase tracking-wider font-extrabold flex items-center gap-1.5">
                         <i class="fa-solid fa-right-to-bracket"></i> <span data-i18n="auth_login">შესვლა</span>
                     </button>
                     <div id="userProfileBtn" class="hidden">
-                        <button onclick="toggleElement('userDropdown')"
-                            class="flex items-center gap-2 pl-2 pr-3 py-1.5 rounded-full bg-mlbb-card border border-mlbb-border hover:border-mlbb-gold transition">
-                            <img id="headerAvatarImg" src="" alt="Avatar"
-                                class="w-7 h-7 rounded-full border border-purple-500 object-cover bg-mlbb-dark">
+                        <button onclick="toggleElement('userDropdown')" class="flex items-center gap-2 pl-2 pr-3 py-1.5 rounded-full bg-mlbb-card border border-mlbb-border hover:border-mlbb-gold transition">
+                            <img id="headerAvatarImg" src="" alt="Avatar" class="w-7 h-7 rounded-full border border-purple-500 object-cover bg-mlbb-dark">
                             <span id="headerUserName" class="text-xs font-bold max-w-[90px] truncate">Player</span>
                             <i class="fa-solid fa-chevron-down text-[9px] text-gray-400"></i>
                         </button>
-                        <div id="userDropdown"
-                            class="hidden absolute right-0 mt-2 w-48 bg-mlbb-card border border-mlbb-border rounded-xl shadow-xl dropdown-animate z-50 overflow-hidden">
+                        <div id="userDropdown" class="hidden absolute right-0 mt-2 w-48 bg-mlbb-card border border-mlbb-border rounded-xl shadow-xl dropdown-animate z-50 overflow-hidden">
                             <div class="px-4 py-3 border-b border-mlbb-border">
-                                <p class="text-[9px] text-gray-400 uppercase tracking-wider"
-                                    data-i18n="profile_signed_in">შესული ხართ როგორც</p>
+                                <p class="text-[9px] text-gray-400 uppercase tracking-wider" data-i18n="profile_signed_in">შესული ხართ როგორც</p>
                                 <p id="dropdownUserName" class="text-xs font-bold text-mlbb-gold truncate">Player</p>
                             </div>
-                            <button onclick="openProfileSettings()"
-                                class="w-full flex items-center gap-2.5 px-4 py-2.5 hover:bg-mlbb-dark text-xs transition">
-                                <i class="fa-solid fa-user-gear text-purple-400"></i> <span
-                                    data-i18n="profile_settings">პროფილის პარამეტრები</span>
+                            <button onclick="openProfileSettings()" class="w-full flex items-center gap-2.5 px-4 py-2.5 hover:bg-mlbb-dark text-xs transition">
+                                <i class="fa-solid fa-user-gear text-purple-400"></i> <span data-i18n="profile_settings">პროფილის პარამეტრები</span>
                             </button>
-                            <button onclick="logout()"
-                                class="w-full flex items-center gap-2.5 px-4 py-2.5 hover:bg-red-500/10 text-red-400 text-xs transition">
-                                <i class="fa-solid fa-arrow-right-from-bracket"></i> <span
-                                    data-i18n="profile_logout">გასვლა</span>
+                            <button onclick="logout()" class="w-full flex items-center gap-2.5 px-4 py-2.5 hover:bg-red-500/10 text-red-400 text-xs transition">
+                                <i class="fa-solid fa-arrow-right-from-bracket"></i> <span data-i18n="profile_logout">გასვლა</span>
                             </button>
                         </div>
                     </div>
@@ -467,8 +365,7 @@
 
             <!-- Mobile Menu Toggle -->
             <div class="flex items-center gap-2 md:hidden">
-                <button onclick="toggleTheme()"
-                    class="w-9 h-9 rounded-xl bg-mlbb-card border border-mlbb-border flex items-center justify-center text-mlbb-gold">
+                <button onclick="toggleTheme()" class="w-9 h-9 rounded-xl bg-mlbb-card border border-mlbb-border flex items-center justify-center text-mlbb-gold">
                     <i class="fa-solid fa-moon dark:hidden"></i>
                     <i class="fa-solid fa-sun hidden dark:block text-amber-400"></i>
                 </button>
@@ -478,108 +375,90 @@
             </div>
         </div>
 
-        <div id="mobile-menu"
-            class="hidden md:hidden bg-mlbb-dark border-b border-mlbb-border px-4 pt-3 pb-6 space-y-3 shadow-2xl">
+        <!-- Mobile Menu Container -->
+        <div id="mobile-menu" class="hidden md:hidden bg-mlbb-dark border-b border-mlbb-border px-4 pt-3 pb-6 space-y-3 shadow-2xl">
             <div id="mobileAuthInfo" class="pb-2 border-b border-mlbb-border">
-                <button id="mobileLoginBtn" onclick="toggleMobileMenu(); toggleElement('loginModal');"
-                    class="w-full gold-btn py-2.5 rounded-xl font-bold flex items-center justify-center gap-2 text-xs">
+                <button id="mobileLoginBtn" onclick="toggleMobileMenu(); toggleElement('loginModal');" class="w-full gold-btn py-2.5 rounded-xl font-bold flex items-center justify-center gap-2 text-xs">
                     <i class="fa-solid fa-right-to-bracket"></i> <span data-i18n="auth_login">შესვლა</span>
                 </button>
-                <div id="mobileProfileBtn" class="hidden flex items-center justify-between">
-                    <div class="flex items-center gap-2.5">
-                        <img id="mobileAvatarImg" src=""
-                            class="w-9 h-9 rounded-full border border-purple-500 object-cover">
-                        <span id="mobileUserName" class="font-bold text-xs">Player</span>
+                <div id="mobileProfileBtn" class="hidden flex flex-col gap-3">
+                    <div class="flex items-center justify-between">
+                        <div class="flex items-center gap-2.5">
+                            <img id="mobileAvatarImg" src="" class="w-9 h-9 rounded-full border border-purple-500 object-cover">
+                            <span id="mobileUserName" class="font-bold text-xs">Player</span>
+                        </div>
+                        <button onclick="logout(); toggleMobileMenu();" class="text-red-400 text-[11px] px-3 py-1.5 rounded-lg bg-red-500/10 hover:bg-red-500 hover:text-white transition">
+                            <i class="fa-solid fa-right-from-bracket"></i> გასვლა
+                        </button>
                     </div>
-                    <button onclick="logout(); toggleMobileMenu();" class="text-red-400 text-xs p-2"><i
-                            class="fa-solid fa-right-from-bracket"></i></button>
+                    <button onclick="openProfileSettings(); toggleMobileMenu();" class="w-full text-left px-3 py-2.5 rounded-xl bg-purple-600/20 text-purple-400 border border-purple-500/30 font-semibold flex items-center gap-2.5 text-xs">
+                        <i class="fa-solid fa-user-gear"></i> <span data-i18n="profile_settings">პროფილის პარამეტრები</span>
+                    </button>
                 </div>
             </div>
 
-            <button onclick="switchTab('home'); toggleMobileMenu();"
-                class="w-full text-left px-3 py-2.5 rounded-xl bg-mlbb-card font-semibold flex items-center gap-2.5 text-xs">
+            <button onclick="switchTab('home'); toggleMobileMenu();" class="w-full text-left px-3 py-2.5 rounded-xl bg-mlbb-card font-semibold flex items-center gap-2.5 text-xs">
                 <i class="fa-solid fa-house text-mlbb-gold"></i> <span data-i18n="nav_home">მთავარი</span>
             </button>
-            <button onclick="switchTab('tournaments'); toggleMobileMenu();"
-                class="w-full text-left px-3 py-2.5 rounded-xl bg-mlbb-card font-semibold flex items-center gap-2.5 text-xs">
+            <button onclick="switchTab('tournaments'); toggleMobileMenu();" class="w-full text-left px-3 py-2.5 rounded-xl bg-mlbb-card font-semibold flex items-center gap-2.5 text-xs">
                 <i class="fa-solid fa-trophy text-yellow-500"></i> <span data-i18n="nav_tournaments">ტურნირები</span>
             </button>
-            <button onclick="switchTab('bracket'); toggleMobileMenu();"
-                class="w-full text-left px-3 py-2.5 rounded-xl bg-mlbb-card font-semibold flex items-center gap-2.5 text-xs">
+            <button onclick="switchTab('bracket'); toggleMobileMenu();" class="w-full text-left px-3 py-2.5 rounded-xl bg-mlbb-card font-semibold flex items-center gap-2.5 text-xs">
                 <i class="fa-solid fa-sitemap text-purple-400"></i> <span data-i18n="nav_bracket">ბადე</span>
             </button>
-            <button onclick="switchTab('register'); toggleMobileMenu();"
-                class="w-full text-left px-3 py-2.5 rounded-xl bg-mlbb-card font-semibold flex items-center gap-2.5 text-xs">
+            <button onclick="switchTab('register'); toggleMobileMenu();" class="w-full text-left px-3 py-2.5 rounded-xl bg-mlbb-card font-semibold flex items-center gap-2.5 text-xs">
                 <i class="fa-solid fa-user-plus text-emerald-400"></i> <span data-i18n="nav_register">რეგისტრაცია</span>
             </button>
-            <button onclick="switchTab('rules'); toggleMobileMenu();"
-                class="w-full text-left px-3 py-2.5 rounded-xl bg-mlbb-card font-semibold flex items-center gap-2.5 text-xs">
+            <button onclick="switchTab('rules'); toggleMobileMenu();" class="w-full text-left px-3 py-2.5 rounded-xl bg-mlbb-card font-semibold flex items-center gap-2.5 text-xs">
                 <i class="fa-solid fa-scroll text-blue-400"></i> <span data-i18n="nav_rules">წესდება</span>
             </button>
 
-            <!-- Social Mobile Buttons -->
             <div class="grid grid-cols-2 gap-2 pt-1">
-                <a href="https://discord.gg/RwPbJd3NW" target="_blank"
-                    class="text-center py-2 rounded-xl bg-[#5865F2] text-white font-bold text-[11px] flex items-center justify-center gap-1.5">
+                <a href="https://discord.gg/RwPbJd3NW" target="_blank" class="text-center py-2 rounded-xl bg-[#5865F2] text-white font-bold text-[11px] flex items-center justify-center gap-1.5">
                     <i class="fa-brands fa-discord"></i> Discord
                 </a>
-                <a href="https://www.tiktok.com/@kingofsorrow076?_r=1&_t=ZS-9A2I1S2Maou" target="_blank"
-                    class="text-center py-2 rounded-xl bg-pink-600 text-white font-bold text-[11px] flex items-center justify-center gap-1.5">
+                <a href="https://www.tiktok.com/@kingofsorrow076?_r=1&_t=ZS-9A2I1S2Maou" target="_blank" class="text-center py-2 rounded-xl bg-pink-600 text-white font-bold text-[11px] flex items-center justify-center gap-1.5">
                     <i class="fa-brands fa-tiktok"></i> TikTok
                 </a>
             </div>
 
-            <!-- Mobile Audio Controls -->
             <div class="p-2.5 bg-mlbb-card rounded-xl border border-mlbb-border space-y-2">
                 <div class="flex items-center justify-between">
-                    <div class="flex items-center gap-1.5 text-[11px]"><i class="fa-solid fa-music text-purple-400"></i>
-                        Vibe Music</div>
-                    <button onclick="toggleAudio()"
-                        class="px-2.5 py-1 rounded-lg bg-purple-600 text-white text-[11px] font-bold"
-                        id="mobileMusicText" data-i18n="music_play">ჩართვა</button>
+                    <div class="flex items-center gap-1.5 text-[11px]"><i class="fa-solid fa-music text-purple-400"></i> Vibe Music</div>
+                    <button onclick="toggleAudio()" class="px-2.5 py-1 rounded-lg bg-purple-600 text-white text-[11px] font-bold" id="mobileMusicText" data-i18n="music_play">ჩართვა</button>
                 </div>
                 <div class="flex items-center gap-2 pt-0.5">
                     <i class="fa-solid fa-volume-low text-[10px] text-gray-400"></i>
-                    <input type="range" min="0" max="1" step="0.05" value="0.5" oninput="changeVolume(this.value)"
-                        class="w-full h-1 bg-mlbb-dark rounded-lg appearance-none cursor-pointer">
+                    <input type="range" min="0" max="1" step="0.05" value="0.5" oninput="changeVolume(this.value)" class="w-full h-1 bg-mlbb-dark rounded-lg appearance-none cursor-pointer">
                 </div>
             </div>
 
-            <button onclick="changeLang(currentLang === 'ka' ? 'en' : 'ka'); toggleMobileMenu();"
-                class="w-full flex items-center justify-center gap-2 px-3 py-2.5 rounded-xl bg-mlbb-card border border-mlbb-border transition text-xs">
+            <button onclick="changeLang(currentLang === 'ka' ? 'en' : 'ka'); toggleMobileMenu();" class="w-full flex items-center justify-center gap-2 px-3 py-2.5 rounded-xl bg-mlbb-card border border-mlbb-border transition text-xs">
                 <span id="mobileLangFlag">🇬🇪/🇬🇧</span> <span data-i18n="lang_switch">ენის შეცვლა</span>
             </button>
         </div>
     </header>
 
     <main class="flex-1 w-full max-w-full overflow-x-hidden">
-
         <!-- HOME -->
         <section id="page-home" class="spa-page w-full">
-            <div class="relative overflow-hidden hero-glow-bg border-b border-mlbb-border py-12 sm:py-16 lg:py-20">
-                <div class="relative max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-                    <div
-                        class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-mlbb-card border border-mlbb-purple/50 mb-4 shadow-lg shadow-purple-950/50">
+            <div class="relative overflow-hidden border-b border-mlbb-border py-16 sm:py-20 lg:py-24 bg-mlbb-dark">
+                <!-- Canvas Animation Background -->
+                <canvas id="heroCanvas"></canvas>
+
+                <div class="relative max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 text-center z-10">
+                    <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-mlbb-card border border-mlbb-purple/50 mb-4 shadow-lg shadow-purple-950/50">
                         <span class="w-2 h-2 rounded-full bg-emerald-400 animate-ping"></span>
-                        <span class="text-[10px] font-bold tracking-wide uppercase">🇬🇪 GEORGIAN MOBILE LEGENDS ESPORTS
-                            HUB</span>
+                        <span class="text-[10px] font-bold tracking-wide uppercase">🇬🇪 GEORGIAN MOBILE LEGENDS ESPORTS HUB</span>
                     </div>
-
-                    <h1
-                        class="font-orbitron font-black text-2xl sm:text-4xl lg:text-6xl tracking-tight leading-tight mb-4">
-                        ROYAL ARENA <br>
-                        <span class="gold-gradient-text uppercase">MOBILE LEGENDS</span>
+                    <h1 class="font-orbitron font-black text-3xl sm:text-5xl lg:text-7xl tracking-tight leading-tight mb-4">
+                        ROYAL ARENA <br> <span class="gold-gradient-text uppercase">MOBILE LEGENDS</span>
                     </h1>
-
-                    <p data-i18n="hero_desc"
-                        class="max-w-2xl mx-auto text-xs sm:text-sm lg:text-base font-medium leading-relaxed mb-6 opacity-90 px-2">
-                        საქართველოს ოფიციალური MLBB სატურნირო პლატფორმა. გამოსცადე შენი ძალები 1v1 დუელებში ან შეკრიბე
-                        სქუადი ჩემპიონის ტიტულისა და საპრიზო ფონდისთვის!
+                    <p data-i18n="hero_desc" class="max-w-2xl mx-auto text-xs sm:text-sm lg:text-base font-medium leading-relaxed mb-8 opacity-90 px-2">
+                        საქართველოს ოფიციალური MLBB სატურნირო პლატფორმა. გამოსცადე შენი ძალები 1v1 დუელებში ან შეკრიბე სქუადი ჩემპიონის ტიტულისა და საპრიზო ფონდისთვის!
                     </p>
-
                     <div class="flex items-center justify-center max-w-xs mx-auto">
-                        <button onclick="switchTab('tournaments')"
-                            class="w-full gold-btn py-3.5 px-6 rounded-xl text-xs sm:text-sm font-extrabold flex items-center justify-center gap-2">
+                        <button onclick="switchTab('tournaments')" class="w-full gold-btn py-3.5 px-6 rounded-xl text-xs sm:text-sm font-extrabold flex items-center justify-center gap-2">
                             <i class="fa-solid fa-trophy text-sm"></i>
                             <span data-i18n="btn_view_tournaments">ტურნირების ნახვა</span>
                         </button>
@@ -587,33 +466,25 @@
                 </div>
             </div>
 
-            <!-- Dynamic Stats Bar (Zeroed Out Initially) -->
+            <!-- Stats Bar -->
             <section class="py-8 bg-mlbb-card/40 border-b border-mlbb-border">
                 <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
                     <div class="grid grid-cols-2 md:grid-cols-4 gap-4 text-center">
                         <div class="p-3.5 rounded-xl bg-mlbb-card border border-mlbb-border shadow-sm">
-                            <div id="statPlayers"
-                                class="font-orbitron text-xl sm:text-3xl font-extrabold text-mlbb-gold">0</div>
-                            <div data-i18n="stat_players" class="text-[11px] sm:text-xs font-semibold opacity-75 mt-1">
-                                აქტიური მოთამაშე</div>
+                            <div id="statPlayers" class="font-orbitron text-xl sm:text-3xl font-extrabold text-mlbb-gold">0</div>
+                            <div data-i18n="stat_players" class="text-[11px] sm:text-xs font-semibold opacity-75 mt-1">აქტიური მოთამაშე</div>
                         </div>
                         <div class="p-3.5 rounded-xl bg-mlbb-card border border-mlbb-border shadow-sm">
-                            <div id="statSquads"
-                                class="font-orbitron text-xl sm:text-3xl font-extrabold text-purple-400">0</div>
-                            <div data-i18n="stat_squads" class="text-[11px] sm:text-xs font-semibold opacity-75 mt-1">
-                                რეგისტრირებული სქუადი</div>
+                            <div id="statSquads" class="font-orbitron text-xl sm:text-3xl font-extrabold text-purple-400">0</div>
+                            <div data-i18n="stat_squads" class="text-[11px] sm:text-xs font-semibold opacity-75 mt-1">რეგისტრირებული სქუადი</div>
                         </div>
                         <div class="p-3.5 rounded-xl bg-mlbb-card border border-mlbb-border shadow-sm">
-                            <div class="font-orbitron text-xl sm:text-3xl font-extrabold text-emerald-400">₾<span
-                                    id="statPrize">0</span></div>
-                            <div data-i18n="stat_prize" class="text-[11px] sm:text-xs font-semibold opacity-75 mt-1">
-                                საპრიზო ფონდი</div>
+                            <div class="font-orbitron text-xl sm:text-3xl font-extrabold text-emerald-400">₾<span id="statPrize">0</span></div>
+                            <div data-i18n="stat_prize" class="text-[11px] sm:text-xs font-semibold opacity-75 mt-1">საპრიზო ფონდი</div>
                         </div>
                         <div class="p-3.5 rounded-xl bg-mlbb-card border border-mlbb-border shadow-sm">
-                            <div id="statMatches"
-                                class="font-orbitron text-xl sm:text-3xl font-extrabold text-blue-400">0</div>
-                            <div data-i18n="stat_matches" class="text-[11px] sm:text-xs font-semibold opacity-75 mt-1">
-                                ჩატარებული მატჩები</div>
+                            <div id="statMatches" class="font-orbitron text-xl sm:text-3xl font-extrabold text-blue-400">0</div>
+                            <div data-i18n="stat_matches" class="text-[11px] sm:text-xs font-semibold opacity-75 mt-1">ჩატარებული მატჩები</div>
                         </div>
                     </div>
                 </div>
@@ -624,103 +495,68 @@
         <section id="page-tournaments" class="spa-page hidden py-10 sm:py-14">
             <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
                 <div class="text-center max-w-2xl mx-auto mb-8 sm:mb-10">
-                    <span
-                        class="text-[10px] font-bold font-orbitron tracking-widest text-mlbb-gold uppercase bg-amber-500/10 px-3 py-1 rounded-full border border-amber-500/30">
-                        ACTIVE TOURNAMENTS
-                    </span>
-                    <h2 data-i18n="tournaments_title" class="font-orbitron font-extrabold text-xl sm:text-3xl mt-2.5">
-                        მიმდინარე ტურნირები</h2>
-                    <p data-i18n="tournaments_desc" class="text-xs mt-1.5 opacity-80">აირჩიე სასურველი რეჟიმი და გაიარე
-                        რეგისტრაცია</p>
+                    <span class="text-[10px] font-bold font-orbitron tracking-widest text-mlbb-gold uppercase bg-amber-500/10 px-3 py-1 rounded-full border border-amber-500/30">ACTIVE TOURNAMENTS</span>
+                    <h2 data-i18n="tournaments_title" class="font-orbitron font-extrabold text-xl sm:text-3xl mt-2.5">მიმდინარე ტურნირები</h2>
+                    <p data-i18n="tournaments_desc" class="text-xs mt-1.5 opacity-80">აირჩიე სასურველი რეჟიმი და გაიარე რეგისტრაცია</p>
                 </div>
-
                 <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
-                    <!-- 1v1 -->
-                    <div
-                        class="bg-mlbb-card rounded-2xl p-5 purple-card-border flex flex-col justify-between relative shadow-lg">
-                        <div
-                            class="absolute -top-3 right-5 bg-amber-500 text-black text-[9px] font-extrabold px-2.5 py-0.5 rounded-full uppercase tracking-wider">
-                            პოპულარული</div>
+                    <div class="bg-mlbb-card rounded-2xl p-5 purple-card-border flex flex-col justify-between relative shadow-lg">
+                        <div class="absolute -top-3 right-5 bg-amber-500 text-black text-[9px] font-extrabold px-2.5 py-0.5 rounded-full uppercase tracking-wider">პოპულარული</div>
                         <div>
                             <div class="flex items-center gap-3 mb-3">
-                                <div
-                                    class="w-10 h-10 rounded-xl bg-amber-500/20 text-amber-400 flex items-center justify-center font-bold text-xl">
-                                    <i class="fa-solid fa-user-ninja"></i>
-                                </div>
+                                <div class="w-10 h-10 rounded-xl bg-amber-500/20 text-amber-400 flex items-center justify-center font-bold text-xl"><i class="fa-solid fa-user-ninja"></i></div>
                                 <div>
                                     <h3 class="font-orbitron font-bold text-base">1v1 Solo Duel</h3>
                                     <span class="text-[11px] text-purple-400 font-semibold">Custom Solo Map</span>
                                 </div>
                             </div>
-                            <p class="text-xs leading-relaxed mb-3 opacity-80">სწრაფი და დინამიური დუელი! დაამტკიცე შენი
-                                Micro Skill.</p>
+                            <p class="text-xs leading-relaxed mb-3 opacity-80">სწრაფი და დინამიური დუელი! დაამტკიცე შენი Micro Skill.</p>
                             <div class="space-y-1.5 border-t border-b border-mlbb-border py-3 mb-4 text-xs">
-                                <div class="flex justify-between"><span class="opacity-70">ფორმატი:</span><span
-                                        class="font-bold text-mlbb-gold">3 Kills / 1 Turret</span></div>
-                                <div class="flex justify-between"><span class="opacity-70">სტატუსი:</span><span
-                                        class="font-bold text-emerald-400">მზადებაში</span></div>
+                                <div class="flex justify-between"><span class="opacity-70">ფორმატი:</span><span class="font-bold text-mlbb-gold">3 Kills / 1 Turret</span></div>
+                                <div class="flex justify-between"><span class="opacity-70">სტატუსი:</span><span class="font-bold text-emerald-400">მზადებაში</span></div>
                             </div>
                         </div>
-                        <button onclick="startRegistration('1v1 Solo Duel')"
-                            class="w-full gold-btn py-2.5 rounded-xl font-bold text-xs flex items-center justify-center gap-2">
+                        <button onclick="startRegistration('1v1 Solo Duel')" class="w-full gold-btn py-2.5 rounded-xl font-bold text-xs flex items-center justify-center gap-2">
                             <i class="fa-solid fa-bolt"></i> <span>1v1 რეგისტრაცია</span>
                         </button>
                     </div>
 
-                    <!-- 5v5 Squad -->
-                    <div
-                        class="bg-mlbb-card rounded-2xl p-5 purple-card-border flex flex-col justify-between shadow-lg">
+                    <div class="bg-mlbb-card rounded-2xl p-5 purple-card-border flex flex-col justify-between shadow-lg">
                         <div>
                             <div class="flex items-center gap-3 mb-3">
-                                <div
-                                    class="w-10 h-10 rounded-xl bg-purple-500/20 text-purple-400 flex items-center justify-center font-bold text-xl">
-                                    <i class="fa-solid fa-shield-cat"></i>
-                                </div>
+                                <div class="w-10 h-10 rounded-xl bg-purple-500/20 text-purple-400 flex items-center justify-center font-bold text-xl"><i class="fa-solid fa-shield-cat"></i></div>
                                 <div>
                                     <h3 class="font-orbitron font-bold text-base">5v5 Squad</h3>
                                     <span class="text-[11px] text-indigo-400 font-semibold">Tournament Draft Pick</span>
                                 </div>
                             </div>
-                            <p class="text-xs leading-relaxed mb-3 opacity-80">შეკრიბე გუნდი და იბრძოლე Bo3
-                                ფინალებისთვის!</p>
+                            <p class="text-xs leading-relaxed mb-3 opacity-80">შეკრიბე გუნდი და იბრძოლე Bo3 ფინალებისთვის!</p>
                             <div class="space-y-1.5 border-t border-b border-mlbb-border py-3 mb-4 text-xs">
-                                <div class="flex justify-between"><span class="opacity-70">შემადგენლობა:</span><span
-                                        class="font-bold">5 ძირითადი</span></div>
-                                <div class="flex justify-between"><span class="opacity-70">სტატუსი:</span><span
-                                        class="font-bold text-emerald-400">მზადებაში</span></div>
+                                <div class="flex justify-between"><span class="opacity-70">შემადგენლობა:</span><span class="font-bold">5 ძირითადი</span></div>
+                                <div class="flex justify-between"><span class="opacity-70">სტატუსი:</span><span class="font-bold text-emerald-400">მზადებაში</span></div>
                             </div>
                         </div>
-                        <button onclick="startRegistration('5v5 Squad')"
-                            class="w-full py-2.5 rounded-xl bg-purple-600 text-white hover:bg-purple-500 transition font-bold text-xs flex items-center justify-center gap-2">
+                        <button onclick="startRegistration('5v5 Squad')" class="w-full py-2.5 rounded-xl bg-purple-600 text-white hover:bg-purple-500 transition font-bold text-xs flex items-center justify-center gap-2">
                             <i class="fa-solid fa-users"></i> <span>Squad რეგისტრაცია</span>
                         </button>
                     </div>
 
-                    <!-- 5v5 Random Draft -->
-                    <div
-                        class="bg-mlbb-card rounded-2xl p-5 purple-card-border flex flex-col justify-between shadow-lg">
+                    <div class="bg-mlbb-card rounded-2xl p-5 purple-card-border flex flex-col justify-between shadow-lg">
                         <div>
                             <div class="flex items-center gap-3 mb-3">
-                                <div
-                                    class="w-10 h-10 rounded-xl bg-blue-500/20 text-blue-400 flex items-center justify-center font-bold text-xl">
-                                    <i class="fa-solid fa-dice"></i>
-                                </div>
+                                <div class="w-10 h-10 rounded-xl bg-blue-500/20 text-blue-400 flex items-center justify-center font-bold text-xl"><i class="fa-solid fa-dice"></i></div>
                                 <div>
                                     <h3 class="font-orbitron font-bold text-base">5v5 Random</h3>
                                     <span class="text-[11px] text-blue-400 font-semibold">Solo Random Queue</span>
                                 </div>
                             </div>
-                            <p class="text-xs leading-relaxed mb-3 opacity-80">სოლო რეგისტრაცია! სისტემა ავტომატურად
-                                დაგაკავშირებს რანდომ მოთამაშეებთან.</p>
+                            <p class="text-xs leading-relaxed mb-3 opacity-80">სოლო რეგისტრაცია! სისტემა ავტომატურად დაგაკავშირებს რანდომ მოთამაშეებთან.</p>
                             <div class="space-y-1.5 border-t border-b border-mlbb-border py-3 mb-4 text-xs">
-                                <div class="flex justify-between"><span class="opacity-70">ფორმატი:</span><span
-                                        class="font-bold">Random Matching (5/5)</span></div>
-                                <div class="flex justify-between"><span class="opacity-70">სტატუსი:</span><span
-                                        class="font-bold text-emerald-400">მზადებაში</span></div>
+                                <div class="flex justify-between"><span class="opacity-70">ფორმატი:</span><span class="font-bold">Random Matching (5/5)</span></div>
+                                <div class="flex justify-between"><span class="opacity-70">სტატუსი:</span><span class="font-bold text-emerald-400">მზადებაში</span></div>
                             </div>
                         </div>
-                        <button onclick="startRegistration('5v5 Random Draft')"
-                            class="w-full py-2.5 rounded-xl bg-mlbb-dark border border-mlbb-border font-bold text-xs flex items-center justify-center gap-2 hover:border-blue-400 transition">
+                        <button onclick="startRegistration('5v5 Random Draft')" class="w-full py-2.5 rounded-xl bg-mlbb-dark border border-mlbb-border font-bold text-xs flex items-center justify-center gap-2 hover:border-blue-400 transition">
                             <i class="fa-solid fa-shuffle"></i> <span>Draft რეგისტრაცია</span>
                         </button>
                     </div>
@@ -728,10 +564,10 @@
             </div>
         </section>
 
+        <!-- REGISTER PAGE -->
         <section id="page-register" class="spa-page hidden py-8 sm:py-10">
             <div class="max-w-2xl mx-auto px-4">
-                <div class="bg-mlbb-card border border-mlbb-border rounded-2xl p-5 sm:p-8 shadow-2xl relative overflow-hidden"
-                    id="registerContainer">
+                <div class="bg-mlbb-card border border-mlbb-border rounded-2xl p-5 sm:p-8 shadow-2xl relative overflow-hidden" id="registerContainer">
                 </div>
             </div>
         </section>
@@ -747,119 +583,82 @@
             </div>
         </section>
 
+        <!-- RULES -->
         <section id="page-rules" class="spa-page hidden py-8 sm:py-10">
             <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 space-y-6">
-
                 <div class="text-center max-w-xl mx-auto">
-                    <span
-                        class="text-[10px] font-bold font-orbitron tracking-widest text-blue-400 uppercase bg-blue-500/10 px-3 py-1 rounded-full border border-blue-500/30">
-                        OFFICIAL RULES
-                    </span>
+                    <span class="text-[10px] font-bold font-orbitron tracking-widest text-blue-400 uppercase bg-blue-500/10 px-3 py-1 rounded-full border border-blue-500/30">OFFICIAL RULES</span>
                     <h2 class="font-orbitron font-extrabold text-xl sm:text-2xl mt-2.5">
                         MLBB GRAND TOURNAMENT — <span class="gold-gradient-text">ოფიციალური წესები</span>
                     </h2>
                     <p class="text-xs mt-1.5 opacity-80 leading-relaxed px-2">
-                        ტურნირში მონაწილეობის მისაღებად ყველა გუნდი და მოთამაშე ვალდებულია გაეცნოს და დაემორჩილოს ქვემოთ
-                        მოცემულ წესებს. წესების დარღვევა გამოიწვევს გუნდის დისკვალიფიკაციას!
+                        ტურნირში მონაწილეობის მისაღებად ყველა გუნდი და მოთამაშე ვალდებულია გაეცნოს და დაემორჩილოს ქვემოთ მოცემულ წესებს. წესების დარღვევა გამოიწვევს გუნდის დისკვალიფიკაციას!
                     </p>
                 </div>
 
                 <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-                    <div
-                        class="bg-mlbb-card p-5 rounded-2xl border border-mlbb-border space-y-2.5 purple-card-border shadow-md">
-                        <div
-                            class="flex items-center gap-2.5 text-mlbb-gold font-bold font-orbitron text-xs sm:text-sm">
-                            <div
-                                class="w-8 h-8 rounded-lg bg-amber-500/20 flex items-center justify-center flex-shrink-0">
-                                <i class="fa-solid fa-swords text-xs"></i>
-                            </div>
+                    <div class="bg-mlbb-card p-5 rounded-2xl border border-mlbb-border space-y-2.5 purple-card-border shadow-md">
+                        <div class="flex items-center gap-2.5 text-mlbb-gold font-bold font-orbitron text-xs sm:text-sm">
+                            <div class="w-8 h-8 rounded-lg bg-amber-500/20 flex items-center justify-center flex-shrink-0"><i class="fa-solid fa-swords text-xs"></i></div>
                             <h3>1. ზოგადი წესები და ფორმატი</h3>
                         </div>
                         <ul class="text-[11px] space-y-1.5 list-disc list-inside leading-relaxed opacity-90">
                             <li><strong>თამაშის რეჟიმი:</strong> 5v5 Custom -> Draft Pick.</li>
-                            <li><strong>შემადგენლობა:</strong> გუნდში უნდა იყოს 5 ძირითადი მოთამაშე (ნებადართულია 2
-                                სათადარიგო/Substitute).</li>
-                            <li><strong>ექაუნთები:</strong> თითოეულ მოთამაშეს შეუძლია ითამაშოს მხოლოდ იმ ID-ით, რომელიც
-                                მიუთითა რეგისტრაციისას. სხვისი ექაუნთით თამაში (Account Sharing) მკაცრად აკრძალულია.
-                            </li>
+                            <li><strong>შემადგენლობა:</strong> გუნდში უნდა იყოს 5 ძირითადი მოთამაშე.</li>
+                            <li><strong>ექაუნთები:</strong> სხვისი ექაუნთით თამაში მკაცრად აკრძალულია.</li>
                         </ul>
                     </div>
 
-                    <div
-                        class="bg-mlbb-card p-5 rounded-2xl border border-mlbb-border space-y-2.5 purple-card-border shadow-md">
-                        <div
-                            class="flex items-center gap-2.5 text-purple-400 font-bold font-orbitron text-xs sm:text-sm">
-                            <div
-                                class="w-8 h-8 rounded-lg bg-purple-500/20 flex items-center justify-center flex-shrink-0">
-                                <i class="fa-solid fa-clock text-xs"></i>
-                            </div>
+                    <div class="bg-mlbb-card p-5 rounded-2xl border border-mlbb-border space-y-2.5 purple-card-border shadow-md">
+                        <div class="flex items-center gap-2.5 text-purple-400 font-bold font-orbitron text-xs sm:text-sm">
+                            <div class="w-8 h-8 rounded-lg bg-purple-500/20 flex items-center justify-center flex-shrink-0"><i class="fa-solid fa-clock text-xs"></i></div>
                             <h3>2. დრო და გამოუცხადებლობა</h3>
                         </div>
                         <ul class="text-[11px] space-y-1.5 list-disc list-inside leading-relaxed opacity-90">
-                            <li><strong>განრიგი:</strong> თამაშების განრიგი წინასწარ დაიდება ჩვენს Discord სერვერზე.
-                            </li>
-                            <li><strong>დაგვიანება:</strong> გუნდს ეძლევა ზუსტად 10 წუთი ლობიში შესასვლელად მატჩის
-                                დაწყების ოფიციალური დროიდან.</li>
-                            <li><strong>ტექნიკური წაგება:</strong> თუ 10 წუთში გუნდი სრული შემადგენლობით (5 მოთამაშე) არ
-                                გამოცხადდება, მათ ავტომატურად ჩაეთვლებათ ტექნიკური წაგება (Lose).</li>
+                            <li><strong>განრიგი:</strong> განრიგი დაიდება Discord სერვერზე.</li>
+                            <li><strong>დაგვიანება:</strong> გუნდს ეძლევა ზუსტად 10 წუთი.</li>
+                            <li><strong>ტექნიკური წაგება:</strong> 10 წუთში გამოუცხადებლობისას ჩაითვლება ტექნიკური წაგება.</li>
                         </ul>
                     </div>
 
-                    <div
-                        class="bg-mlbb-card p-5 rounded-2xl border border-mlbb-border space-y-2.5 purple-card-border shadow-md">
+                    <div class="bg-mlbb-card p-5 rounded-2xl border border-mlbb-border space-y-2.5 purple-card-border shadow-md">
                         <div class="flex items-center gap-2.5 text-blue-400 font-bold font-orbitron text-xs sm:text-sm">
-                            <div
-                                class="w-8 h-8 rounded-lg bg-blue-500/20 flex items-center justify-center flex-shrink-0">
-                                <i class="fa-solid fa-pause text-xs"></i>
-                            </div>
+                            <div class="w-8 h-8 rounded-lg bg-blue-500/20 flex items-center justify-center flex-shrink-0"><i class="fa-solid fa-pause text-xs"></i></div>
                             <h3>3. პაუზის წესი (Pause)</h3>
                         </div>
                         <ul class="text-[11px] space-y-1.5 list-disc list-inside leading-relaxed opacity-90">
-                            <li><strong>მიზეზი:</strong> მხოლოდ ტექნიკური პრობლემებისას (ინტერნეტის გათიშვა, მაღალი
-                                პინგი, თამაშიდან ამოგდება).</li>
-                            <li><strong>ლიმიტი:</strong> თითოეულ გუნდს მატჩში აქვს მაქსიმუმ 3 წუთი ჯამური პაუზის დრო.
-                            </li>
-                            <li><strong>All Chat:</strong> პაუზის აღებისას გუნდმა საზოგადო ჩატში უნდა დაწეროს მიზეზი
-                                (მაგ: "Lag", "DC").</li>
+                            <li><strong>მიზეზი:</strong> მხოლოდ ტექნიკური პრობლემებისას.</li>
+                            <li><strong>ლიმიტი:</strong> ჯამში 3 წუთი პაუზა გუნდზე.</li>
+                            <li><strong>All Chat:</strong> მიზეზის დაწერა საზოგადო ჩატში.</li>
                         </ul>
                     </div>
 
-                    <div
-                        class="bg-mlbb-card p-5 rounded-2xl border border-mlbb-border space-y-2.5 purple-card-border shadow-md">
+                    <div class="bg-mlbb-card p-5 rounded-2xl border border-mlbb-border space-y-2.5 purple-card-border shadow-md">
                         <div class="flex items-center gap-2.5 text-red-400 font-bold font-orbitron text-xs sm:text-sm">
-                            <div
-                                class="w-8 h-8 rounded-lg bg-red-500/20 flex items-center justify-center flex-shrink-0">
-                                <i class="fa-solid fa-shield-halved text-xs"></i>
-                            </div>
+                            <div class="w-8 h-8 rounded-lg bg-red-500/20 flex items-center justify-center flex-shrink-0"><i class="fa-solid fa-shield-halved text-xs"></i></div>
                             <h3>4. ქცევის წესები (Fair Play)</h3>
                         </div>
                         <ul class="text-[11px] space-y-1.5 list-disc list-inside leading-relaxed opacity-90">
-                            <li><strong>ტოქსიკურობა:</strong> მეტოქის შეურაცხყოფა, ტოქსიკურობა All ჩატში ან დისქორდში
-                                ისჯება!</li>
-                            <li><strong>სასჯელი:</strong> პირველ დარღვევაზე გუნდი მიიღებს გაფრთხილებას, მეორეზე —
-                                დისკვალიფიკაციას.</li>
+                            <li><strong>ტოქსიკურობა:</strong> შეურაცხყოფა ისჯება.</li>
+                            <li><strong>სასჯელი:</strong> გაფრთხილება, შემდეგ დისკვალიფიკაცია.</li>
                         </ul>
                     </div>
                 </div>
 
                 <div class="bg-mlbb-card border border-amber-500/30 p-5 rounded-2xl text-center space-y-3 shadow-lg">
-                    <div
-                        class="flex items-center justify-center gap-2 text-mlbb-gold font-bold font-orbitron text-xs sm:text-sm">
+                    <div class="flex items-center justify-center gap-2 text-mlbb-gold font-bold font-orbitron text-xs sm:text-sm">
                         <i class="fa-solid fa-triangle-exclamation"></i>
                         <span>შედეგების დაფიქსირება & ადმინისტრაცია</span>
                     </div>
                     <p class="text-xs max-w-xl mx-auto leading-relaxed opacity-90">
-                        მატჩის დასრულების შემდეგ, გამარჯვებული გუნდის კაპიტანი ვალდებულია გადაუღოს სქრინშოტი (End Game
-                        Screen) მოგებას და ჩააგდოს ჩვენს Discord სერვერზე.
+                        მატჩის დასრულების შემდეგ, გამარჯვებული გუნდის კაპიტანი ვალდებულია გადაუღოს სქრინშოტი და ჩააგდოს ჩვენს Discord სერვერზე.
                     </p>
                     <div>
-                        <a href="https://discord.gg/RwPbJd3NW" target="_blank"
-                            class="inline-flex items-center gap-2 px-5 py-2.5 rounded-xl bg-[#5865F2] hover:bg-[#4752c4] text-white font-bold text-xs uppercase tracking-wider transition shadow-lg shadow-[#5865F2]/40">
+                        <a href="https://discord.gg/RwPbJd3NW" target="_blank" class="inline-flex items-center gap-2 px-5 py-2.5 rounded-xl bg-[#5865F2] hover:bg-[#4752c4] text-white font-bold text-xs uppercase tracking-wider transition shadow-lg shadow-[#5865F2]/40">
                             <i class="fa-brands fa-discord text-sm"></i> გადადი Discord სერვერზე
                         </a>
                     </div>
                 </div>
-
             </div>
         </section>
     </main>
@@ -867,90 +666,61 @@
     <footer class="bg-mlbb-card border-t border-mlbb-border py-5 text-center text-xs mt-auto">
         <div class="max-w-6xl mx-auto px-4 flex flex-col sm:flex-row items-center justify-between gap-3">
             <div class="flex items-center gap-2">
-                <div
-                    class="w-6 h-6 rounded-lg overflow-hidden inline-flex items-center justify-center bg-mlbb-dark border border-mlbb-border">
-                    <img src=Royal.png" class="w-full h-full object-cover"
-                        onerror="this.onerror=null; this.src='Royal.png';">
+                <div class="w-6 h-6 rounded-lg overflow-hidden inline-flex items-center justify-center bg-mlbb-dark border border-mlbb-border">
+                    <img src="Royal.png" class="w-full h-full object-cover" onerror="this.onerror=null; this.src='https://placehold.co/100x100/241038/ffcc00?text=RA';">
                 </div>
                 <span class="font-orbitron font-bold text-xs">ROYAL ARENA GEORGIA</span>
             </div>
             <p class="text-[11px] opacity-75">© 2026 Royal Arena Georgia.</p>
             <div class="flex items-center gap-3">
-                <a href="https://discord.gg/RwPbJd3NW" target="_blank"
-                    class="text-[#5865F2] hover:opacity-80 transition text-xs flex items-center gap-1"><i
-                        class="fa-brands fa-discord"></i> Discord</a>
-                <a href="https://www.tiktok.com/@kingofsorrow076?_r=1&_t=ZS-9A2I1S2Maou" target="_blank"
-                    class="text-pink-500 hover:opacity-80 transition text-xs flex items-center gap-1"><i
-                        class="fa-brands fa-tiktok"></i> TikTok</a>
+                <a href="https://discord.gg/RwPbJd3NW" target="_blank" class="text-[#5865F2] hover:opacity-80 transition text-xs flex items-center gap-1"><i class="fa-brands fa-discord"></i> Discord</a>
+                <a href="https://www.tiktok.com/@kingofsorrow076?_r=1&_t=ZS-9A2I1S2Maou" target="_blank" class="text-pink-500 hover:opacity-80 transition text-xs flex items-center gap-1"><i class="fa-brands fa-tiktok"></i> TikTok</a>
             </div>
         </div>
     </footer>
 
-    <div id="toastContainer"
-        class="fixed bottom-6 left-1/2 -translate-x-1/2 z-[100] flex flex-col items-center gap-2 pointer-events-none px-4 w-full max-w-md">
-    </div>
+    <div id="toastContainer" class="fixed bottom-6 left-1/2 -translate-x-1/2 z-[100] flex flex-col items-center gap-2 pointer-events-none px-4 w-full max-w-md"></div>
 
     <!-- Login / Register Modal -->
-    <div id="loginModal"
-        class="hidden fixed inset-0 z-[60] bg-black/85 backdrop-blur-sm flex items-center justify-center p-4">
-        <div
-            class="bg-mlbb-card border border-mlbb-border w-full max-w-sm rounded-2xl p-6 relative shadow-2xl overflow-hidden my-auto">
-            <button onclick="toggleElement('loginModal')"
-                class="absolute top-3 right-3 text-gray-400 hover:text-white p-1.5"><i
-                    class="fa-solid fa-xmark text-lg"></i></button>
-
+    <div id="loginModal" class="hidden fixed inset-0 z-[60] bg-black/85 backdrop-blur-sm flex items-center justify-center p-4">
+        <div class="bg-mlbb-card border border-mlbb-border w-full max-w-sm rounded-2xl p-6 relative shadow-2xl overflow-hidden my-auto">
+            <button onclick="toggleElement('loginModal')" class="absolute top-3 right-3 text-gray-400 hover:text-white p-1.5"><i class="fa-solid fa-xmark text-lg"></i></button>
             <div class="text-center mb-5">
                 <i class="fa-solid fa-circle-user text-3xl text-purple-500 mb-1.5"></i>
                 <h3 id="authModalTitle" class="font-orbitron font-bold text-lg">სისტემაში შესვლა</h3>
             </div>
-
             <div class="flex bg-mlbb-dark p-1 rounded-xl mb-5 border border-mlbb-border">
-                <button onclick="switchAuthTab('login')" id="tabLogin"
-                    class="flex-1 py-2 rounded-lg bg-purple-600 text-white text-xs font-bold shadow-md transition">შესვლა</button>
-                <button onclick="switchAuthTab('register')" id="tabRegister"
-                    class="flex-1 py-2 rounded-lg text-gray-400 hover:text-white text-xs font-bold transition">რეგისტრაცია</button>
+                <button onclick="switchAuthTab('login')" id="tabLogin" class="flex-1 py-2 rounded-lg bg-purple-600 text-white text-xs font-bold shadow-md transition">შესვლა</button>
+                <button onclick="switchAuthTab('register')" id="tabRegister" class="flex-1 py-2 rounded-lg text-gray-400 hover:text-white text-xs font-bold transition">რეგისტრაცია</button>
             </div>
-
             <form onsubmit="handleAuthSubmit(event)" class="space-y-3.5">
                 <div id="authNameField" class="hidden">
                     <label class="block text-[11px] font-bold mb-1">Nickname</label>
-                    <input type="text" id="authName"
-                        class="w-full bg-mlbb-dark border border-mlbb-border rounded-xl px-3.5 py-2.5 focus:border-purple-500 focus:outline-none text-xs">
+                    <input type="text" id="authName" class="w-full bg-mlbb-dark border border-mlbb-border rounded-xl px-3.5 py-2.5 focus:border-purple-500 focus:outline-none text-xs">
                 </div>
                 <div>
                     <label class="block text-[11px] font-bold mb-1">Email</label>
-                    <input type="email" id="authEmail" required
-                        class="w-full bg-mlbb-dark border border-mlbb-border rounded-xl px-3.5 py-2.5 focus:border-purple-500 focus:outline-none text-xs">
+                    <input type="email" id="authEmail" required class="w-full bg-mlbb-dark border border-mlbb-border rounded-xl px-3.5 py-2.5 focus:border-purple-500 focus:outline-none text-xs">
                 </div>
                 <div>
                     <div class="flex justify-between items-center mb-1">
                         <label class="block text-[11px] font-bold">Password</label>
-                        <button type="button" id="forgotPwdBtn" onclick="handleForgotPassword()"
-                            class="text-[10px] text-purple-400 hover:text-purple-300">დაგავიწყდა პაროლი?</button>
+                        <button type="button" id="forgotPwdBtn" onclick="handleForgotPassword()" class="text-[10px] text-purple-400 hover:text-purple-300">დაგავიწყდა პაროლი?</button>
                     </div>
-                    <input type="password" id="authPassword" required minlength="6"
-                        class="w-full bg-mlbb-dark border border-mlbb-border rounded-xl px-3.5 py-2.5 focus:border-purple-500 focus:outline-none text-xs">
+                    <input type="password" id="authPassword" required minlength="6" class="w-full bg-mlbb-dark border border-mlbb-border rounded-xl px-3.5 py-2.5 focus:border-purple-500 focus:outline-none text-xs">
                 </div>
-                <button type="submit" id="authSubmitBtn"
-                    class="w-full gold-btn py-2.5 rounded-xl font-bold uppercase tracking-wide text-xs mt-1">ავტორიზაცია</button>
+                <button type="submit" id="authSubmitBtn" class="w-full gold-btn py-2.5 rounded-xl font-bold uppercase tracking-wide text-xs mt-1">ავტორიზაცია</button>
 
                 <div class="pt-1">
                     <div class="relative flex py-1.5 items-center">
                         <div class="flex-grow border-t border-mlbb-border"></div>
-                        <span class="flex-shrink mx-3 text-gray-500 text-[9px] uppercase tracking-wider">ან
-                            გააგრძელე</span>
+                        <span class="flex-shrink mx-3 text-gray-500 text-[9px] uppercase tracking-wider">ან გააგრძელე</span>
                         <div class="flex-grow border-t border-mlbb-border"></div>
                     </div>
-                    <div class="grid grid-cols-3 gap-2 mt-1.5">
-                        <button type="button" onclick="showToast('Google Auth Mock')"
-                            class="py-2 rounded-xl bg-mlbb-dark border border-mlbb-border hover:border-purple-500 text-[10px] font-bold flex items-center justify-center gap-1"><i
-                                class="fa-brands fa-google text-red-400"></i> Google</button>
-                        <button type="button" onclick="showToast('Facebook Auth Mock')"
-                            class="py-2 rounded-xl bg-mlbb-dark border border-mlbb-border hover:border-purple-500 text-[10px] font-bold flex items-center justify-center gap-1"><i
-                                class="fa-brands fa-facebook text-blue-400"></i> FB</button>
-                        <button type="button" onclick="showToast('TikTok Auth Mock')"
-                            class="py-2 rounded-xl bg-mlbb-dark border border-mlbb-border hover:border-purple-500 text-[10px] font-bold flex items-center justify-center gap-1"><i
-                                class="fa-brands fa-tiktok text-pink-400"></i> TikTok</button>
+                    <div class="mt-2">
+                        <button type="button" onclick="loginWithDiscord()" class="w-full py-2.5 rounded-xl bg-[#5865F2] hover:bg-[#4752c4] text-white font-bold text-xs flex items-center justify-center gap-2 shadow-lg shadow-[#5865F2]/30 transition">
+                            <i class="fa-brands fa-discord text-base"></i> <span data-i18n="auth_discord">Discord-ით ავტორიზაცია</span>
+                        </button>
                     </div>
                 </div>
             </form>
@@ -958,57 +728,40 @@
     </div>
 
     <!-- Profile Settings Modal -->
-    <div id="profileModal"
-        class="hidden fixed inset-0 z-[60] bg-black/85 backdrop-blur-sm flex items-center justify-center p-4">
-        <div
-            class="bg-mlbb-card border border-purple-500/30 w-full max-w-lg rounded-2xl shadow-2xl shadow-purple-900/25 overflow-hidden relative flex flex-col max-h-[85vh] my-auto">
-
-            <div
-                class="bg-mlbb-dark px-5 py-3.5 border-b border-mlbb-border flex items-center justify-between sticky top-0 z-10">
+    <div id="profileModal" class="hidden fixed inset-0 z-[60] bg-black/85 backdrop-blur-sm flex items-center justify-center p-4">
+        <div class="bg-mlbb-card border border-purple-500/30 w-full max-w-lg rounded-2xl shadow-2xl shadow-purple-900/25 overflow-hidden relative flex flex-col max-h-[85vh] my-auto">
+            <div class="bg-mlbb-dark px-5 py-3.5 border-b border-mlbb-border flex items-center justify-between sticky top-0 z-10">
                 <h3 class="font-orbitron font-bold text-sm sm:text-base flex items-center gap-2">
                     <i class="fa-solid fa-user-pen text-mlbb-gold"></i> პროფილის პარამეტრები
                 </h3>
-                <button onclick="toggleElement('profileModal')" class="text-gray-400 hover:text-white p-1"><i
-                        class="fa-solid fa-xmark text-lg"></i></button>
+                <button onclick="toggleElement('profileModal')" class="text-gray-400 hover:text-white p-1"><i class="fa-solid fa-xmark text-lg"></i></button>
             </div>
-
             <div class="p-5 overflow-y-auto space-y-5">
                 <div>
                     <label class="block text-[11px] font-bold uppercase tracking-wider mb-1.5">In-Game Nickname</label>
-                    <input type="text" id="editNickname"
-                        class="w-full bg-mlbb-dark border border-mlbb-border rounded-xl px-3.5 py-2.5 focus:border-purple-500 focus:outline-none text-xs">
+                    <input type="text" id="editNickname" class="w-full bg-mlbb-dark border border-mlbb-border rounded-xl px-3.5 py-2.5 focus:border-purple-500 focus:outline-none text-xs">
                 </div>
-
                 <div class="border border-mlbb-border rounded-xl p-3.5 bg-mlbb-dark/40">
                     <h4 class="text-[11px] font-bold opacity-75 mb-2.5 uppercase tracking-wider">პაროლის შეცვლა</h4>
                     <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
-                        <input type="password" id="oldPwd" placeholder="ძველი პაროლი"
-                            class="w-full bg-mlbb-card border border-mlbb-border rounded-xl px-3 py-2 text-xs focus:outline-none">
-                        <input type="password" id="newPwd" placeholder="ახალი პაროლი"
-                            class="w-full bg-mlbb-card border border-mlbb-border rounded-xl px-3 py-2 text-xs focus:outline-none">
+                        <input type="password" id="oldPwd" placeholder="ძველი პაროლი" class="w-full bg-mlbb-card border border-mlbb-border rounded-xl px-3 py-2 text-xs focus:outline-none">
+                        <input type="password" id="newPwd" placeholder="ახალი პაროლი" class="w-full bg-mlbb-card border border-mlbb-border rounded-xl px-3 py-2 text-xs focus:outline-none">
                     </div>
                 </div>
-
                 <div>
                     <div class="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-2 mb-2.5">
-                        <label class="block text-[11px] font-bold uppercase tracking-wider">აირჩიე გეიმინგ
-                            ავატარი</label>
-                        <button onclick="document.getElementById('realFileUpload').click()"
-                            class="text-xs text-purple-400 hover:text-mlbb-gold flex items-center gap-1 font-bold">
+                        <label class="block text-[11px] font-bold uppercase tracking-wider">აირჩიე გეიმინგ ავატარი</label>
+                        <button onclick="document.getElementById('realFileUpload').click()" class="text-xs text-purple-400 hover:text-mlbb-gold flex items-center gap-1 font-bold">
                             <i class="fa-solid fa-cloud-arrow-up"></i> საკუთარი ფოტოს ატვირთვა
                         </button>
-                        <input type="file" id="realFileUpload" class="hidden" accept="image/*"
-                            onchange="handleFileUpload(event)">
+                        <input type="file" id="realFileUpload" class="hidden" accept="image/*" onchange="handleFileUpload(event)">
                     </div>
                     <div class="grid grid-cols-4 gap-2.5" id="avatarGrid"></div>
                 </div>
             </div>
-
             <div class="bg-mlbb-dark px-5 py-3.5 border-t border-mlbb-border flex justify-end gap-2.5">
-                <button onclick="toggleElement('profileModal')"
-                    class="px-4 py-2 rounded-xl border border-mlbb-border text-xs font-bold hover:bg-mlbb-border transition">გაუქმება</button>
-                <button onclick="saveProfile()"
-                    class="gold-btn px-5 py-2 rounded-xl text-xs font-bold flex items-center gap-1.5">
+                <button onclick="toggleElement('profileModal')" class="px-4 py-2 rounded-xl border border-mlbb-border text-xs font-bold hover:bg-mlbb-border transition">გაუქმება</button>
+                <button onclick="saveProfile()" class="gold-btn px-5 py-2 rounded-xl text-xs font-bold flex items-center gap-1.5">
                     <i class="fa-solid fa-floppy-disk"></i> შენახვა
                 </button>
             </div>
@@ -1025,6 +778,7 @@
                 stat_players: "აქტიური მოთამაშე", stat_squads: "რეგისტრირებული სქუადი", stat_prize: "საპრიზო ფონდი", stat_matches: "ჩატარებული მატჩები",
                 tournaments_title: "მიმდინარე ტურნირები", tournaments_desc: "აირჩიე სასურველი რეჟიმი და გაიარე რეგისტრაცია",
                 auth_login: "შესვლა", auth_title: "სისტემაში შესვლა", auth_login_btn: "ავტორიზაცია", auth_forgot_pwd: "დაგავიწყდა პაროლი?",
+                auth_discord: "Discord-ით ავტორიზაცია",
                 profile_signed_in: "შესული ხართ როგორც", profile_settings: "პროფილის პარამეტრები", profile_logout: "გასვლა",
                 profile_nickname: "მეტსახელი (Nickname)", profile_change_pwd: "პაროლის შეცვლა", profile_avatar: "აირჩიე ილუსტრირებული ავატარი",
                 btn_cancel: "გაუქმება", btn_save: "შენახვა"
@@ -1037,6 +791,7 @@
                 stat_players: "Active Players", stat_squads: "Registered Squads", stat_prize: "Prize Pool", stat_matches: "Matches Played",
                 tournaments_title: "Active Tournaments", tournaments_desc: "Choose your mode and register",
                 auth_login: "Login", auth_title: "Sign In", auth_login_btn: "Login", auth_forgot_pwd: "Forgot Password?",
+                auth_discord: "Sign in with Discord",
                 profile_signed_in: "Signed in as", profile_settings: "Profile Settings", profile_logout: "Logout",
                 profile_nickname: "In-Game Nickname", profile_change_pwd: "Change Password", profile_avatar: "Choose Illustrated Avatar",
                 btn_cancel: "Cancel", btn_save: "Save"
@@ -1208,6 +963,13 @@
             localStorage.setItem('royal_active_user', activeUserId);
             initAuthUI();
             toggleElement('loginModal');
+        }
+
+        function loginWithDiscord() {
+            const CLIENT_ID = '1553463604626329781';
+            const REDIRECT_URI = encodeURIComponent(window.location.origin + window.location.pathname);
+            const discordUrl = `https://discord.com/api/oauth2/authorize?client_id=${CLIENT_ID}&redirect_uri=${REDIRECT_URI}&response_type=token&scope=identify%20email`;
+            window.location.href = discordUrl;
         }
 
         function handleForgotPassword() {
@@ -1631,12 +1393,67 @@
             window.scrollTo({ top: 0, behavior: 'smooth' });
         }
 
+        // Canvas Background Animation
+        function initHeroCanvas() {
+            const canvas = document.getElementById('heroCanvas');
+            if (!canvas) return;
+            const ctx = canvas.getContext('2d');
+            let width = canvas.width = canvas.offsetWidth;
+            let height = canvas.height = canvas.offsetHeight;
+
+            window.addEventListener('resize', () => {
+                if (!canvas) return;
+                width = canvas.width = canvas.offsetWidth;
+                height = canvas.height = canvas.offsetHeight;
+            });
+
+            const particles = [];
+            const particleCount = 40;
+
+            for (let i = 0; i < particleCount; i++) {
+                particles.push({
+                    x: Math.random() * width,
+                    y: Math.random() * height,
+                    radius: Math.random() * 2.5 + 1,
+                    color: Math.random() > 0.5 ? '#ffcc00' : '#9d4edf',
+                    vx: (Math.random() - 0.5) * 0.8,
+                    vy: (Math.random() - 0.5) * 0.8,
+                    alpha: Math.random() * 0.5 + 0.2
+                });
+            }
+
+            function animate() {
+                ctx.clearRect(0, 0, width, height);
+                particles.forEach(p => {
+                    p.x += p.vx;
+                    p.y += p.vy;
+
+                    if (p.x < 0) p.x = width;
+                    if (p.x > width) p.x = 0;
+                    if (p.y < 0) p.y = height;
+                    if (p.y > height) p.y = 0;
+
+                    ctx.beginPath();
+                    ctx.arc(p.x, p.y, p.radius, 0, Math.PI * 2);
+                    ctx.fillStyle = p.color;
+                    ctx.globalAlpha = p.alpha;
+                    ctx.shadowBlur = 10;
+                    ctx.shadowColor = p.color;
+                    ctx.fill();
+                    ctx.shadowBlur = 0;
+                });
+                requestAnimationFrame(animate);
+            }
+            animate();
+        }
+
         document.addEventListener('DOMContentLoaded', () => {
             applyTheme();
             changeLang(currentLang);
             updateDynamicStats();
             initAuthUI();
             switchTab('home');
+            initHeroCanvas();
 
             const audio = document.getElementById('bgMusic');
             if (audio) audio.volume = 0.5;
