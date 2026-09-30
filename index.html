@@ -426,69 +426,68 @@
                         </div>
                     </div>
                 </div>
-            </div>
-        </section>
+            </section>
 
-        <!-- TOURNAMENTS PAGE -->
-        <section id="page-tournaments" class="spa-page hidden py-10 sm:py-14">
-            <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
-                <div class="text-center max-w-2xl mx-auto mb-10 reveal">
-                    <span class="text-[10px] font-bold font-orbitron tracking-widest text-mlbb-gold uppercase bg-amber-500/10 px-3 py-1 rounded-full border border-amber-500/30">ACTIVE TOURNAMENTS</span>
-                    <h2 class="font-orbitron font-extrabold text-2xl sm:text-4xl mt-3">მიმდინარე ტურნირები</h2>
+            <!-- TOURNAMENTS PAGE -->
+            <section id="page-tournaments" class="spa-page hidden py-10 sm:py-14">
+                <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+                    <div class="text-center max-w-2xl mx-auto mb-10 reveal">
+                        <span class="text-[10px] font-bold font-orbitron tracking-widest text-mlbb-gold uppercase bg-amber-500/10 px-3 py-1 rounded-full border border-amber-500/30">ACTIVE TOURNAMENTS</span>
+                        <h2 class="font-orbitron font-extrabold text-2xl sm:text-4xl mt-3">მიმდინარე ტურნირები</h2>
+                    </div>
+
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                        <!-- Card 1 -->
+                        <div class="bg-mlbb-card rounded-2xl p-6 purple-card-border flex flex-col justify-between relative shadow-xl tilt-card reveal" style="transition-delay: 0.1s;">
+                            <div class="absolute -top-3 right-5 bg-amber-500 text-black text-[9px] font-extrabold px-3 py-1 rounded-full uppercase tracking-wider tilt-inner shadow-lg">პოპულარული</div>
+                            <div class="tilt-inner pointer-events-none">
+                                <div class="flex items-center gap-4 mb-4">
+                                    <div class="w-12 h-12 rounded-xl bg-amber-500/20 text-amber-400 flex items-center justify-center font-bold text-2xl shadow-inner"><i class="fa-solid fa-user-ninja"></i></div>
+                                    <div><h3 class="font-orbitron font-bold text-lg">1v1 Solo Duel</h3><span class="text-xs text-purple-400 font-semibold">Custom Solo Map</span></div>
+                                </div>
+                                <p class="text-xs leading-relaxed mb-4 opacity-80">სწრაფი და დინამიური დუელი! დაამტკიცე შენი Micro Skill და გახდი საუკეთესო.</p>
+                                <div class="space-y-2 border-t border-b border-mlbb-border py-4 mb-5 text-xs bg-mlbb-dark/30 rounded-xl px-3">
+                                    <div class="flex justify-between"><span class="opacity-70">ფორმატი:</span><span class="font-bold text-mlbb-gold">3 Kills / 1 Turret</span></div>
+                                    <div class="flex justify-between"><span class="opacity-70">სტატუსი:</span><span id="status-1v1 Solo Duel" class="font-bold text-emerald-400">რეგისტრაცია ღიაა</span></div>
+                                </div>
+                            </div>
+                            <button id="btn-1v1 Solo Duel" onclick="startRegistration('1v1 Solo Duel')" class="w-full gold-btn py-3 rounded-xl font-bold text-sm flex items-center justify-center gap-2 relative z-10 hover:scale-105 transition-transform"><i class="fa-solid fa-bolt"></i> რეგისტრაცია</button>
+                        </div>
+
+                        <!-- Card 2 -->
+                        <div class="bg-mlbb-card rounded-2xl p-6 purple-card-border flex flex-col justify-between shadow-xl tilt-card reveal" style="transition-delay: 0.2s;">
+                            <div class="tilt-inner pointer-events-none">
+                                <div class="flex items-center gap-4 mb-4">
+                                    <div class="w-12 h-12 rounded-xl bg-purple-500/20 text-purple-400 flex items-center justify-center font-bold text-2xl shadow-inner"><i class="fa-solid fa-shield-cat"></i></div>
+                                    <div><h3 class="font-orbitron font-bold text-lg">5v5 Squad</h3><span class="text-xs text-indigo-400 font-semibold">Tournament Draft</span></div>
+                                </div>
+                                <p class="text-xs leading-relaxed mb-4 opacity-80">შეკრიბე გუნდი, შეიმუშავე სტრატეგია და იბრძოლე გრანდ ფინალისთვის!</p>
+                                <div class="space-y-2 border-t border-b border-mlbb-border py-4 mb-5 text-xs bg-mlbb-dark/30 rounded-xl px-3">
+                                    <div class="flex justify-between"><span class="opacity-70">შემადგენლობა:</span><span class="font-bold text-purple-400">5 + 2 რეზერვი</span></div>
+                                    <div class="flex justify-between"><span class="opacity-70">სტატუსი:</span><span id="status-5v5 Squad" class="font-bold text-emerald-400">რეგისტრაცია ღიაა</span></div>
+                                </div>
+                            </div>
+                            <button id="btn-5v5 Squad" onclick="startRegistration('5v5 Squad')" class="w-full py-3 rounded-xl bg-purple-600 text-white hover:bg-purple-500 transition shadow-lg shadow-purple-900/50 font-bold text-sm flex items-center justify-center gap-2 relative z-10 hover:scale-105 transition-transform"><i class="fa-solid fa-users"></i> რეგისტრაცია</button>
+                        </div>
+
+                        <!-- Card 3 -->
+                        <div class="bg-mlbb-card rounded-2xl p-6 purple-card-border flex flex-col justify-between shadow-xl tilt-card reveal" style="transition-delay: 0.3s;">
+                            <div class="tilt-inner pointer-events-none">
+                                <div class="flex items-center gap-4 mb-4">
+                                    <div class="w-12 h-12 rounded-xl bg-blue-500/20 text-blue-400 flex items-center justify-center font-bold text-2xl shadow-inner"><i class="fa-solid fa-dice"></i></div>
+                                    <div><h3 class="font-orbitron font-bold text-lg">5v5 Random</h3><span class="text-xs text-blue-400 font-semibold">Solo Queue Draft</span></div>
+                                </div>
+                                <p class="text-xs leading-relaxed mb-4 opacity-80">არ გყავს გუნდი? დარეგისტრირდი სოლო და სისტემა შეგიქმნის სქუადს!</p>
+                                <div class="space-y-2 border-t border-b border-mlbb-border py-4 mb-5 text-xs bg-mlbb-dark/30 rounded-xl px-3">
+                                    <div class="flex justify-between"><span class="opacity-70">ფორმატი:</span><span class="font-bold text-blue-400">Auto Matchmaking</span></div>
+                                    <div class="flex justify-between"><span class="opacity-70">სტატუსი:</span><span id="status-5v5 Random" class="font-bold text-emerald-400">რეგისტრაცია ღიაა</span></div>
+                                </div>
+                            </div>
+                            <button id="btn-5v5 Random" onclick="startRegistration('5v5 Random')" class="w-full py-3 rounded-xl bg-mlbb-dark border border-mlbb-border font-bold text-sm flex items-center justify-center gap-2 hover:border-blue-400 transition relative z-10 hover:scale-105 transition-transform"><i class="fa-solid fa-shuffle"></i> რეგისტრაცია</button>
+                        </div>
+                    </div>
                 </div>
-
-                <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
-                    <!-- Card 1 -->
-                    <div class="bg-mlbb-card rounded-2xl p-6 purple-card-border flex flex-col justify-between relative shadow-xl tilt-card reveal" style="transition-delay: 0.1s;">
-                        <div class="absolute -top-3 right-5 bg-amber-500 text-black text-[9px] font-extrabold px-3 py-1 rounded-full uppercase tracking-wider tilt-inner shadow-lg">პოპულარული</div>
-                        <div class="tilt-inner pointer-events-none">
-                            <div class="flex items-center gap-4 mb-4">
-                                <div class="w-12 h-12 rounded-xl bg-amber-500/20 text-amber-400 flex items-center justify-center font-bold text-2xl shadow-inner"><i class="fa-solid fa-user-ninja"></i></div>
-                                <div><h3 class="font-orbitron font-bold text-lg">1v1 Solo Duel</h3><span class="text-xs text-purple-400 font-semibold">Custom Solo Map</span></div>
-                            </div>
-                            <p class="text-xs leading-relaxed mb-4 opacity-80">სწრაფი და დინამიური დუელი! დაამტკიცე შენი Micro Skill და გახდი საუკეთესო.</p>
-                            <div class="space-y-2 border-t border-b border-mlbb-border py-4 mb-5 text-xs bg-mlbb-dark/30 rounded-xl px-3">
-                                <div class="flex justify-between"><span class="opacity-70">ფორმატი:</span><span class="font-bold text-mlbb-gold">3 Kills / 1 Turret</span></div>
-                                <div class="flex justify-between"><span class="opacity-70">სტატუსი:</span><span id="status-1v1 Solo Duel" class="font-bold text-emerald-400">რეგისტრაცია ღიაა</span></div>
-                            </div>
-                        </div>
-                        <button id="btn-1v1 Solo Duel" onclick="startRegistration('1v1 Solo Duel')" class="w-full gold-btn py-3 rounded-xl font-bold text-sm flex items-center justify-center gap-2 relative z-10 hover:scale-105 transition-transform"><i class="fa-solid fa-bolt"></i> რეგისტრაცია</button>
-                    </div>
-
-                    <!-- Card 2 -->
-                    <div class="bg-mlbb-card rounded-2xl p-6 purple-card-border flex flex-col justify-between shadow-xl tilt-card reveal" style="transition-delay: 0.2s;">
-                        <div class="tilt-inner pointer-events-none">
-                            <div class="flex items-center gap-4 mb-4">
-                                <div class="w-12 h-12 rounded-xl bg-purple-500/20 text-purple-400 flex items-center justify-center font-bold text-2xl shadow-inner"><i class="fa-solid fa-shield-cat"></i></div>
-                                <div><h3 class="font-orbitron font-bold text-lg">5v5 Squad</h3><span class="text-xs text-indigo-400 font-semibold">Tournament Draft</span></div>
-                            </div>
-                            <p class="text-xs leading-relaxed mb-4 opacity-80">შეკრიბე გუნდი, შეიმუშავე სტრატეგია და იბრძოლე გრანდ ფინალისთვის!</p>
-                            <div class="space-y-2 border-t border-b border-mlbb-border py-4 mb-5 text-xs bg-mlbb-dark/30 rounded-xl px-3">
-                                <div class="flex justify-between"><span class="opacity-70">შემადგენლობა:</span><span class="font-bold text-purple-400">5 + 2 რეზერვი</span></div>
-                                <div class="flex justify-between"><span class="opacity-70">სტატუსი:</span><span id="status-5v5 Squad" class="font-bold text-emerald-400">რეგისტრაცია ღიაა</span></div>
-                            </div>
-                        </div>
-                        <button id="btn-5v5 Squad" onclick="startRegistration('5v5 Squad')" class="w-full py-3 rounded-xl bg-purple-600 text-white hover:bg-purple-500 transition shadow-lg shadow-purple-900/50 font-bold text-sm flex items-center justify-center gap-2 relative z-10 hover:scale-105 transition-transform"><i class="fa-solid fa-users"></i> რეგისტრაცია</button>
-                    </div>
-
-                    <!-- Card 3 -->
-                    <div class="bg-mlbb-card rounded-2xl p-6 purple-card-border flex flex-col justify-between shadow-xl tilt-card reveal" style="transition-delay: 0.3s;">
-                        <div class="tilt-inner pointer-events-none">
-                            <div class="flex items-center gap-4 mb-4">
-                                <div class="w-12 h-12 rounded-xl bg-blue-500/20 text-blue-400 flex items-center justify-center font-bold text-2xl shadow-inner"><i class="fa-solid fa-dice"></i></div>
-                                <div><h3 class="font-orbitron font-bold text-lg">5v5 Random</h3><span class="text-xs text-blue-400 font-semibold">Solo Queue Draft</span></div>
-                            </div>
-                            <p class="text-xs leading-relaxed mb-4 opacity-80">არ გყავს გუნდი? დარეგისტრირდი სოლო და სისტემა შეგიქმნის სქუადს!</p>
-                            <div class="space-y-2 border-t border-b border-mlbb-border py-4 mb-5 text-xs bg-mlbb-dark/30 rounded-xl px-3">
-                                <div class="flex justify-between"><span class="opacity-70">ფორმატი:</span><span class="font-bold text-blue-400">Auto Matchmaking</span></div>
-                                <div class="flex justify-between"><span class="opacity-70">სტატუსი:</span><span id="status-5v5 Random" class="font-bold text-emerald-400">რეგისტრაცია ღიაა</span></div>
-                            </div>
-                        </div>
-                        <button id="btn-5v5 Random" onclick="startRegistration('5v5 Random')" class="w-full py-3 rounded-xl bg-mlbb-dark border border-mlbb-border font-bold text-sm flex items-center justify-center gap-2 hover:border-blue-400 transition relative z-10 hover:scale-105 transition-transform"><i class="fa-solid fa-shuffle"></i> რეგისტრაცია</button>
-                    </div>
-                </div>
-            </div>
-        </section>
+            </section>
 
         <!-- REGISTER PAGE (Dynamic via JS) -->
         <section id="page-register" class="spa-page hidden py-10">
@@ -937,11 +936,13 @@
         </div>
     </div>
 
+    <!-- Firebase SDK (Backend & Database) -->
     <script type="module">
         import { initializeApp } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-app.js";
         import { getAuth, signInAnonymously, signInWithCustomToken } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-auth.js";
         import { getFirestore, doc, setDoc, onSnapshot, collection } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-firestore.js";
 
+        // შენი ზუსტი Firebase კონფიგურაცია
         const firebaseConfig = {
           apiKey: "AIzaSyADBhJDnI08MxaXyG-IBH5RK6mYf0xKxMY",
           authDomain: "royal-arenamlbb.firebaseapp.com",
@@ -953,7 +954,7 @@
         };
 
         const appId = 'royal-arena-app';
-        window.db = {}; 
+        window.db = {}; // Global DB object
 
         try {
             const app = initializeApp(firebaseConfig);
@@ -969,6 +970,7 @@
             };
 
             performAuth().then(() => {
+                // System Parameters (CMS)
                 const systemRef = doc(dbFirestore, 'artifacts', appId, 'public', 'data', 'config', 'systemState');
                 onSnapshot(systemRef, (snap) => {
                     if(snap.exists()) {
@@ -980,6 +982,7 @@
                     if(window.activeUserId === window.ADMIN_EMAIL && window.renderAdminPage) window.renderAdminPage();
                 }, (e) => console.error(e));
 
+                // Users DB sync in realtime
                 const usersCol = collection(dbFirestore, 'artifacts', appId, 'public', 'data', 'users');
                 onSnapshot(usersCol, (snap) => {
                     window.db = {};
@@ -992,6 +995,7 @@
                 }, (e) => console.error(e));
             });
 
+            // Global saving functions
             window.saveSystemStateToDB = async function(newState) {
                 if(!window.auth.currentUser) return;
                 const systemRefLocal = doc(dbFirestore, 'artifacts', appId, 'public', 'data', 'config', 'systemState');
@@ -1006,11 +1010,12 @@
             };
             
         } catch(e) {
-            console.warn("Firebase Error:", e);
+            console.warn("Firebase ერორი:", e);
         }
     </script>
 
     <script>
+        // XSS Filter Function
         function escapeHTML(str) {
             if (!str) return '';
             return str.replace(/[&<>'"]/g, tag => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', "'": '&#39;', '"': '&quot;' }[tag] || tag));
@@ -1022,6 +1027,7 @@
         let tempAvatarDataUrl = null;
         let currentTournType = '5v5 Squad';
 
+        // CMS GLOBAL STATE
         let defaultSystemState = {
             tournaments: { '1v1 Solo Duel': { isOpen: true }, '5v5 Squad': { isOpen: true }, '5v5 Random': { isOpen: true } },
             announcements: [{ id: 1, title: 'ახალი ტურნირი', text: 'რეგისტრაცია დაიწყო. იჩქარეთ და დაიკავეთ ადგილი!', time: 'ახლახან', icon: 'fa-trophy', color: 'text-mlbb-gold' }]
@@ -1042,9 +1048,15 @@
                 document.getElementById('editProfileName').value = u.nickname;
                 document.getElementById('editAvatarPreview').src = u.avatarUrl;
                 tempAvatarDataUrl = u.avatarUrl;
+
                 const pwdSection = document.getElementById('editPasswordSection');
-                if (u.discordId || u.password === 'AUTH') { pwdSection.classList.add('hidden'); } 
-                else { pwdSection.classList.remove('hidden'); document.getElementById('editProfileOldPwd').value = ''; document.getElementById('editProfileNewPwd').value = ''; }
+                if (u.discordId || u.password === 'AUTH') {
+                    pwdSection.classList.add('hidden');
+                } else {
+                    pwdSection.classList.remove('hidden');
+                    document.getElementById('editProfileOldPwd').value = '';
+                    document.getElementById('editProfileNewPwd').value = '';
+                }
             }
         }
 
@@ -1071,11 +1083,15 @@
             setTimeout(() => { toast.classList.replace('toast-enter', 'toast-exit'); setTimeout(() => toast.remove(), 300); }, 3000);
         }
 
+        // --- Auth System ---
         function switchAuthTab(mode) {
             authMode = mode;
-            const nameField = document.getElementById('authNameField'); const nameInput = document.getElementById('authName');
-            const tabL = document.getElementById('tabLogin'); const tabR = document.getElementById('tabRegister');
+            const nameField = document.getElementById('authNameField');
+            const nameInput = document.getElementById('authName');
+            const tabL = document.getElementById('tabLogin');
+            const tabR = document.getElementById('tabRegister');
             const subBtn = document.getElementById('authSubmitBtn');
+
             if (nameField) nameField.classList.toggle('hidden', mode === 'login');
             if (nameInput) nameInput.required = (mode === 'register');
             if (tabL) tabL.className = mode === 'login' ? 'flex-1 py-2 rounded-lg bg-purple-600 text-white text-xs font-bold shadow-md transition' : 'flex-1 py-2 rounded-lg text-gray-400 hover:text-white text-xs font-bold transition';
@@ -1085,12 +1101,14 @@
 
         async function handleAuthSubmit(e) {
             e.preventDefault();
-            const emailInput = document.getElementById('authEmail'); const pwdInput = document.getElementById('authPassword');
+            const emailInput = document.getElementById('authEmail');
+            const pwdInput = document.getElementById('authPassword');
             if (!emailInput || !pwdInput) return;
+
             const email = escapeHTML(emailInput.value.trim().toLowerCase());
             const pwd = escapeHTML(pwdInput.value);
-
             const gmailRegex = /^[a-zA-Z0-9._%+-]+@gmail\.com$/;
+            
             if (!gmailRegex.test(email)) return showToast("რეგისტრაციისთვის აუცილებელია @gmail.com", 'error');
 
             if (authMode === 'register') {
@@ -1131,8 +1149,9 @@
                         const nickname = escapeHTML(userData.global_name || userData.username || "Player");
                         const avatarUrl = userData.avatar ? `https://cdn.discordapp.com/avatars/${userData.id}/${userData.avatar}.png` : `https://api.dicebear.com/7.x/bottts/svg?seed=${userData.id}`;
 
+                        // Wait for Firebase to initialize before saving
                         const saveAttempt = setInterval(async () => {
-                            if (window.db) { 
+                            if (window.db) { // Assuming db is defined means snapshot connected
                                 clearInterval(saveAttempt);
                                 const currentData = window.db[discordEmail] || {};
                                 window.db[discordEmail] = {
@@ -1149,7 +1168,7 @@
                             }
                         }, 500);
                     }
-                } catch (e) { showToast("ავტორიზაციის შეცდომა", "error"); }
+                } catch (e) { showToast("ავტორიზაციის შეცდომა", "error"); console.error(e); }
             }
         }
 
@@ -1158,6 +1177,7 @@
             window.location.reload();
         }
 
+        // --- Profile Editing System ---
         function previewAvatar(event) {
             const file = event.target.files[0];
             if (file) {
@@ -1171,6 +1191,7 @@
         async function updateProfile(e) {
             e.preventDefault();
             if (!window.activeUserId || !window.db || !window.db[window.activeUserId]) return;
+
             const u = window.db[window.activeUserId];
             const newName = escapeHTML(document.getElementById('editProfileName').value.trim());
             const oldPwdInput = document.getElementById('editProfileOldPwd');
@@ -1196,17 +1217,19 @@
             toggleElement('editProfileModal');
         }
 
-        // MATCHMAKING AND REGISTRATION LOGIC
+        // --- Matchmaking & REGISTRATION LOGIC ---
         window.selectTournType = function(type) { currentTournType = type; window.renderRegisterPage(); }
         
         window.startRegistration = function(type) {
             if (!window.activeUserId) { toggleElement('loginModal'); return; }
-            if (!window.systemState.tournaments[type].isOpen) return showToast("რეგისტრაცია დახურულია!", "error");
+            if (!window.systemState.tournaments[type].isOpen) return showToast("ამ ტურნირზე რეგისტრაცია დახურულია!", "error");
             currentTournType = type; switchTab('register'); window.renderRegisterPage();
         }
 
         window.submitTournamentReg = async function(e) {
             e.preventDefault();
+            
+            // XSS Validation & Checks
             const mlbbIdInput = document.getElementById('regMlbbId');
             if (mlbbIdInput && !/^\d+$/.test(mlbbIdInput.value)) {
                 return showToast("MLBB ID უნდა შეიცავდეს მხოლოდ ციფრებს!", "error");
@@ -1217,9 +1240,12 @@
             let lobbyId = 'RA-' + Math.random().toString(36).substring(2, 6).toUpperCase();
             let isWaiting = true;
 
+            // Matchmaking Logic (1v1 & Random)
             if (currentTournType === '1v1 Solo Duel' || currentTournType === '5v5 Random') {
                 const maxPlayers = currentTournType === '1v1 Solo Duel' ? 2 : 5;
                 const usersArray = Object.values(window.db || {});
+                
+                // Find a creator who is currently waiting
                 const waitingLobbyCreator = usersArray.find(u => u.teamData && u.teamData.type === currentTournType && u.teamData.isWaiting === true);
                 
                 if (waitingLobbyCreator) {
@@ -1227,6 +1253,7 @@
                     const playersInLobby = usersArray.filter(u => u.teamData && u.teamData.lobbyId === lobbyId).length;
                     
                     if (playersInLobby + 1 === maxPlayers) {
+                        // Match found! Close waiting status for everyone in this lobby
                         isWaiting = false; 
                         for (const email in window.db) {
                             if (window.db[email].teamData && window.db[email].teamData.lobbyId === lobbyId) {
@@ -1237,12 +1264,14 @@
                     }
                 }
             } else {
+                // Squads don't wait on the server, they just get a lobby and share the ID
                 isWaiting = false; 
             }
 
             window.db[window.activeUserId].teamData = { 
                 teamName: tName, type: currentTournType, lobbyId: lobbyId, isWaiting: isWaiting, joinedAt: Date.now() 
             };
+            
             if(window.saveUserToDB) await window.saveUserToDB(window.activeUserId, window.db[window.activeUserId]);
             showToast("რეგისტრაცია წარმატებულია!", 'success');
             window.renderRegisterPage();
@@ -1252,11 +1281,14 @@
             e.preventDefault();
             const idInput = document.getElementById('joinLobbyId');
             const id = idInput ? escapeHTML(idInput.value.trim().toUpperCase()) : '';
+            
+            // Check full squad (5 + 2 reserve = 7 max)
             const usersArray = Object.values(window.db || {});
             const playersInLobby = usersArray.filter(u => u.teamData && u.teamData.lobbyId === id).length;
             if (playersInLobby >= 7) {
                 return showToast("ლობი სავსეა! (5 ძირითადი + 2 რეზერვი)", "error");
             }
+
             window.db[window.activeUserId].teamData = { teamName: "Joined Squad", type: "5v5 Squad", lobbyId: id, isWaiting: false, joinedAt: Date.now() };
             if(window.saveUserToDB) await window.saveUserToDB(window.activeUserId, window.db[window.activeUserId]);
             showToast("წარმატებით შეუერთდით ლობის!", 'success');
@@ -1283,9 +1315,10 @@
 
             if (user.teamData) {
                 const lobbyUsers = Object.values(window.db).filter(u => u.teamData && u.teamData.lobbyId === user.teamData.lobbyId);
-                lobbyUsers.sort((a,b) => (a.teamData.joinedAt || 0) - (b.teamData.joinedAt || 0));
+                lobbyUsers.sort((a,b) => (a.teamData.joinedAt || 0) - (b.teamData.joinedAt || 0)); // sorting by joined time
 
                 if (user.teamData.type === '5v5 Squad') {
+                    // MAIN SQUAD (5 slots)
                     let squadHtml = `<div class="grid grid-cols-2 sm:grid-cols-5 gap-3 mb-4">`;
                     for(let i=0; i<5; i++) {
                         if(lobbyUsers[i]) {
@@ -1294,7 +1327,10 @@
                             squadHtml += `<div class="bg-mlbb-dark border border-dashed border-mlbb-border rounded-xl p-3 text-center flex flex-col items-center justify-center min-h-[100px] opacity-50"><i class="fa-solid fa-user-plus text-gray-500 text-lg mb-2"></i><p class="text-[9px] text-gray-400">მოლოდინი...</p></div>`;
                         }
                     }
-                    squadHtml += `</div><div class="mb-2"><p class="text-[10px] text-gray-400 uppercase tracking-widest font-bold">რეზერვი (სურვილისამებრ)</p></div><div class="grid grid-cols-2 sm:grid-cols-5 gap-3 mb-8">`;
+                    squadHtml += `</div>`;
+
+                    // RESERVE SQUAD (2 slots)
+                    squadHtml += `<div class="mb-2"><p class="text-[10px] text-gray-400 uppercase tracking-widest font-bold">რეზერვი (სურვილისამებრ)</p></div><div class="grid grid-cols-2 sm:grid-cols-5 gap-3 mb-8">`;
                     for(let i=5; i<7; i++) {
                         if(lobbyUsers[i]) {
                             squadHtml += `<div class="bg-mlbb-dark border border-gray-500/50 rounded-xl p-3 text-center relative"><img src="${lobbyUsers[i].avatarUrl}" class="w-10 h-10 rounded-full border-2 border-gray-500 mx-auto mb-2 bg-mlbb-card object-cover opacity-70"><p class="text-[10px] font-bold text-gray-300 truncate px-1">${escapeHTML(lobbyUsers[i].nickname)}</p><p class="text-[9px] text-gray-500 mt-0.5">Reserve</p></div>`;
@@ -1375,7 +1411,7 @@
                     formFields = `
                         <div class="mb-5"><label class="block text-[11px] font-bold uppercase tracking-wider mb-2 text-white">თქვენი სახელი (IGN)</label><input type="text" id="regTeamName" required value="${escapeHTML(user.nickname)}" class="w-full bg-[#0a0c16] border border-[#232a4d] rounded-xl px-4 py-3 text-sm focus:outline-none focus:border-amber-400 text-white transition" placeholder="მაგ: ShadowMage"></div>
                         <div class="grid grid-cols-2 gap-4 mb-5">
-                            <div><label class="block text-[11px] font-bold uppercase tracking-wider mb-2 text-white">MLBB ID</label><input type="text" id="regMlbbId" inputmode="numeric" required class="w-full bg-[#0a0c16] border border-[#232a4d] rounded-xl px-4 py-3 text-sm focus:outline-none focus:border-amber-400 text-white transition" placeholder="მაგ: 12345678"></div>
+                            <div><label class="block text-[11px] font-bold uppercase tracking-wider mb-2 text-white">MLBB ID</label><input type="text" id="regMlbbId" inputmode="numeric" required class="w-full bg-[#0a0c16] border border-[#232a4d] rounded-xl px-4 py-3 text-sm focus:outline-none focus:border-amber-400 text-white transition" placeholder="მხოლოდ ციფრები"></div>
                             <div><label class="block text-[11px] font-bold uppercase tracking-wider mb-2 text-white">Server ID</label><input type="text" inputmode="numeric" required class="w-full bg-[#0a0c16] border border-[#232a4d] rounded-xl px-4 py-3 text-sm focus:outline-none focus:border-amber-400 text-white transition" placeholder="მაგ: 1234"></div>
                         </div>
                         <div class="mb-6"><label class="block text-[11px] font-bold uppercase tracking-wider mb-2 text-white">საყვარელი გმირი (MAIN HERO)</label><input type="text" required class="w-full bg-[#0a0c16] border border-[#232a4d] rounded-xl px-4 py-3 text-sm focus:outline-none focus:border-amber-400 text-white transition" placeholder="მაგ: Chou, Paquito..."></div>
@@ -1409,23 +1445,28 @@
             }
         }
 
+        // --- CMS ADMIN FUNCTIONS ---
         window.applySystemStateToUI = function() {
+            // Tournaments
             ['1v1 Solo Duel', '5v5 Squad', '5v5 Random'].forEach(type => {
                 const statusEl = document.getElementById(`status-${type}`);
                 const btnEl = document.getElementById(`btn-${type}`);
                 if (statusEl && btnEl) {
                     if (window.systemState.tournaments[type].isOpen) {
-                        statusEl.innerText = 'რეგისტრაცია ღიაა'; statusEl.className = 'font-bold text-emerald-400';
+                        statusEl.innerText = 'რეგისტრაცია ღიაა';
+                        statusEl.className = 'font-bold text-emerald-400';
                         btnEl.classList.remove('opacity-50', 'pointer-events-none');
                         btnEl.innerHTML = `<i class="fa-solid ${type === '1v1 Solo Duel' ? 'fa-bolt' : type === '5v5 Squad' ? 'fa-users' : 'fa-shuffle'}"></i> რეგისტრაცია`;
                     } else {
-                        statusEl.innerText = 'რეგისტრაცია დახურულია'; statusEl.className = 'font-bold text-red-400';
+                        statusEl.innerText = 'რეგისტრაცია დახურულია';
+                        statusEl.className = 'font-bold text-red-400';
                         btnEl.classList.add('opacity-50', 'pointer-events-none');
                         btnEl.innerHTML = `<i class="fa-solid fa-lock"></i> დახურულია`;
                     }
                 }
             });
 
+            // Announcements
             const notifHtml = window.systemState.announcements.map(a => `
                 <div class="px-4 py-3 border-b border-mlbb-border/50 hover:bg-mlbb-dark transition cursor-pointer flex justify-between items-start">
                     <div>
@@ -1436,7 +1477,8 @@
                 </div>
             `).join('');
 
-            const deskNotif = document.getElementById('notifDropdownContent'); const mobNotif = document.getElementById('notifDropdownMobileContent');
+            const deskNotif = document.getElementById('notifDropdownContent');
+            const mobNotif = document.getElementById('notifDropdownMobileContent');
             if (deskNotif) deskNotif.innerHTML = notifHtml || '<p class="p-4 text-xs text-gray-500 text-center">სიახლეები არ არის</p>';
             if (mobNotif) mobNotif.innerHTML = notifHtml || '<p class="p-4 text-xs text-gray-500 text-center">სიახლეები არ არის</p>';
 
@@ -1447,7 +1489,9 @@
 
         window.toggleRegistration = function(type) {
             window.systemState.tournaments[type].isOpen = !window.systemState.tournaments[type].isOpen;
-            saveSystemState(); showToast(`${type} რეგისტრაცია ${window.systemState.tournaments[type].isOpen ? 'გაიხსნა' : 'დაიხურა'}`);
+            saveSystemState();
+            showToast(`${type} რეგისტრაცია ${window.systemState.tournaments[type].isOpen ? 'გაიხსნა' : 'დაიხურა'}`);
+            window.renderAdminPage();
         }
 
         window.sendAnnouncement = function(e) {
@@ -1455,12 +1499,17 @@
             const title = escapeHTML(document.getElementById('annTitle').value);
             const text = escapeHTML(document.getElementById('annText').value);
             window.systemState.announcements.unshift({ id: Date.now(), title, text, time: 'ახლახან', icon: 'fa-bullhorn', color: 'text-mlbb-gold' });
-            saveSystemState(); showToast("შეტყობინება გაიგზავნა!"); e.target.reset();
+            saveSystemState();
+            showToast("შეტყობინება გაიგზავნა!");
+            e.target.reset();
+            window.renderAdminPage();
         }
 
         window.deleteAnnouncement = function(id) {
             window.systemState.announcements = window.systemState.announcements.filter(a => a.id !== id);
-            saveSystemState(); showToast("შეტყობინება წაიშალა", "error");
+            saveSystemState();
+            showToast("შეტყობინება წაიშალა", "error");
+            window.renderAdminPage();
         }
 
         window.renderAdminPage = function() {
@@ -1469,9 +1518,11 @@
                 const btn = document.getElementById(`adminToggle-${btnId}`);
                 if (btn) {
                     if (window.systemState.tournaments[type].isOpen) {
-                        btn.innerText = "ღიაა"; btn.className = "px-4 py-1.5 rounded-lg text-xs font-bold uppercase tracking-wider transition bg-emerald-500/20 text-emerald-400 hover:bg-emerald-500 hover:text-black";
+                        btn.innerText = "ღიაა";
+                        btn.className = "px-4 py-1.5 rounded-lg text-xs font-bold uppercase tracking-wider transition bg-emerald-500/20 text-emerald-400 hover:bg-emerald-500 hover:text-black";
                     } else {
-                        btn.innerText = "დახურულია"; btn.className = "px-4 py-1.5 rounded-lg text-xs font-bold uppercase tracking-wider transition bg-red-500/20 text-red-400 hover:bg-red-500 hover:text-white";
+                        btn.innerText = "დახურულია";
+                        btn.className = "px-4 py-1.5 rounded-lg text-xs font-bold uppercase tracking-wider transition bg-red-500/20 text-red-400 hover:bg-red-500 hover:text-white";
                     }
                 }
             });
@@ -1502,7 +1553,7 @@
                                 <div class="flex flex-col"><span class="font-bold text-white">${escapeHTML(u.nickname)}</span><span class="text-[9px] text-gray-500">${escapeHTML(u.email)}</span></div>
                             </td>
                             <td class="px-6 py-4 font-bold text-mlbb-gold">${escapeHTML(u.teamData.teamName)}</td>
-                            <td class="px-6 py-4"><span class="bg-purple-900/20 text-purple-400 border border-purple-500/30 px-2.5 py-1 rounded-md text-[10px] font-bold uppercase tracking-wider">${u.teamData.type}</span></td>
+                            <td class="px-6 py-4"><span class="bg-purple-900/20 text-purple-400 border border-purple-500/30 px-2.5 py-1 rounded-md text-[10px] font-bold uppercase tracking-wider">${escapeHTML(u.teamData.type)}</span></td>
                             <td class="px-6 py-4 text-gray-400 font-orbitron">${escapeHTML(u.teamData.lobbyId || '---')}</td>
                             <td class="px-6 py-4 text-right">
                                 <button onclick="kickPlayerFromAdmin('${escapeHTML(email)}')" class="px-3 py-1.5 bg-red-500/10 hover:bg-red-500 border border-red-500/30 text-red-400 hover:text-white rounded text-[10px] font-bold uppercase tracking-wider transition"><i class="fa-solid fa-trash-can"></i></button>
@@ -1525,13 +1576,17 @@
             }
         }
 
+
+        // --- INIT UI ---
         window.initUI = function() {
             if(window.applySystemStateToUI) window.applySystemStateToUI();
 
             const lBtn = document.getElementById('loginBtn'); const pBtn = document.getElementById('userProfileBtn');
             const mlBtn = document.getElementById('mobileLoginBtn'); const mloutBtn = document.getElementById('mobileLogoutBtn');
             const mProfBtn = document.getElementById('mobileProfileBtn');
-            const dropdownAdminBtn = document.getElementById('dropdownAdminBtn'); const mobileAdminBtn = document.getElementById('mobileAdminBtn');
+
+            const dropdownAdminBtn = document.getElementById('dropdownAdminBtn');
+            const mobileAdminBtn = document.getElementById('mobileAdminBtn');
 
             if (window.activeUserId && window.db && window.db[window.activeUserId]) {
                 const u = window.db[window.activeUserId];
@@ -1559,23 +1614,30 @@
                     document.getElementById('mobileUserName').innerText = escapeHTML(u.nickname);
                     document.getElementById('mobileAvatarImg').src = u.avatarUrl;
                 }
-                window.renderRegisterPage();
+
+                if(window.renderRegisterPage) window.renderRegisterPage();
             } else {
                 if (lBtn) lBtn.classList.remove('hidden'); if (pBtn) pBtn.classList.add('hidden');
                 if (mlBtn) mlBtn.classList.remove('hidden'); if (mloutBtn) mloutBtn.classList.add('hidden');
                 if (mProfBtn) mProfBtn.classList.add('hidden');
+
                 if (dropdownAdminBtn) dropdownAdminBtn.classList.add('hidden');
                 if (mobileAdminBtn) mobileAdminBtn.classList.add('hidden');
                 const mobUserInfo = document.getElementById('mobileUserInfo');
                 if (mobUserInfo) mobUserInfo.classList.add('hidden');
-                window.renderRegisterPage();
+
+                if(window.renderRegisterPage) window.renderRegisterPage();
             }
         }
 
         window.switchTab = function(tabId) {
-            if (tabId === 'admin' && (!window.activeUserId || window.activeUserId.toLowerCase() !== window.ADMIN_EMAIL.toLowerCase())) {
-                return showToast("წვდომა შეზღუდულია!", "error");
+            if (tabId === 'admin') {
+                if (!window.activeUserId || window.activeUserId.toLowerCase() !== window.ADMIN_EMAIL.toLowerCase()) {
+                    showToast("წვდომა შეზღუდულია! გვერდი განკუთვნილია მხოლოდ ადმინისტრატორისთვის.", "error");
+                    return;
+                }
             }
+
             document.querySelectorAll('.spa-page').forEach(p => p.classList.add('hidden'));
             const p = document.getElementById(`page-${tabId}`);
             if (p) { p.classList.remove('hidden'); triggerScrollAnimations(); }
@@ -1584,14 +1646,17 @@
                 b.className = "nav-btn flex items-center gap-2 px-4 py-2 rounded-full text-gray-400 hover:text-white hover:bg-mlbb-border/50 border border-transparent transition text-xs font-semibold whitespace-nowrap";
             });
             const activeNav = document.getElementById(`nav-${tabId}`);
-            if (activeNav && tabId === 'admin') activeNav.className = "nav-btn flex items-center gap-2 px-4 py-2 rounded-full bg-red-900/30 border border-red-500/50 text-red-400 shadow transition text-xs font-bold whitespace-nowrap";
-            else if (activeNav) activeNav.className = "nav-btn flex items-center gap-2 px-4 py-2 rounded-full bg-[#3a256a] border border-[#553b94] text-white shadow transition text-xs font-bold whitespace-nowrap";
-            
+            if (activeNav && tabId === 'admin') {
+                activeNav.className = "nav-btn flex items-center gap-2 px-4 py-2 rounded-full bg-red-900/30 border border-red-500/50 text-red-400 shadow transition text-xs font-bold whitespace-nowrap";
+            } else if (activeNav) {
+                activeNav.className = "nav-btn flex items-center gap-2 px-4 py-2 rounded-full bg-[#3a256a] border border-[#553b94] text-white shadow transition text-xs font-bold whitespace-nowrap";
+            }
             window.scrollTo({ top: 0, behavior: 'smooth' });
-            if (window.renderRegisterPage) window.renderRegisterPage();
+            if(window.renderRegisterPage) window.renderRegisterPage();
             if (tabId === 'admin' && window.renderAdminPage) window.renderAdminPage();
         }
 
+        // --- MISC / EFFECTS ---
         window.showBracket = function(type) {
             document.querySelectorAll('.bracket-section').forEach(el => el.classList.add('hidden'));
             const target = document.getElementById(`bracket-${type}`);
@@ -1603,7 +1668,8 @@
 
             const activeTab = document.getElementById(`br-tab-${type}`);
             if (activeTab) {
-                let gradient = 'from-amber-400 to-orange-500'; let shadow = 'rgba(255,204,0,0.4)';
+                let gradient = 'from-amber-400 to-orange-500';
+                let shadow = 'rgba(255,204,0,0.4)';
                 if (type === 'squad') { gradient = 'from-purple-500 to-indigo-500'; shadow = 'rgba(157,78,223,0.4)'; }
                 if (type === 'random') { gradient = 'from-blue-400 to-cyan-500'; shadow = 'rgba(59,130,246,0.4)'; }
                 activeTab.className = `lb-tab-btn active px-4 sm:px-6 py-2.5 rounded-xl text-[#000] text-xs sm:text-sm font-orbitron font-bold transition flex items-center gap-2 bg-gradient-to-r ${gradient} shadow-[0_0_15px_${shadow}]`;
@@ -1616,25 +1682,39 @@
             if (target) target.classList.remove('hidden');
 
             document.querySelectorAll('.lb-tab-btn').forEach(btn => {
-                if (!btn.id.startsWith('br-tab-')) btn.className = "lb-tab-btn px-4 sm:px-6 py-2.5 rounded-xl border border-transparent text-gray-300 text-xs sm:text-sm font-orbitron hover:border-mlbb-border transition flex items-center gap-2";
+                if (!btn.id.startsWith('br-tab-')) {
+                    btn.className = "lb-tab-btn px-4 sm:px-6 py-2.5 rounded-xl border border-transparent text-gray-300 text-xs sm:text-sm font-orbitron hover:border-mlbb-border transition flex items-center gap-2";
+                }
             });
 
             const activeTab = document.getElementById(`tab-${type}`);
             if (activeTab) activeTab.className = "lb-tab-btn active px-4 sm:px-6 py-2.5 rounded-xl text-[#000] text-xs sm:text-sm font-orbitron font-bold transition flex items-center gap-2 bg-gradient-to-r from-amber-400 to-orange-500 shadow-[0_0_15px_rgba(255,204,0,0.4)]";
         }
 
-        window.submitScoreReport = function(e) { e.preventDefault(); showToast("სქრინი წარმატებით გაიგზავნა! ადმინი მალე დაადასტურებს.", "success"); toggleElement('reportScoreModal'); }
+        window.submitScoreReport = function(e) {
+            e.preventDefault();
+            showToast("სქრინი წარმატებით გაიგზავნა! ადმინი მალე დაადასტურებს.", "success");
+            toggleElement('reportScoreModal');
+        }
 
         let isMusicPlaying = false;
         window.toggleAudio = function() {
-            const a = document.getElementById('bgMusic'); const i = document.getElementById('musicStatusIcon'); const iMobile = document.getElementById('musicStatusIconMobile');
+            const a = document.getElementById('bgMusic');
+            const i = document.getElementById('musicStatusIcon');
+            const iMobile = document.getElementById('musicStatusIconMobile');
+
             if (isMusicPlaying) {
-                a.pause(); isMusicPlaying = false;
-                if (i) i.className = "fa-solid fa-music"; if (iMobile) iMobile.className = "fa-solid fa-music";
+                a.pause();
+                isMusicPlaying = false;
+                if (i) i.className = "fa-solid fa-music";
+                if (iMobile) iMobile.className = "fa-solid fa-music";
                 showToast("მუსიკა გამორთულია", "success");
             } else {
-                a.volume = 0.4; a.play().catch(e => console.log(e)); isMusicPlaying = true;
-                if (i) i.className = "fa-solid fa-music text-mlbb-gold animate-pulse"; if (iMobile) iMobile.className = "fa-solid fa-music text-mlbb-gold animate-pulse";
+                a.volume = 0.4;
+                a.play().catch(e => console.log(e));
+                isMusicPlaying = true;
+                if (i) i.className = "fa-solid fa-music text-mlbb-gold animate-pulse";
+                if (iMobile) iMobile.className = "fa-solid fa-music text-mlbb-gold animate-pulse";
                 showToast("მუსიკა ჩართულია", "success");
             }
         }
@@ -1665,7 +1745,8 @@
 
         function initCanvas() {
             const canvas = document.getElementById('heroCanvas');
-            if (!canvas) return; const ctx = canvas.getContext('2d');
+            if (!canvas) return;
+            const ctx = canvas.getContext('2d');
             let w = canvas.width = canvas.offsetWidth; let h = canvas.height = canvas.offsetHeight;
             window.addEventListener('resize', () => { w = canvas.width = canvas.offsetWidth; h = canvas.height = canvas.offsetHeight; });
             const p = []; for (let i = 0; i < 40; i++) p.push({ x: Math.random() * w, y: Math.random() * h, r: Math.random() * 2 + 1, vx: (Math.random() - 0.5) * 0.5, vy: (Math.random() - 0.5) * 0.5, c: Math.random() > 0.5 ? '#ffcc00' : '#9d4edf' });
@@ -1681,8 +1762,12 @@
         }
 
         document.addEventListener('DOMContentLoaded', () => {
-            if (typeof handleDiscordCallback === "function") handleDiscordCallback();
-            window.initUI(); window.switchTab('home'); initCanvas(); initTiltEffect(); triggerScrollAnimations();
+            if (typeof handleDiscordCallback === 'function') handleDiscordCallback();
+            if (window.initUI) window.initUI();
+            if (window.switchTab) window.switchTab('home');
+            initCanvas();
+            initTiltEffect();
+            triggerScrollAnimations();
         });
     </script>
 </body>
