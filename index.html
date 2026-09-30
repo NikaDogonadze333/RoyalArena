@@ -103,7 +103,6 @@
 
 <body class="min-h-screen flex flex-col justify-between selection:bg-yellow-400 selection:text-black dark">
 
-    <!-- Background Music -->
     <audio id="bgMusic" loop>
         <source src="https://cdn.pixabay.com/download/audio/2022/05/27/audio_1808fbf07a.mp3?filename=lofi-study-112191.mp3" type="audio/mpeg">
     </audio>
@@ -911,7 +910,7 @@
     <!-- Firebase SDK (Backend & Database) -->
     <script type="module">
         import { initializeApp } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-app.js";
-        import { getAuth, signInAnonymously } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-auth.js";
+        import { getAuth, signInAnonymously, signInWithCustomToken } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-auth.js";
         import { getFirestore, doc, setDoc, onSnapshot, collection } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-firestore.js";
 
         // შენი ზუსტი Firebase კონფიგურაცია
@@ -926,6 +925,7 @@
         };
 
         const appId = 'royal-arena-app';
+        window.db = {}; // Populated by Firebase via Realtime Sync
 
         try {
             // სისტემის ინიციალიზაცია
@@ -933,8 +933,16 @@
             window.auth = getAuth(app);
             const dbFirestore = getFirestore(app);
 
-            // ავტორიზაცია ბაზასთან უსაფრთხოების წესებისთვის
-            signInAnonymously(window.auth).then(() => {
+            // ავტორიზაცია ბაზასთან უსაფრთხოების წესებისთვის (Canvas/Anon)
+            const performAuth = async () => {
+                if (typeof __initial_auth_token !== 'undefined') {
+                    await signInWithCustomToken(window.auth, __initial_auth_token);
+                } else {
+                    await signInAnonymously(window.auth);
+                }
+            };
+
+            performAuth().then(() => {
                 // CMS პარამეტრების სინქრონიზაცია
                 const systemRef = doc(dbFirestore, 'artifacts', appId, 'public', 'data', 'config', 'systemState');
                 onSnapshot(systemRef, (snap) => {
@@ -947,12 +955,15 @@
                     if(window.activeUserId === window.ADMIN_EMAIL && window.renderAdminPage) window.renderAdminPage();
                 }, (e) => console.error(e));
 
-                // მომხმარებლების სინქრონიზაცია + ავტომატური დაჯგუფების (Matchmaking) განახლება რეალურ დროში
+                // მომხმარებლების სინქრონიზაცია რეალურ დროში (Realtime Matchmaking updates!)
                 const usersCol = collection(dbFirestore, 'artifacts', appId, 'public', 'data', 'users');
                 onSnapshot(usersCol, (snap) => {
                     window.db = {};
-                    snap.forEach(doc => { window.db[doc.id] = doc.data(); });
+                    snap.forEach(doc => { 
+                        window.db[doc.id] = doc.data(); 
+                    });
                     if(window.initUI) window.initUI();
+                    if(window.renderRegisterPage) window.renderRegisterPage(); // Update Lobby instantly
                     if(window.activeUserId === window.ADMIN_EMAIL && window.renderAdminPage) window.renderAdminPage();
                 }, (e) => console.error(e));
             });
@@ -983,9 +994,8 @@
             return str.replace(/[&<>'"]/g, tag => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', "'": '&#39;', '"': '&quot;' }[tag] || tag));
         }
 
-        const ADMIN_EMAIL = "RoyalArenamlbb@gmail.com";
+        window.ADMIN_EMAIL = "RoyalArenamlbb@gmail.com";
         window.activeUserId = localStorage.getItem('royal_active_user') || null;
-        window.db = {}; // Populated by Firebase via Realtime Sync
         let authMode = 'login';
         let tempAvatarDataUrl = null;
         let currentTournType = '5v5 Squad';
@@ -1062,7 +1072,7 @@
             if (!gmailRegex.test(email)) return showToast("რეგისტრაციისთვის აუცილებელია @gmail.com", 'error');
 
             if (authMode === 'register') {
-                if (window.db[email]) return showToast("ეს მეილი უკვე გამოყენებულია!", 'error');
+                if (window.db && window.db[email]) return showToast("ეს მეილი უკვე გამოყენებულია!", 'error');
                 const nameInput = document.getElementById('authName');
                 const name = nameInput ? escapeHTML(nameInput.value.trim()) : "Player";
                 const avatarUrl = `https://api.dicebear.com/7.x/bottts/svg?seed=${name}&backgroundColor=241038`;
@@ -1072,7 +1082,7 @@
                 window.activeUserId = email;
                 showToast("რეგისტრაცია წარმატებულია!");
             } else {
-                if (!window.db[email] || window.db[email].password !== pwd) return showToast("არასწორი მეილი ან პაროლი!", 'error');
+                if (!window.db || !window.db[email] || window.db[email].password !== pwd) return showToast("არასწორი მეილი ან პაროლი!", 'error');
                 window.activeUserId = email;
                 showToast("ავტორიზაცია წარმატებულია!");
             }
@@ -1087,7 +1097,7 @@
             window.location.href = `https://discord.com/api/oauth2/authorize?client_id=${CLIENT_ID}&redirect_uri=${REDIRECT_URI}&response_type=token&scope=identify%20email`;
         }
 
-        // DISCORD FIX: Added waiting interval to ensure Firebase is ready before saving
+        // DISCORD FIX: Polling interval to wait for Firebase connection
         async function handleDiscordCallback() {
             const fragment = new URLSearchParams(window.location.hash.slice(1));
             const accessToken = fragment.get('access_token');
@@ -1100,8 +1110,9 @@
                         const nickname = escapeHTML(userData.global_name || userData.username || "Player");
                         const avatarUrl = userData.avatar ? `https://cdn.discordapp.com/avatars/${userData.id}/${userData.avatar}.png` : `https://api.dicebear.com/7.x/bottts/svg?seed=${userData.id}`;
 
+                        // Wait for Firebase global DB object to be populated
                         const saveAttempt = setInterval(async () => {
-                            if (window.db) { // Check if DB listener is active
+                            if (window.db) { 
                                 clearInterval(saveAttempt);
                                 const currentData = window.db[discordEmail] || {};
                                 window.db[discordEmail] = {
@@ -1139,7 +1150,7 @@
 
         async function updateProfile(e) {
             e.preventDefault();
-            if (!window.activeUserId || !window.db[window.activeUserId]) return;
+            if (!window.activeUserId || !window.db || !window.db[window.activeUserId]) return;
             const u = window.db[window.activeUserId];
             const newName = escapeHTML(document.getElementById('editProfileName').value.trim());
             const oldPwdInput = document.getElementById('editProfileOldPwd');
@@ -1165,7 +1176,239 @@
             toggleElement('editProfileModal');
         }
 
-        // --- CMS ADMIN FUNCTIONS ---
+        // --- STREAMING_CHUNK:Implementing Matchmaking and Registration logic ---
+        window.selectTournType = function(type) { currentTournType = type; window.renderRegisterPage(); }
+        
+        window.startRegistration = function(type) {
+            if (!window.activeUserId) { toggleElement('loginModal'); return; }
+            if (!window.systemState.tournaments[type].isOpen) return showToast("რეგისტრაცია დახურულია!", "error");
+            currentTournType = type; switchTab('register'); window.renderRegisterPage();
+        }
+
+        // REAL Auto Matchmaking Logic Included Here
+        window.submitTournamentReg = async function(e) {
+            e.preventDefault();
+            
+            // Validation for MLBB ID (Numbers only)
+            const mlbbIdInput = document.getElementById('regMlbbId');
+            if (mlbbIdInput && !/^\d+$/.test(mlbbIdInput.value)) {
+                return showToast("MLBB ID უნდა შეიცავდეს მხოლოდ ციფრებს!", "error");
+            }
+
+            const tNameInput = document.getElementById('regTeamName');
+            let tName = tNameInput ? escapeHTML(tNameInput.value.trim()) : window.db[window.activeUserId].nickname;
+            let lobbyId = 'RA-' + Math.random().toString(36).substring(2, 6).toUpperCase();
+            let isWaiting = true;
+
+            // Matchmaking for 1v1 and 5v5 Random
+            if (currentTournType === '1v1 Solo Duel' || currentTournType === '5v5 Random') {
+                const maxPlayers = currentTournType === '1v1 Solo Duel' ? 2 : 5;
+                const usersArray = Object.values(window.db || {});
+                
+                // Find someone waiting in the same tournament type
+                const waitingLobbyCreator = usersArray.find(u => u.teamData && u.teamData.type === currentTournType && u.teamData.isWaiting === true);
+                
+                if (waitingLobbyCreator) {
+                    lobbyId = waitingLobbyCreator.teamData.lobbyId; // Join existing group
+                    const playersInLobby = usersArray.filter(u => u.teamData && u.teamData.lobbyId === lobbyId).length;
+                    
+                    if (playersInLobby + 1 === maxPlayers) {
+                        isWaiting = false; // The joining person completes the group
+                        
+                        // Immediately update all existing members in this lobby to isWaiting = false
+                        for (const email in window.db) {
+                            if (window.db[email].teamData && window.db[email].teamData.lobbyId === lobbyId) {
+                                window.db[email].teamData.isWaiting = false;
+                                if(window.saveUserToDB) window.saveUserToDB(email, window.db[email]);
+                            }
+                        }
+                    }
+                }
+            } else {
+                isWaiting = false; // Squads wait manually for invites via Join Lobby ID
+            }
+
+            window.db[window.activeUserId].teamData = { 
+                teamName: tName, 
+                type: currentTournType, 
+                lobbyId: lobbyId, 
+                isWaiting: isWaiting, 
+                joinedAt: Date.now() 
+            };
+            if(window.saveUserToDB) await window.saveUserToDB(window.activeUserId, window.db[window.activeUserId]);
+            showToast("რეგისტრაცია წარმატებულია!", 'success');
+            window.renderRegisterPage();
+        }
+
+        window.joinLobby = async function(e) {
+            e.preventDefault();
+            const idInput = document.getElementById('joinLobbyId');
+            const id = idInput ? escapeHTML(idInput.value.trim().toUpperCase()) : '';
+            
+            // Check if lobby is full (5 max for Squad, plus 2 reserves)
+            const usersArray = Object.values(window.db || {});
+            const playersInLobby = usersArray.filter(u => u.teamData && u.teamData.lobbyId === id).length;
+            if (playersInLobby >= 7) {
+                return showToast("ლობი სავსეა! (5 ძირითადი + 2 რეზერვი)", "error");
+            }
+
+            window.db[window.activeUserId].teamData = { teamName: "Joined Squad", type: "5v5 Squad", lobbyId: id, isWaiting: false, joinedAt: Date.now() };
+            if(window.saveUserToDB) await window.saveUserToDB(window.activeUserId, window.db[window.activeUserId]);
+            showToast("წარმატებით შეუერთდით ლობის!", 'success');
+            window.renderRegisterPage();
+        }
+
+        window.cancelRegistration = async function() {
+            window.db[window.activeUserId].teamData = null;
+            if(window.saveUserToDB) await window.saveUserToDB(window.activeUserId, window.db[window.activeUserId]);
+            showToast("რეგისტრაცია გაუქმდა", 'error');
+            window.renderRegisterPage();
+        }
+
+        // --- STREAMING_CHUNK:Rendering Register Forms and Realtime Lobbies ---
+        window.renderRegisterPage = function() {
+            const container = document.getElementById('registerContainer');
+            if (!container) return;
+            if (!window.activeUserId || !window.db) {
+                container.innerHTML = `<div class="text-center py-12"><div class="w-20 h-20 bg-purple-500/10 rounded-full flex items-center justify-center mx-auto mb-6 border border-purple-500/30"><i class="fa-solid fa-lock text-4xl text-purple-500 drop-shadow-[0_0_15px_rgba(157,78,223,0.5)]"></i></div><h3 class="font-bold text-2xl mb-3 font-orbitron text-white">ავტორიზაცია აუცილებელია</h3><p class="text-sm text-gray-400 mb-8 max-w-md mx-auto">ტურნირებში მონაწილეობის მისაღებად და რეგისტრაციის გასავლელად, გთხოვთ გაიაროთ ავტორიზაცია.</p><button onclick="toggleElement('loginModal')" class="gold-btn px-8 py-3.5 rounded-xl font-bold uppercase tracking-wider text-sm shadow-lg hover:scale-105 transition-transform"><i class="fa-solid fa-user mr-2 text-lg"></i> შესვლა / რეგისტრაცია</button></div>`;
+                return;
+            }
+
+            const user = window.db[window.activeUserId];
+            if (!user) return;
+
+            if (user.teamData) {
+                const lobbyUsers = Object.values(window.db).filter(u => u.teamData && u.teamData.lobbyId === user.teamData.lobbyId);
+                lobbyUsers.sort((a,b) => (a.teamData.joinedAt || 0) - (b.teamData.joinedAt || 0));
+
+                if (user.teamData.type === '5v5 Squad') {
+                    // SQUAD LOGIC: 5 Main + 2 Reserves
+                    let squadHtml = `<div class="grid grid-cols-2 sm:grid-cols-5 gap-3 mb-4">`;
+                    for(let i=0; i<5; i++) {
+                        if(lobbyUsers[i]) {
+                            squadHtml += `<div class="bg-mlbb-dark border border-amber-500/50 rounded-xl p-3 text-center relative shadow-[0_0_10px_rgba(255,204,0,0.15)]"><i class="fa-solid fa-crown absolute top-2 right-2 text-amber-400 text-[10px] ${i===0?'':'hidden'}"></i><img src="${lobbyUsers[i].avatarUrl}" class="w-10 h-10 rounded-full border-2 border-amber-400 mx-auto mb-2 bg-mlbb-card object-cover"><p class="text-[10px] font-bold text-white truncate px-1">${escapeHTML(lobbyUsers[i].nickname)}</p><p class="text-[9px] text-gray-500 mt-0.5">${i===0?'Captain':'Member'}</p></div>`;
+                        } else {
+                            squadHtml += `<div class="bg-mlbb-dark border border-dashed border-mlbb-border rounded-xl p-3 text-center flex flex-col items-center justify-center min-h-[100px] opacity-50"><i class="fa-solid fa-user-plus text-gray-500 text-lg mb-2"></i><p class="text-[9px] text-gray-400">მოლოდინი...</p></div>`;
+                        }
+                    }
+                    squadHtml += `</div><div class="mb-2"><p class="text-[10px] text-gray-400 uppercase tracking-widest font-bold">რეზერვი (სურვილისამებრ)</p></div><div class="grid grid-cols-2 sm:grid-cols-5 gap-3 mb-8">`;
+                    for(let i=5; i<7; i++) {
+                        if(lobbyUsers[i]) {
+                            squadHtml += `<div class="bg-mlbb-dark border border-gray-500/50 rounded-xl p-3 text-center relative"><img src="${lobbyUsers[i].avatarUrl}" class="w-10 h-10 rounded-full border-2 border-gray-500 mx-auto mb-2 bg-mlbb-card object-cover opacity-70"><p class="text-[10px] font-bold text-gray-300 truncate px-1">${escapeHTML(lobbyUsers[i].nickname)}</p><p class="text-[9px] text-gray-500 mt-0.5">Reserve</p></div>`;
+                        } else {
+                            squadHtml += `<div class="bg-mlbb-dark border border-dashed border-mlbb-border rounded-xl p-3 text-center flex flex-col items-center justify-center min-h-[100px] opacity-30"><i class="fa-solid fa-user-shield text-gray-500 text-lg mb-2"></i><p class="text-[9px] text-gray-500">რეზერვი</p></div>`;
+                        }
+                    }
+                    squadHtml += `</div>`;
+
+                    container.innerHTML = `
+                        <div class="flex justify-between items-center mb-6 border-b border-mlbb-border pb-4">
+                            <div><h3 class="font-orbitron font-bold text-xl text-white">Squad Lobby</h3><p class="text-[10px] text-gray-400">ტურნირის დაწყებამდე შეკრიბეთ გუნდი</p></div>
+                            <div class="text-right"><p class="text-[10px] text-gray-500 uppercase tracking-widest font-bold mb-1">Lobby ID</p><div class="flex items-center gap-2 bg-mlbb-dark border border-mlbb-border px-3 py-1.5 rounded-lg"><span class="font-bold text-purple-400 font-orbitron text-xs">${escapeHTML(user.teamData.lobbyId)}</span><button onclick="navigator.clipboard.writeText('${escapeHTML(user.teamData.lobbyId)}'); showToast('Lobby ID დაკოპირდა!')" class="text-gray-400 hover:text-white transition"><i class="fa-regular fa-copy"></i></button></div></div>
+                        </div>
+                        ${squadHtml}
+                        <div class="flex flex-col sm:flex-row items-center justify-between gap-4">
+                            <div class="flex items-center gap-2 text-[10px] text-amber-400 bg-amber-500/10 px-3 py-2 rounded-lg border border-amber-500/20 font-bold uppercase tracking-wider w-full sm:w-auto justify-center"><i class="fa-solid fa-spinner fa-spin text-sm"></i> ველოდებით მოთამაშეებს</div>
+                            <button onclick="cancelRegistration()" class="w-full sm:w-auto text-[10px] font-bold text-red-400 hover:text-white bg-red-500/10 hover:bg-red-500 border border-red-500/30 px-5 py-2.5 rounded-lg transition uppercase tracking-wider"><i class="fa-solid fa-right-from-bracket mr-1"></i> ლობიდან გასვლა</button>
+                        </div>
+                    `;
+                } else if (user.teamData.type === '1v1 Solo Duel') {
+                    // 1V1 REAL-TIME MATCHMAKING
+                    const isFull = !user.teamData.isWaiting;
+                    const p1 = lobbyUsers[0];
+                    const p2 = lobbyUsers[1];
+                    
+                    container.innerHTML = `
+                        <div class="text-center">
+                            <div class="inline-block bg-amber-500/20 text-amber-400 border border-amber-500/40 px-4 py-1.5 rounded-full text-xs font-bold uppercase tracking-widest mb-4"><i class="fa-solid fa-bolt mr-1"></i> 1v1 Matchmaking</div>
+                            <h3 class="font-orbitron font-bold text-2xl text-white mb-2">${isFull ? 'მატჩი მოიძებნა!' : 'სისტემა ეძებს მოწინააღმდეგეს'}</h3>
+                            <p class="text-[10px] text-gray-400 mb-10">${isFull ? 'დაუკავშირდით ერთმანეთს თამაშში' : 'დაელოდეთ ტურნირის დაწყებას...'}</p>
+                            <div class="flex items-center justify-center gap-6 sm:gap-10 mb-10">
+                                <div class="text-center"><div class="relative mb-3 inline-block"><div class="absolute inset-0 border-2 border-emerald-400 rounded-full ${isFull?'':'animate-ping'} opacity-30"></div><img src="${p1 ? p1.avatarUrl : ''}" class="w-20 h-20 rounded-full border-2 border-emerald-400 mx-auto relative z-10 shadow-[0_0_15px_rgba(16,185,129,0.3)] bg-mlbb-dark object-cover"></div><p class="text-sm font-bold text-white">${p1 ? escapeHTML(p1.nickname) : ''}</p></div>
+                                <div class="font-orbitron font-black text-3xl text-gray-600">VS</div>
+                                <div class="text-center ${isFull?'':'opacity-50'}"><div class="w-20 h-20 rounded-full border-2 ${isFull?'border-red-500':'border-dashed border-gray-500'} mx-auto mb-3 flex items-center justify-center bg-mlbb-dark overflow-hidden">${isFull && p2 ?`<img src="${p2.avatarUrl}" class="w-full h-full object-cover">`:'<i class="fa-solid fa-question text-2xl text-gray-500"></i>'}</div><p class="text-sm font-bold ${isFull?'text-red-400':'text-gray-400'}">${isFull && p2 ? escapeHTML(p2.nickname):'TBD'}</p></div>
+                            </div>
+                            <button onclick="cancelRegistration()" class="text-[10px] font-bold text-red-400 hover:text-white bg-red-500/10 hover:bg-red-500 border border-red-500/30 px-6 py-2.5 rounded-lg transition uppercase tracking-wider"><i class="fa-solid fa-xmark mr-1 text-sm"></i> გაუქმება</button>
+                        </div>
+                    `;
+                } else {
+                    // 5V5 RANDOM REAL-TIME MATCHMAKING
+                    const isFull = !user.teamData.isWaiting;
+                    let pFaces = lobbyUsers.map(u => `<div class="text-center"><img src="${u.avatarUrl}" class="w-12 h-12 rounded-full border border-blue-400 mx-auto mb-1 bg-mlbb-dark object-cover"><p class="text-[9px] text-white truncate px-1">${escapeHTML(u.nickname)}</p></div>`).join('');
+                    for(let i=lobbyUsers.length; i<5; i++) pFaces += `<div class="text-center opacity-30"><div class="w-12 h-12 rounded-full border border-dashed border-gray-500 mx-auto mb-1 flex items-center justify-center"><i class="fa-solid fa-user"></i></div></div>`;
+
+                    container.innerHTML = `
+                        <div class="text-center">
+                            <div class="inline-block bg-blue-500/20 text-blue-400 border border-blue-500/40 px-4 py-1.5 rounded-full text-xs font-bold uppercase tracking-widest mb-4"><i class="fa-solid fa-shuffle mr-1"></i> Solo Queue Room</div>
+                            <h3 class="font-orbitron font-bold text-xl text-white mb-2">${isFull ? 'თქვენი გუნდი შეიკრიბა!' : 'ვეძებთ თანაგუნდელებს'}</h3>
+                            <p class="text-[10px] text-gray-400 mb-8">${isFull ? 'დაამატეთ ერთმანეთი თამაშში' : `ნაპოვნია ${lobbyUsers.length}/5 მოთამაშე`}</p>
+                            
+                            <div class="grid grid-cols-5 gap-2 mb-8 max-w-sm mx-auto bg-mlbb-dark p-4 rounded-xl border border-mlbb-border">
+                                ${pFaces}
+                            </div>
+                            ${!isFull ? `
+                            <div class="relative w-20 h-20 mx-auto mb-6">
+                                <div class="absolute inset-0 border-2 border-blue-500 rounded-full animate-ping opacity-30"></div>
+                                <i class="fa-solid fa-satellite-dish text-blue-400 text-3xl absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2"></i>
+                            </div>` : ''}
+                            <button onclick="cancelRegistration()" class="text-[10px] font-bold text-red-400 hover:text-white bg-red-500/10 hover:bg-red-500 border border-red-500/30 px-6 py-2.5 rounded-lg transition uppercase tracking-wider"><i class="fa-solid fa-xmark mr-1 text-sm"></i> გაუქმება</button>
+                        </div>
+                    `;
+                }
+            } else {
+                const types = [
+                    { id: '1v1 Solo Duel', label: '1v1 Solo', sub: 'Micro', icon: 'fa-user-ninja', border: 'border-amber-400', bg: 'bg-amber-400/5', color: 'text-amber-400' },
+                    { id: '5v5 Squad', label: '5v5 Squad', sub: 'Team', icon: 'fa-shield-cat', border: 'border-purple-400', bg: 'bg-purple-400/5', color: 'text-purple-400' },
+                    { id: '5v5 Random', label: '5v5 Random', sub: 'Queue', icon: 'fa-dice', border: 'border-blue-400', bg: 'bg-blue-400/5', color: 'text-blue-400' }
+                ];
+                let typeHtml = `<div class="grid grid-cols-1 sm:grid-cols-3 gap-4 mb-8">`;
+                types.forEach(t => {
+                    const isActive = currentTournType === t.id;
+                    const bCls = isActive ? `${t.border} ${t.bg} shadow-[0_0_15px_rgba(255,204,0,0.15)]` : 'border-[#232a4d] hover:border-gray-500';
+                    typeHtml += `<div onclick="selectTournType('${t.id}')" class="bg-[#0a0c16] border ${bCls} rounded-xl p-4 cursor-pointer text-center transition flex flex-col items-center justify-center gap-1"><i class="fa-solid ${t.icon} text-2xl ${t.color} mb-1 drop-shadow-md"></i><span class="font-orbitron font-bold text-sm text-white">${t.label}</span><span class="text-[10px] text-gray-500">${t.sub}</span></div>`;
+                });
+                typeHtml += `</div>`;
+
+                let formFields = '';
+                if (currentTournType === '1v1 Solo Duel') {
+                    formFields = `
+                        <div class="mb-5"><label class="block text-[11px] font-bold uppercase tracking-wider mb-2 text-white">თქვენი სახელი (IGN)</label><input type="text" id="regTeamName" required value="${escapeHTML(user.nickname)}" class="w-full bg-[#0a0c16] border border-[#232a4d] rounded-xl px-4 py-3 text-sm focus:outline-none focus:border-amber-400 text-white transition" placeholder="მაგ: ShadowMage"></div>
+                        <div class="grid grid-cols-2 gap-4 mb-5">
+                            <div><label class="block text-[11px] font-bold uppercase tracking-wider mb-2 text-white">MLBB ID</label><input type="text" id="regMlbbId" inputmode="numeric" required class="w-full bg-[#0a0c16] border border-[#232a4d] rounded-xl px-4 py-3 text-sm focus:outline-none focus:border-amber-400 text-white transition" placeholder="მაგ: 12345678"></div>
+                            <div><label class="block text-[11px] font-bold uppercase tracking-wider mb-2 text-white">Server ID</label><input type="text" inputmode="numeric" required class="w-full bg-[#0a0c16] border border-[#232a4d] rounded-xl px-4 py-3 text-sm focus:outline-none focus:border-amber-400 text-white transition" placeholder="მაგ: 1234"></div>
+                        </div>
+                        <div class="mb-6"><label class="block text-[11px] font-bold uppercase tracking-wider mb-2 text-white">საყვარელი გმირი (MAIN HERO)</label><input type="text" required class="w-full bg-[#0a0c16] border border-[#232a4d] rounded-xl px-4 py-3 text-sm focus:outline-none focus:border-amber-400 text-white transition" placeholder="მაგ: Chou, Paquito..."></div>
+                    `;
+                } else if (currentTournType === '5v5 Squad') {
+                    formFields = `
+                        <div class="mb-5"><label class="block text-[11px] font-bold uppercase tracking-wider mb-2 text-white">გუნდის სახელი (TEAM NAME)</label><input type="text" id="regTeamName" required class="w-full bg-[#0a0c16] border border-[#232a4d] rounded-xl px-4 py-3 text-sm focus:outline-none focus:border-amber-400 text-white transition" placeholder="მაგ: Royal Knights"></div>
+                        <div class="mb-5"><label class="block text-[11px] font-bold uppercase tracking-wider mb-2 text-white">გუნდის ლოგო (TEAM LOGO)</label><div class="bg-[#0a0c16] border border-[#232a4d] rounded-xl p-4 flex items-center gap-4 hover:border-amber-400/50 transition"><div class="w-14 h-14 rounded-xl bg-purple-900/40 border border-purple-500/30 flex items-center justify-center flex-shrink-0 shadow-inner"><i class="fa-solid fa-shield text-blue-400 text-2xl"></i></div><div class="relative flex-1"><input type="file" accept="image/*" class="absolute inset-0 w-full h-full opacity-0 cursor-pointer z-10" onchange="document.getElementById('regLogoText').innerText = escapeHTML(this.files[0].name)"><button type="button" class="bg-[#121629] border border-[#232a4d] text-white text-[11px] font-bold px-4 py-2 rounded-lg flex items-center gap-2 mb-1.5 transition"><i class="fa-solid fa-upload"></i> ფოტოს ატვირთვა</button><p id="regLogoText" class="text-[10px] text-gray-500">ატვირთეთ თქვენი სქუადის ემბლემა</p></div></div></div>
+                        <div class="mb-8"><label class="block text-[11px] font-bold uppercase tracking-wider mb-2 text-white">DISCORD ID</label><input type="text" required class="w-full bg-[#0a0c16] border border-[#232a4d] rounded-xl px-4 py-3 text-sm focus:outline-none focus:border-amber-400 text-white transition" placeholder="user#1234"></div>
+                    `;
+                } else {
+                    formFields = `
+                        <div class="mb-5"><label class="block text-[11px] font-bold uppercase tracking-wider mb-2 text-white">თქვენი სახელი (IGN)</label><input type="text" id="regTeamName" required value="${escapeHTML(user.nickname)}" class="w-full bg-[#0a0c16] border border-[#232a4d] rounded-xl px-4 py-3 text-sm focus:outline-none focus:border-amber-400 text-white transition" placeholder="მაგ: ShadowMage"></div>
+                        <div class="mb-8"><div class="bg-blue-900/20 border border-blue-500/30 rounded-xl p-4 flex items-start gap-3"><i class="fa-solid fa-circle-info text-blue-400 mt-0.5 text-lg"></i><div><p class="text-xs font-bold text-blue-300 mb-1">ადაპტაციის წესი (Adaptation)</p><p class="text-[10px] text-blue-200/70 leading-relaxed text-left">ამ რეჟიმში რანკს და წინასწარ არჩეულ როლებს არ აქვს მნიშვნელობა. სისტემა რანდომად გადაგანაწილებთ გუნდებში, ხოლო როლებზე თავად უნდა შეთანხმდეთ გუნდელებთან.</p></div></div></div>
+                    `;
+                }
+
+                container.innerHTML = `
+                    <div class="text-center mb-8"><i class="fa-solid fa-file-signature text-[#ffcc00] text-5xl mb-4 drop-shadow-[0_0_15px_rgba(255,204,0,0.4)]"></i><h2 class="font-orbitron font-extrabold text-2xl sm:text-3xl text-white tracking-wide">ტურნირის რეგისტრაცია</h2><p class="text-xs text-gray-400 mt-2">აირჩიეთ ტურნირის ტიპი და შეავსეთ დეტალები</p></div>
+                    <div class="mb-8"><label class="block text-[11px] font-bold uppercase tracking-wider mb-3 text-white">ტურნირის ტიპი</label>${typeHtml}</div>
+                    <form onsubmit="submitTournamentReg(event)">
+                        ${formFields}
+                        <button type="submit" class="w-full bg-gradient-to-r from-[#ffcc00] to-[#d49400] text-black py-4 rounded-xl font-bold uppercase tracking-wider text-sm shadow-[0_0_20px_rgba(255,204,0,0.3)] hover:scale-[1.02] transition-transform flex items-center justify-center gap-2"><i class="fa-solid fa-paper-plane mr-1"></i> რეგისტრაციის გაგზავნა</button>
+                    </form>
+                    ${currentTournType === '5v5 Squad' ? `
+                    <div class="mt-10 pt-8 border-t border-mlbb-border/50">
+                        <div class="text-center mb-4"><h3 class="font-orbitron font-bold text-sm text-white">თანაგუნდელმა მოგიწვია?</h3><p class="text-[10px] text-gray-400 mt-1">შეიყვანეთ Lobby ID სქუადში შესასვლელად</p></div>
+                        <form onsubmit="joinLobby(event)" class="flex gap-2 max-w-sm mx-auto"><input type="text" id="joinLobbyId" required placeholder="მაგ: RA-5921" class="flex-1 bg-mlbb-dark border border-mlbb-border rounded-xl px-4 py-2.5 text-xs text-white focus:outline-none focus:border-purple-500 text-center uppercase font-orbitron tracking-widest transition"><button type="submit" class="bg-purple-600 hover:bg-purple-500 text-white px-5 py-2.5 rounded-xl font-bold text-xs transition shadow-lg shadow-purple-900/50"><i class="fa-solid fa-right-to-bracket mr-1.5"></i> შესვლა</button></form>
+                    </div>` : ''}
+                `;
+            }
+        }
+
+        // --- STREAMING_CHUNK:Implementing Admin Panel Rendering and User Interfaces ---
         window.applySystemStateToUI = function() {
             ['1v1 Solo Duel', '5v5 Squad', '5v5 Random'].forEach(type => {
                 const statusEl = document.getElementById(`status-${type}`);
@@ -1290,13 +1533,13 @@
             const mProfBtn = document.getElementById('mobileProfileBtn');
             const dropdownAdminBtn = document.getElementById('dropdownAdminBtn'); const mobileAdminBtn = document.getElementById('mobileAdminBtn');
 
-            if (window.activeUserId && window.db[window.activeUserId]) {
+            if (window.activeUserId && window.db && window.db[window.activeUserId]) {
                 const u = window.db[window.activeUserId];
                 if (lBtn) lBtn.classList.add('hidden'); if (pBtn) pBtn.classList.remove('hidden');
                 if (mlBtn) mlBtn.classList.add('hidden'); if (mloutBtn) mloutBtn.classList.remove('hidden');
                 if (mProfBtn) mProfBtn.classList.remove('hidden');
 
-                if (window.activeUserId.toLowerCase() === ADMIN_EMAIL.toLowerCase()) {
+                if (window.activeUserId.toLowerCase() === window.ADMIN_EMAIL.toLowerCase()) {
                     if (dropdownAdminBtn) dropdownAdminBtn.classList.remove('hidden');
                     if (mobileAdminBtn) mobileAdminBtn.classList.remove('hidden');
                 } else {
@@ -1330,7 +1573,7 @@
         }
 
         window.switchTab = function(tabId) {
-            if (tabId === 'admin' && (!window.activeUserId || window.activeUserId.toLowerCase() !== ADMIN_EMAIL.toLowerCase())) {
+            if (tabId === 'admin' && (!window.activeUserId || window.activeUserId.toLowerCase() !== window.ADMIN_EMAIL.toLowerCase())) {
                 return showToast("წვდომა შეზღუდულია!", "error");
             }
             document.querySelectorAll('.spa-page').forEach(p => p.classList.add('hidden'));
@@ -1349,225 +1592,7 @@
             if (tabId === 'admin' && window.renderAdminPage) window.renderAdminPage();
         }
 
-        // --- REGISTRATION & AUTO MATCHMAKING (FIXED REAL-TIME) ---
-        window.selectTournType = function(type) { currentTournType = type; window.renderRegisterPage(); }
-        window.startRegistration = function(type) {
-            if (!window.activeUserId) { toggleElement('loginModal'); return; }
-            if (!window.systemState.tournaments[type].isOpen) return showToast("რეგისტრაცია დახურულია!", "error");
-            currentTournType = type; switchTab('register'); window.renderRegisterPage();
-        }
-
-        window.submitTournamentReg = async function(e) {
-            e.preventDefault();
-            
-            // Validation for MLBB ID (Numbers only)
-            const mlbbIdInput = document.getElementById('regMlbbId');
-            if (mlbbIdInput && !/^\d+$/.test(mlbbIdInput.value)) {
-                return showToast("MLBB ID უნდა შეიცავდეს მხოლოდ ციფრებს!", "error");
-            }
-
-            const tNameInput = document.getElementById('regTeamName');
-            let tName = tNameInput ? escapeHTML(tNameInput.value.trim()) : window.db[window.activeUserId].nickname;
-            let lobbyId = 'RA-' + Math.random().toString(36).substring(2, 6).toUpperCase();
-            let isWaiting = true;
-
-            // REAL Auto Matchmaking Logic
-            if (currentTournType === '1v1 Solo Duel' || currentTournType === '5v5 Random') {
-                const maxPlayers = currentTournType === '1v1 Solo Duel' ? 2 : 5;
-                const usersArray = Object.values(window.db || {});
-                const waitingLobbyCreator = usersArray.find(u => u.teamData && u.teamData.type === currentTournType && u.teamData.isWaiting === true);
-                
-                if (waitingLobbyCreator) {
-                    const playersInLobby = usersArray.filter(u => u.teamData && u.teamData.lobbyId === waitingLobbyCreator.teamData.lobbyId).length;
-                    if (playersInLobby < maxPlayers) {
-                        lobbyId = waitingLobbyCreator.teamData.lobbyId; // Join existing group
-                        if (playersInLobby + 1 === maxPlayers) {
-                            isWaiting = false; // The joining person completes the group
-                            
-                            // Immediately update the creator to isWaiting = false so BOTH screens update!
-                            const creatorEmail = waitingLobbyCreator.email;
-                            if (window.db[creatorEmail]) {
-                                window.db[creatorEmail].teamData.isWaiting = false;
-                                if(window.saveUserToDB) window.saveUserToDB(creatorEmail, window.db[creatorEmail]);
-                            }
-                        }
-                    }
-                }
-            } else {
-                isWaiting = false; // Squads wait manually for invites (they use Join Lobby ID)
-            }
-
-            window.db[window.activeUserId].teamData = { teamName: tName, type: currentTournType, lobbyId: lobbyId, isWaiting: isWaiting, joinedAt: Date.now() };
-            if(window.saveUserToDB) await window.saveUserToDB(window.activeUserId, window.db[window.activeUserId]);
-            showToast("რეგისტრაცია წარმატებულია!", 'success');
-            window.renderRegisterPage();
-        }
-
-        window.joinLobby = async function(e) {
-            e.preventDefault();
-            const idInput = document.getElementById('joinLobbyId');
-            const id = idInput ? escapeHTML(idInput.value.trim().toUpperCase()) : '';
-            
-            // Check if lobby is full (5 max for Squad, plus 2 reserves)
-            const usersArray = Object.values(window.db || {});
-            const playersInLobby = usersArray.filter(u => u.teamData && u.teamData.lobbyId === id).length;
-            if (playersInLobby >= 7) {
-                return showToast("ლობი სავსეა! (5 ძირითადი + 2 რეზერვი)", "error");
-            }
-
-            window.db[window.activeUserId].teamData = { teamName: "Joined Squad", type: "5v5 Squad", lobbyId: id, isWaiting: false, joinedAt: Date.now() };
-            if(window.saveUserToDB) await window.saveUserToDB(window.activeUserId, window.db[window.activeUserId]);
-            showToast("წარმატებით შეუერთდით ლობის!", 'success');
-            window.renderRegisterPage();
-        }
-
-        window.cancelRegistration = async function() {
-            window.db[window.activeUserId].teamData = null;
-            if(window.saveUserToDB) await window.saveUserToDB(window.activeUserId, window.db[window.activeUserId]);
-            showToast("რეგისტრაცია გაუქმდა", 'error');
-            window.renderRegisterPage();
-        }
-
-        window.renderRegisterPage = function() {
-            const container = document.getElementById('registerContainer');
-            if (!container) return;
-            if (!window.activeUserId) {
-                container.innerHTML = `<div class="text-center py-12"><div class="w-20 h-20 bg-purple-500/10 rounded-full flex items-center justify-center mx-auto mb-6 border border-purple-500/30"><i class="fa-solid fa-lock text-4xl text-purple-500 drop-shadow-[0_0_15px_rgba(157,78,223,0.5)]"></i></div><h3 class="font-bold text-2xl mb-3 font-orbitron text-white">ავტორიზაცია აუცილებელია</h3><p class="text-sm text-gray-400 mb-8 max-w-md mx-auto">ტურნირებში მონაწილეობის მისაღებად და რეგისტრაციის გასავლელად, გთხოვთ გაიაროთ ავტორიზაცია.</p><button onclick="toggleElement('loginModal')" class="gold-btn px-8 py-3.5 rounded-xl font-bold uppercase tracking-wider text-sm shadow-lg hover:scale-105 transition-transform"><i class="fa-solid fa-user mr-2 text-lg"></i> შესვლა / რეგისტრაცია</button></div>`;
-                return;
-            }
-
-            const user = window.db[window.activeUserId];
-
-            if (user.teamData) {
-                const lobbyUsers = Object.values(window.db).filter(u => u.teamData && u.teamData.lobbyId === user.teamData.lobbyId);
-                lobbyUsers.sort((a,b) => (a.teamData.joinedAt || 0) - (b.teamData.joinedAt || 0));
-
-                if (user.teamData.type === '5v5 Squad') {
-                    // SQUAD LOGIC: 5 Main + 2 Reserves
-                    let squadHtml = `<div class="grid grid-cols-2 sm:grid-cols-5 gap-3 mb-4">`;
-                    for(let i=0; i<5; i++) {
-                        if(lobbyUsers[i]) {
-                            squadHtml += `<div class="bg-mlbb-dark border border-amber-500/50 rounded-xl p-3 text-center relative shadow-[0_0_10px_rgba(255,204,0,0.15)]"><i class="fa-solid fa-crown absolute top-2 right-2 text-amber-400 text-[10px] ${i===0?'':'hidden'}"></i><img src="${lobbyUsers[i].avatarUrl}" class="w-10 h-10 rounded-full border-2 border-amber-400 mx-auto mb-2 bg-mlbb-card object-cover"><p class="text-[10px] font-bold text-white truncate px-1">${escapeHTML(lobbyUsers[i].nickname)}</p><p class="text-[9px] text-gray-500 mt-0.5">${i===0?'Captain':'Member'}</p></div>`;
-                        } else {
-                            squadHtml += `<div class="bg-mlbb-dark border border-dashed border-mlbb-border rounded-xl p-3 text-center flex flex-col items-center justify-center min-h-[100px] opacity-50"><i class="fa-solid fa-user-plus text-gray-500 text-lg mb-2"></i><p class="text-[9px] text-gray-400">მოლოდინი...</p></div>`;
-                        }
-                    }
-                    squadHtml += `</div><div class="mb-2"><p class="text-[10px] text-gray-400 uppercase tracking-widest font-bold">რეზერვი (სურვილისამებრ)</p></div><div class="grid grid-cols-2 sm:grid-cols-5 gap-3 mb-8">`;
-                    for(let i=5; i<7; i++) {
-                        if(lobbyUsers[i]) {
-                            squadHtml += `<div class="bg-mlbb-dark border border-gray-500/50 rounded-xl p-3 text-center relative"><img src="${lobbyUsers[i].avatarUrl}" class="w-10 h-10 rounded-full border-2 border-gray-500 mx-auto mb-2 bg-mlbb-card object-cover opacity-70"><p class="text-[10px] font-bold text-gray-300 truncate px-1">${escapeHTML(lobbyUsers[i].nickname)}</p><p class="text-[9px] text-gray-500 mt-0.5">Reserve</p></div>`;
-                        } else {
-                            squadHtml += `<div class="bg-mlbb-dark border border-dashed border-mlbb-border rounded-xl p-3 text-center flex flex-col items-center justify-center min-h-[100px] opacity-30"><i class="fa-solid fa-user-shield text-gray-500 text-lg mb-2"></i><p class="text-[9px] text-gray-500">რეზერვი</p></div>`;
-                        }
-                    }
-                    squadHtml += `</div>`;
-
-                    container.innerHTML = `
-                        <div class="flex justify-between items-center mb-6 border-b border-mlbb-border pb-4">
-                            <div><h3 class="font-orbitron font-bold text-xl text-white">Squad Lobby</h3><p class="text-[10px] text-gray-400">ტურნირის დაწყებამდე შეკრიბეთ გუნდი</p></div>
-                            <div class="text-right"><p class="text-[10px] text-gray-500 uppercase tracking-widest font-bold mb-1">Lobby ID</p><div class="flex items-center gap-2 bg-mlbb-dark border border-mlbb-border px-3 py-1.5 rounded-lg"><span class="font-bold text-purple-400 font-orbitron text-xs">${escapeHTML(user.teamData.lobbyId)}</span><button onclick="navigator.clipboard.writeText('${escapeHTML(user.teamData.lobbyId)}'); showToast('Lobby ID დაკოპირდა!')" class="text-gray-400 hover:text-white transition"><i class="fa-regular fa-copy"></i></button></div></div>
-                        </div>
-                        ${squadHtml}
-                        <div class="flex flex-col sm:flex-row items-center justify-between gap-4">
-                            <div class="flex items-center gap-2 text-[10px] text-amber-400 bg-amber-500/10 px-3 py-2 rounded-lg border border-amber-500/20 font-bold uppercase tracking-wider w-full sm:w-auto justify-center"><i class="fa-solid fa-spinner fa-spin text-sm"></i> ველოდებით მოთამაშეებს</div>
-                            <button onclick="cancelRegistration()" class="w-full sm:w-auto text-[10px] font-bold text-red-400 hover:text-white bg-red-500/10 hover:bg-red-500 border border-red-500/30 px-5 py-2.5 rounded-lg transition uppercase tracking-wider"><i class="fa-solid fa-right-from-bracket mr-1"></i> ლობიდან გასვლა</button>
-                        </div>
-                    `;
-                } else if (user.teamData.type === '1v1 Solo Duel') {
-                    // 1V1 REAL-TIME MATCHMAKING
-                    const isFull = !user.teamData.isWaiting; // Real sync boolean
-                    container.innerHTML = `
-                        <div class="text-center">
-                            <div class="inline-block bg-amber-500/20 text-amber-400 border border-amber-500/40 px-4 py-1.5 rounded-full text-xs font-bold uppercase tracking-widest mb-4"><i class="fa-solid fa-bolt mr-1"></i> 1v1 Matchmaking</div>
-                            <h3 class="font-orbitron font-bold text-2xl text-white mb-2">${isFull ? 'მატჩი მოიძებნა!' : 'სისტემა ეძებს მოწინააღმდეგეს'}</h3>
-                            <p class="text-[10px] text-gray-400 mb-10">${isFull ? 'დაუკავშირდით ერთმანეთს თამაშში' : 'დაელოდეთ ტურნირის დაწყებას...'}</p>
-                            <div class="flex items-center justify-center gap-6 sm:gap-10 mb-10">
-                                <div class="text-center"><div class="relative mb-3 inline-block"><div class="absolute inset-0 border-2 border-emerald-400 rounded-full ${isFull?'':'animate-ping'} opacity-30"></div><img src="${lobbyUsers[0].avatarUrl}" class="w-20 h-20 rounded-full border-2 border-emerald-400 mx-auto relative z-10 shadow-[0_0_15px_rgba(16,185,129,0.3)] bg-mlbb-dark object-cover"></div><p class="text-sm font-bold text-white">${escapeHTML(lobbyUsers[0].nickname)}</p></div>
-                                <div class="font-orbitron font-black text-3xl text-gray-600">VS</div>
-                                <div class="text-center ${isFull?'':'opacity-50'}"><div class="w-20 h-20 rounded-full border-2 ${isFull?'border-red-500':'border-dashed border-gray-500'} mx-auto mb-3 flex items-center justify-center bg-mlbb-dark overflow-hidden">${isFull?`<img src="${lobbyUsers[1].avatarUrl}" class="w-full h-full object-cover">`:'<i class="fa-solid fa-question text-2xl text-gray-500"></i>'}</div><p class="text-sm font-bold ${isFull?'text-red-400':'text-gray-400'}">${isFull?escapeHTML(lobbyUsers[1].nickname):'TBD'}</p></div>
-                            </div>
-                            <button onclick="cancelRegistration()" class="text-[10px] font-bold text-red-400 hover:text-white bg-red-500/10 hover:bg-red-500 border border-red-500/30 px-6 py-2.5 rounded-lg transition uppercase tracking-wider"><i class="fa-solid fa-xmark mr-1 text-sm"></i> გაუქმება</button>
-                        </div>
-                    `;
-                } else {
-                    // 5V5 RANDOM REAL-TIME MATCHMAKING
-                    const isFull = !user.teamData.isWaiting; // Real sync boolean
-                    let pFaces = lobbyUsers.map(u => `<div class="text-center"><img src="${u.avatarUrl}" class="w-12 h-12 rounded-full border border-blue-400 mx-auto mb-1 bg-mlbb-dark object-cover"><p class="text-[9px] text-white truncate px-1">${escapeHTML(u.nickname)}</p></div>`).join('');
-                    for(let i=lobbyUsers.length; i<5; i++) pFaces += `<div class="text-center opacity-30"><div class="w-12 h-12 rounded-full border border-dashed border-gray-500 mx-auto mb-1 flex items-center justify-center"><i class="fa-solid fa-user"></i></div></div>`;
-
-                    container.innerHTML = `
-                        <div class="text-center">
-                            <div class="inline-block bg-blue-500/20 text-blue-400 border border-blue-500/40 px-4 py-1.5 rounded-full text-xs font-bold uppercase tracking-widest mb-4"><i class="fa-solid fa-shuffle mr-1"></i> Solo Queue Room</div>
-                            <h3 class="font-orbitron font-bold text-xl text-white mb-2">${isFull ? 'თქვენი გუნდი შეიკრიბა!' : 'ვეძებთ თანაგუნდელებს'}</h3>
-                            <p class="text-[10px] text-gray-400 mb-8">${isFull ? 'დაამატეთ ერთმანეთი თამაშში' : `ნაპოვნია ${lobbyUsers.length}/5 მოთამაშე`}</p>
-                            
-                            <div class="grid grid-cols-5 gap-2 mb-8 max-w-sm mx-auto bg-mlbb-dark p-4 rounded-xl border border-mlbb-border">
-                                ${pFaces}
-                            </div>
-                            ${!isFull ? `
-                            <div class="relative w-20 h-20 mx-auto mb-6">
-                                <div class="absolute inset-0 border-2 border-blue-500 rounded-full animate-ping opacity-30"></div>
-                                <i class="fa-solid fa-satellite-dish text-blue-400 text-3xl absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2"></i>
-                            </div>` : ''}
-                            <button onclick="cancelRegistration()" class="text-[10px] font-bold text-red-400 hover:text-white bg-red-500/10 hover:bg-red-500 border border-red-500/30 px-6 py-2.5 rounded-lg transition uppercase tracking-wider"><i class="fa-solid fa-xmark mr-1 text-sm"></i> გაუქმება</button>
-                        </div>
-                    `;
-                }
-            } else {
-                const types = [
-                    { id: '1v1 Solo Duel', label: '1v1 Solo', sub: 'Micro', icon: 'fa-user-ninja', border: 'border-amber-400', bg: 'bg-amber-400/5', color: 'text-amber-400' },
-                    { id: '5v5 Squad', label: '5v5 Squad', sub: 'Team', icon: 'fa-shield-cat', border: 'border-purple-400', bg: 'bg-purple-400/5', color: 'text-purple-400' },
-                    { id: '5v5 Random', label: '5v5 Random', sub: 'Queue', icon: 'fa-dice', border: 'border-blue-400', bg: 'bg-blue-400/5', color: 'text-blue-400' }
-                ];
-                let typeHtml = `<div class="grid grid-cols-1 sm:grid-cols-3 gap-4 mb-8">`;
-                types.forEach(t => {
-                    const isActive = currentTournType === t.id;
-                    const bCls = isActive ? `${t.border} ${t.bg} shadow-[0_0_15px_rgba(255,204,0,0.15)]` : 'border-[#232a4d] hover:border-gray-500';
-                    typeHtml += `<div onclick="selectTournType('${t.id}')" class="bg-[#0a0c16] border ${bCls} rounded-xl p-4 cursor-pointer text-center transition flex flex-col items-center justify-center gap-1"><i class="fa-solid ${t.icon} text-2xl ${t.color} mb-1 drop-shadow-md"></i><span class="font-orbitron font-bold text-sm text-white">${t.label}</span><span class="text-[10px] text-gray-500">${t.sub}</span></div>`;
-                });
-                typeHtml += `</div>`;
-
-                let formFields = '';
-                if (currentTournType === '1v1 Solo Duel') {
-                    // Added regMlbbId for Validation
-                    formFields = `
-                        <div class="mb-5"><label class="block text-[11px] font-bold uppercase tracking-wider mb-2 text-white">თქვენი სახელი (IGN)</label><input type="text" id="regTeamName" required value="${escapeHTML(user.nickname)}" class="w-full bg-[#0a0c16] border border-[#232a4d] rounded-xl px-4 py-3 text-sm focus:outline-none focus:border-amber-400 text-white transition" placeholder="მაგ: ShadowMage"></div>
-                        <div class="grid grid-cols-2 gap-4 mb-5">
-                            <div><label class="block text-[11px] font-bold uppercase tracking-wider mb-2 text-white">MLBB ID</label><input type="text" id="regMlbbId" inputmode="numeric" required class="w-full bg-[#0a0c16] border border-[#232a4d] rounded-xl px-4 py-3 text-sm focus:outline-none focus:border-amber-400 text-white transition" placeholder="მაგ: 12345678"></div>
-                            <div><label class="block text-[11px] font-bold uppercase tracking-wider mb-2 text-white">Server ID</label><input type="text" inputmode="numeric" required class="w-full bg-[#0a0c16] border border-[#232a4d] rounded-xl px-4 py-3 text-sm focus:outline-none focus:border-amber-400 text-white transition" placeholder="მაგ: 1234"></div>
-                        </div>
-                        <div class="mb-6"><label class="block text-[11px] font-bold uppercase tracking-wider mb-2 text-white">საყვარელი გმირი (MAIN HERO)</label><input type="text" required class="w-full bg-[#0a0c16] border border-[#232a4d] rounded-xl px-4 py-3 text-sm focus:outline-none focus:border-amber-400 text-white transition" placeholder="მაგ: Chou, Paquito..."></div>
-                    `;
-                } else if (currentTournType === '5v5 Squad') {
-                    formFields = `
-                        <div class="mb-5"><label class="block text-[11px] font-bold uppercase tracking-wider mb-2 text-white">გუნდის სახელი (TEAM NAME)</label><input type="text" id="regTeamName" required class="w-full bg-[#0a0c16] border border-[#232a4d] rounded-xl px-4 py-3 text-sm focus:outline-none focus:border-amber-400 text-white transition" placeholder="მაგ: Royal Knights"></div>
-                        <div class="mb-5"><label class="block text-[11px] font-bold uppercase tracking-wider mb-2 text-white">გუნდის ლოგო (TEAM LOGO)</label><div class="bg-[#0a0c16] border border-[#232a4d] rounded-xl p-4 flex items-center gap-4 hover:border-amber-400/50 transition"><div class="w-14 h-14 rounded-xl bg-purple-900/40 border border-purple-500/30 flex items-center justify-center flex-shrink-0 shadow-inner"><i class="fa-solid fa-shield text-blue-400 text-2xl"></i></div><div class="relative flex-1"><input type="file" accept="image/*" class="absolute inset-0 w-full h-full opacity-0 cursor-pointer z-10" onchange="document.getElementById('regLogoText').innerText = escapeHTML(this.files[0].name)"><button type="button" class="bg-[#121629] border border-[#232a4d] text-white text-[11px] font-bold px-4 py-2 rounded-lg flex items-center gap-2 mb-1.5 transition"><i class="fa-solid fa-upload"></i> ფოტოს ატვირთვა</button><p id="regLogoText" class="text-[10px] text-gray-500">ატვირთეთ თქვენი სქუადის ემბლემა</p></div></div></div>
-                        <div class="mb-8"><label class="block text-[11px] font-bold uppercase tracking-wider mb-2 text-white">DISCORD ID</label><input type="text" required class="w-full bg-[#0a0c16] border border-[#232a4d] rounded-xl px-4 py-3 text-sm focus:outline-none focus:border-amber-400 text-white transition" placeholder="user#1234"></div>
-                    `;
-                } else {
-                    formFields = `
-                        <div class="mb-5"><label class="block text-[11px] font-bold uppercase tracking-wider mb-2 text-white">თქვენი სახელი (IGN)</label><input type="text" id="regTeamName" required value="${escapeHTML(user.nickname)}" class="w-full bg-[#0a0c16] border border-[#232a4d] rounded-xl px-4 py-3 text-sm focus:outline-none focus:border-amber-400 text-white transition" placeholder="მაგ: ShadowMage"></div>
-                        <div class="mb-8"><div class="bg-blue-900/20 border border-blue-500/30 rounded-xl p-4 flex items-start gap-3"><i class="fa-solid fa-circle-info text-blue-400 mt-0.5 text-lg"></i><div><p class="text-xs font-bold text-blue-300 mb-1">ადაპტაციის წესი (Adaptation)</p><p class="text-[10px] text-blue-200/70 leading-relaxed text-left">ამ რეჟიმში რანკს და წინასწარ არჩეულ როლებს არ აქვს მნიშვნელობა. სისტემა რანდომად გადაგანაწილებთ გუნდებში, ხოლო როლებზე თავად უნდა შეთანხმდეთ გუნდელებთან.</p></div></div></div>
-                    `;
-                }
-
-                container.innerHTML = `
-                    <div class="text-center mb-8"><i class="fa-solid fa-file-signature text-[#ffcc00] text-5xl mb-4 drop-shadow-[0_0_15px_rgba(255,204,0,0.4)]"></i><h2 class="font-orbitron font-extrabold text-2xl sm:text-3xl text-white tracking-wide">ტურნირის რეგისტრაცია</h2><p class="text-xs text-gray-400 mt-2">აირჩიეთ ტურნირის ტიპი და შეავსეთ დეტალები</p></div>
-                    <div class="mb-8"><label class="block text-[11px] font-bold uppercase tracking-wider mb-3 text-white">ტურნირის ტიპი</label>${typeHtml}</div>
-                    <form onsubmit="submitTournamentReg(event)">
-                        ${formFields}
-                        <button type="submit" class="w-full bg-gradient-to-r from-[#ffcc00] to-[#d49400] text-black py-4 rounded-xl font-bold uppercase tracking-wider text-sm shadow-[0_0_20px_rgba(255,204,0,0.3)] hover:scale-[1.02] transition-transform flex items-center justify-center gap-2"><i class="fa-solid fa-paper-plane mr-1"></i> რეგისტრაციის გაგზავნა</button>
-                    </form>
-                    ${currentTournType === '5v5 Squad' ? `
-                    <div class="mt-10 pt-8 border-t border-mlbb-border/50">
-                        <div class="text-center mb-4"><h3 class="font-orbitron font-bold text-sm text-white">თანაგუნდელმა მოგიწვია?</h3><p class="text-[10px] text-gray-400 mt-1">შეიყვანეთ Lobby ID სქუადში შესასვლელად</p></div>
-                        <form onsubmit="joinLobby(event)" class="flex gap-2 max-w-sm mx-auto"><input type="text" id="joinLobbyId" required placeholder="მაგ: RA-5921" class="flex-1 bg-mlbb-dark border border-mlbb-border rounded-xl px-4 py-2.5 text-xs text-white focus:outline-none focus:border-purple-500 text-center uppercase font-orbitron tracking-widest transition"><button type="submit" class="bg-purple-600 hover:bg-purple-500 text-white px-5 py-2.5 rounded-xl font-bold text-xs transition shadow-lg shadow-purple-900/50"><i class="fa-solid fa-right-to-bracket mr-1.5"></i> შესვლა</button></form>
-                    </div>` : ''}
-                `;
-            }
-        }
-
-        // --- MISC / EFFECTS ---
+        // --- STREAMING_CHUNK:Finalizing Visual Effects and Canvas ---
         window.showBracket = function(type) {
             document.querySelectorAll('.bracket-section').forEach(el => el.classList.add('hidden'));
             const target = document.getElementById(`bracket-${type}`);
