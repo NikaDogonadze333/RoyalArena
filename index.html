@@ -1,46 +1,35 @@
 <!DOCTYPE html>
 <html lang="ka" class="dark">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>Royal Arena Georgia | Esports Portal</title>
+    <!-- ბრაუზერის ტაბის ლოგო -->
+    <link rel="icon" type="image/png" href="Royal.png">
 
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <link
-        href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;600;800;900&family=Plus+Jakarta+Sans:wght@300;400;500;600;700&display=swap"
-        rel="stylesheet">
-    <link rel="stylesheet" href="css/style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;600;800;900&family=Plus+Jakarta+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <!-- პირდაპირი კავშირი style.css-თან -->
+    <link rel="stylesheet" href="style.css">
 
     <style>
-        .fade-in {
-            animation: fadeIn 0.45s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+        .fade-in { animation: fadeIn 0.45s cubic-bezier(0.16, 1, 0.3, 1) forwards; }
+        @keyframes fadeIn { 
+            from { opacity: 0; transform: translateY(20px) scale(0.98); } 
+            to { opacity: 1; transform: translateY(0) scale(1); } 
         }
 
-        @keyframes fadeIn {
-            from {
-                opacity: 0;
-                transform: translateY(20px) scale(0.98);
-            }
-
-            to {
-                opacity: 1;
-                transform: translateY(0) scale(1);
-            }
-        }
-
-        .glass-panel {
-            background: rgba(10, 12, 24, 0.68);
-            backdrop-filter: blur(16px);
+        .glass-panel { 
+            background: rgba(10, 12, 24, 0.68); 
+            backdrop-filter: blur(16px); 
             -webkit-backdrop-filter: blur(16px);
-            border: 1px solid rgba(85, 59, 148, 0.35);
+            border: 1px solid rgba(85, 59, 148, 0.35); 
             box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.45);
             position: relative;
             overflow: hidden;
             transition: all 0.35s ease;
         }
-
         .glass-panel::before {
             content: '';
             position: absolute;
@@ -53,29 +42,13 @@
             transition: left 0.7s ease;
             pointer-events: none;
         }
+        .glass-panel:hover::before { left: 150%; }
 
-        .glass-panel:hover::before {
-            left: 150%;
-        }
-
-        .animate-float {
-            animation: floatSlow 4s ease-in-out infinite;
-        }
-
-        .animate-float-delayed {
-            animation: floatSlow 5s ease-in-out 1.5s infinite;
-        }
-
+        .animate-float { animation: floatSlow 4s ease-in-out infinite; }
+        .animate-float-delayed { animation: floatSlow 5s ease-in-out 1.5s infinite; }
         @keyframes floatSlow {
-
-            0%,
-            100% {
-                transform: translateY(0px);
-            }
-
-            50% {
-                transform: translateY(-10px);
-            }
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-10px); }
         }
 
         .aura-orb {
@@ -85,55 +58,28 @@
             opacity: 0.35;
             animation: orbMove 18s infinite alternate ease-in-out;
         }
-
-        .aura-orb-2 {
-            animation: orbMove2 22s infinite alternate ease-in-out;
-        }
-
+        .aura-orb-2 { animation: orbMove2 22s infinite alternate ease-in-out; }
         @keyframes orbMove {
-            0% {
-                transform: translate(0, 0) scale(1);
-            }
-
-            50% {
-                transform: translate(120px, 80px) scale(1.2);
-            }
-
-            100% {
-                transform: translate(-80px, 140px) scale(0.9);
-            }
+            0% { transform: translate(0, 0) scale(1); }
+            50% { transform: translate(120px, 80px) scale(1.2); }
+            100% { transform: translate(-80px, 140px) scale(0.9); }
         }
-
         @keyframes orbMove2 {
-            0% {
-                transform: translate(0, 0) scale(1);
-            }
-
-            50% {
-                transform: translate(-140px, -90px) scale(1.25);
-            }
-
-            100% {
-                transform: translate(90px, -60px) scale(0.95);
-            }
+            0% { transform: translate(0, 0) scale(1); }
+            50% { transform: translate(-140px, -90px) scale(1.25); }
+            100% { transform: translate(90px, -60px) scale(0.95); }
         }
 
         .cyber-grid {
             background-size: 50px 50px;
-            background-image:
+            background-image: 
                 linear-gradient(to right, rgba(139, 92, 246, 0.07) 1px, transparent 1px),
                 linear-gradient(to bottom, rgba(139, 92, 246, 0.07) 1px, transparent 1px);
             animation: gridScroll 20s linear infinite;
         }
-
         @keyframes gridScroll {
-            0% {
-                background-position: 0 0;
-            }
-
-            100% {
-                background-position: 50px 50px;
-            }
+            0% { background-position: 0 0; }
+            100% { background-position: 50px 50px; }
         }
 
         .glow-line {
@@ -144,30 +90,33 @@
             border-radius: 999px;
             animation: pulseGlow 2.5s infinite ease-in-out;
         }
-
         @keyframes pulseGlow {
-
-            0%,
-            100% {
-                opacity: 0.5;
-                width: 60px;
-            }
-
-            50% {
-                opacity: 1;
-                width: 120px;
-                box-shadow: 0 0 15px #fbbf24;
-            }
+            0%, 100% { opacity: 0.5; width: 60px; }
+            50% { opacity: 1; width: 120px; box-shadow: 0 0 15px #fbbf24; }
         }
 
-        /* სოციალური ღილაკების რბილი ნეონის ეფექტები */
+        /* იმ შემთხვევისთვის თუ style.css-ში ეს კლასები არ გიწერია */
+        .gold-gradient-text {
+            background: linear-gradient(to right, #fbbf24, #f59e0b, #d97706);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        .gold-btn {
+            background: linear-gradient(135deg, #fbbf24 0%, #d97706 100%);
+            color: #05070e;
+            transition: all 0.3s ease;
+        }
+        .gold-btn:hover {
+            filter: brightness(1.1);
+            box-shadow: 0 0 20px rgba(251, 191, 36, 0.4);
+        }
+
         .social-discord {
             background: rgba(88, 101, 242, 0.14);
             border: 1px solid rgba(88, 101, 242, 0.35);
             color: #7983f5;
             transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
         }
-
         .social-discord:hover {
             background: #5865F2;
             border-color: #7983f5;
@@ -182,7 +131,6 @@
             color: #f472b6;
             transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
         }
-
         .social-tiktok:hover {
             background: #db2777;
             border-color: #f472b6;
@@ -198,16 +146,12 @@
         }
     </style>
 </head>
-
-<body
-    class="bg-[#05070e] text-gray-100 font-sans min-h-screen flex flex-col selection:bg-purple-500 selection:text-white relative overflow-x-hidden pb-20 md:pb-0">
+<body class="bg-[#05070e] text-gray-100 font-sans min-h-screen flex flex-col selection:bg-purple-500 selection:text-white relative overflow-x-hidden pb-20 md:pb-0">
 
     <!-- ცოცხალი გეიმინგ ფონი -->
     <div class="fixed inset-0 -z-10 overflow-hidden pointer-events-none">
         <video autoplay loop muted playsinline class="w-full h-full object-cover opacity-25 scale-105">
-            <source
-                src="https://assets.mixkit.co/videos/preview/mixkit-digital-animation-of-screens-and-numbers-31108-large.webm"
-                type="video/webm">
+            <source src="https://assets.mixkit.co/videos/preview/mixkit-digital-animation-of-screens-and-numbers-31108-large.webm" type="video/webm">
         </video>
         <div class="absolute inset-0 bg-gradient-to-b from-[#05070e]/85 via-[#05070e]/65 to-[#05070e]/95"></div>
         <div class="absolute inset-0 cyber-grid"></div>
@@ -218,114 +162,74 @@
     </div>
 
     <!-- ტოსტ შეტყობინებების კონტეინერი -->
-    <div id="toastContainer"
-        class="fixed top-4 left-1/2 -translate-x-1/2 z-[100] flex flex-col gap-2 pointer-events-none w-full max-w-md px-4">
-    </div>
+    <div id="toastContainer" class="fixed top-4 left-1/2 -translate-x-1/2 z-[100] flex flex-col gap-2 pointer-events-none w-full max-w-md px-4"></div>
 
-    <!-- HEADER (ზედა მენიუ) -->
-    <header
-        class="sticky top-0 z-40 bg-[#0a0c16]/85 backdrop-blur-xl border-b border-[#232a4d] shadow-[0_4px_30px_rgba(0,0,0,0.5)]">
+    <!-- HEADER (ზედა მენიუ Royal.png ლოგოთი) -->
+    <header class="sticky top-0 z-40 bg-[#0a0c16]/85 backdrop-blur-xl border-b border-[#232a4d] shadow-[0_4px_30px_rgba(0,0,0,0.5)]">
         <div class="max-w-7xl mx-auto px-3 sm:px-4 h-16 sm:h-20 flex items-center justify-between">
-            <!-- ლოგო -->
+            <!-- ლოგო (Royal.png) -->
             <div class="flex items-center gap-2.5 sm:gap-3 cursor-pointer group shrink-0" onclick="switchTab('home')">
-                <div
-                    class="w-10 h-10 sm:w-12 sm:h-12 rounded-xl bg-gradient-to-tr from-amber-400 to-purple-600 p-0.5 shadow-[0_0_15px_rgba(255,204,0,0.3)] group-hover:scale-110 transition-all duration-300">
-                    <div class="w-full h-full bg-[#0a0c16] rounded-[10px] flex items-center justify-center"><i
-                            class="fa-solid fa-crown text-amber-400 text-base sm:text-xl"></i></div>
+                <div class="w-10 h-10 sm:w-12 sm:h-12 rounded-xl bg-gradient-to-tr from-amber-400 to-purple-600 p-0.5 shadow-[0_0_15px_rgba(255,204,0,0.3)] group-hover:scale-110 transition-all duration-300 overflow-hidden">
+                    <img src="Royal.png" alt="Royal Arena" class="w-full h-full object-cover rounded-[10px] bg-[#0a0c16]">
                 </div>
                 <div>
-                    <h1
-                        class="font-orbitron font-black text-sm sm:text-xl tracking-wider gold-gradient-text leading-tight">
-                        ROYAL ARENA</h1>
+                    <h1 class="font-orbitron font-black text-sm sm:text-xl tracking-wider gold-gradient-text leading-tight">ROYAL ARENA</h1>
                     <p class="text-[8px] sm:text-[9px] tracking-widest text-gray-400 uppercase">Georgia Esports</p>
                 </div>
             </div>
 
             <!-- კომპიუტერის ნავიგაცია -->
-            <nav
-                class="hidden md:flex items-center gap-1 bg-[#121629]/80 backdrop-blur-md p-1.5 rounded-full border border-[#232a4d]">
-                <button onclick="switchTab('home')" id="nav-home"
-                    class="nav-btn bg-[#3a256a] border border-[#553b94] text-white flex items-center gap-2 px-4 py-2 rounded-full shadow transition text-xs font-bold"><i
-                        class="fa-solid fa-house"></i> მთავარი</button>
-                <button onclick="switchTab('tournaments')" id="nav-tournaments"
-                    class="nav-btn text-gray-400 hover:text-white hover:bg-[#232a4d] flex items-center gap-2 px-4 py-2 rounded-full transition text-xs font-semibold"><i
-                        class="fa-solid fa-trophy"></i> ტურნირები</button>
-                <button onclick="switchTab('lobby')" id="nav-lobby"
-                    class="nav-btn text-gray-400 hover:text-white hover:bg-[#232a4d] flex items-center gap-2 px-4 py-2 rounded-full transition text-xs font-semibold relative">
+            <nav class="hidden md:flex items-center gap-1 bg-[#121629]/80 backdrop-blur-md p-1.5 rounded-full border border-[#232a4d]">
+                <button onclick="switchTab('home')" id="nav-home" class="nav-btn bg-[#3a256a] border border-[#553b94] text-white flex items-center gap-2 px-4 py-2 rounded-full shadow transition text-xs font-bold"><i class="fa-solid fa-house"></i> მთავარი</button>
+                <button onclick="switchTab('tournaments')" id="nav-tournaments" class="nav-btn text-gray-400 hover:text-white hover:bg-[#232a4d] flex items-center gap-2 px-4 py-2 rounded-full transition text-xs font-semibold"><i class="fa-solid fa-trophy"></i> ტურნირები</button>
+                <button onclick="switchTab('lobby')" id="nav-lobby" class="nav-btn text-gray-400 hover:text-white hover:bg-[#232a4d] flex items-center gap-2 px-4 py-2 rounded-full transition text-xs font-semibold relative">
                     <i class="fa-solid fa-couch"></i> ლობი
                     <span id="activeLobbyDot" class="hidden w-2 h-2 rounded-full bg-emerald-400 animate-ping"></span>
                 </button>
-                <button onclick="switchTab('schedule')" id="nav-schedule"
-                    class="nav-btn text-gray-400 hover:text-white hover:bg-[#232a4d] flex items-center gap-2 px-4 py-2 rounded-full transition text-xs font-semibold"><i
-                        class="fa-solid fa-calendar-days"></i> განრიგი</button>
-                <button onclick="switchTab('leaderboard')" id="nav-leaderboard"
-                    class="nav-btn text-gray-400 hover:text-white hover:bg-[#232a4d] flex items-center gap-2 px-4 py-2 rounded-full transition text-xs font-semibold"><i
-                        class="fa-solid fa-medal"></i> ლიდერბორდი</button>
-                <button onclick="switchTab('admin')" id="nav-admin"
-                    class="hidden nav-btn bg-red-900/30 border border-red-500/50 text-red-400 hover:text-white hover:bg-red-500/50 flex items-center gap-2 px-4 py-2 rounded-full transition text-xs font-bold"><i
-                        class="fa-solid fa-shield-halved"></i> ადმინ პანელი</button>
+                <button onclick="switchTab('schedule')" id="nav-schedule" class="nav-btn text-gray-400 hover:text-white hover:bg-[#232a4d] flex items-center gap-2 px-4 py-2 rounded-full transition text-xs font-semibold"><i class="fa-solid fa-calendar-days"></i> განრიგი</button>
+                <button onclick="switchTab('leaderboard')" id="nav-leaderboard" class="nav-btn text-gray-400 hover:text-white hover:bg-[#232a4d] flex items-center gap-2 px-4 py-2 rounded-full transition text-xs font-semibold"><i class="fa-solid fa-medal"></i> ლიდერბორდი</button>
+                <button onclick="switchTab('admin')" id="nav-admin" class="hidden nav-btn bg-red-900/30 border border-red-500/50 text-red-400 hover:text-white hover:bg-red-500/50 flex items-center gap-2 px-4 py-2 rounded-full transition text-xs font-bold"><i class="fa-solid fa-shield-halved"></i> ადმინ პანელი</button>
             </nav>
 
-            <!-- მარჯვენა აიქონები (უხეში title-ის გარეშე, რბილი ნათებით) -->
+            <!-- მარჯვენა აიქონები -->
             <div class="flex items-center gap-1.5 sm:gap-2.5" id="authSection">
-                <a href="https://discord.gg/DhfedTXT2" target="_blank" rel="noopener noreferrer" aria-label="Discord"
-                    class="social-discord w-9 h-9 sm:w-10 sm:h-10 rounded-xl flex items-center justify-center">
+                <a href="https://discord.gg/DhfedTXT2" target="_blank" rel="noopener noreferrer" aria-label="Discord" class="social-discord w-9 h-9 sm:w-10 sm:h-10 rounded-xl flex items-center justify-center">
                     <i class="fa-brands fa-discord text-sm sm:text-lg"></i>
                 </a>
-                <a href="https://www.tiktok.com/@kingofsorrow076?is_from_webapp=1&sender_device=pc" target="_blank"
-                    rel="noopener noreferrer" aria-label="TikTok"
-                    class="social-tiktok w-9 h-9 sm:w-10 sm:h-10 rounded-xl flex items-center justify-center">
+                <a href="https://www.tiktok.com/@kingofsorrow076?is_from_webapp=1&sender_device=pc" target="_blank" rel="noopener noreferrer" aria-label="TikTok" class="social-tiktok w-9 h-9 sm:w-10 sm:h-10 rounded-xl flex items-center justify-center">
                     <i class="fa-brands fa-tiktok text-xs sm:text-base"></i>
                 </a>
 
-                <!-- შეტყობინებები -->
                 <div class="relative">
-                    <button onclick="toggleNotifications()"
-                        class="w-9 h-9 sm:w-10 sm:h-10 rounded-xl bg-[#121629] border border-[#232a4d] flex items-center justify-center text-gray-400 hover:text-white hover:border-purple-500 transition relative">
+                    <button onclick="toggleNotifications()" class="w-9 h-9 sm:w-10 sm:h-10 rounded-xl bg-[#121629] border border-[#232a4d] flex items-center justify-center text-gray-400 hover:text-white hover:border-purple-500 transition relative">
                         <i class="fa-solid fa-bell text-xs sm:text-base"></i>
-                        <span
-                            class="notif-dot hidden absolute top-1.5 right-1.5 w-2 h-2 rounded-full bg-amber-400 animate-ping"></span>
+                        <span class="notif-dot hidden absolute top-1.5 right-1.5 w-2 h-2 rounded-full bg-amber-400 animate-ping"></span>
                     </button>
-                    <div id="notifDropdown"
-                        class="hidden fixed sm:absolute right-3 left-3 sm:left-auto sm:right-0 top-16 sm:top-auto sm:mt-3 sm:w-80 bg-[#0a0c16] border border-[#232a4d] rounded-2xl shadow-2xl z-50 overflow-hidden">
+                    <div id="notifDropdown" class="hidden fixed sm:absolute right-3 left-3 sm:left-auto sm:right-0 top-16 sm:top-auto sm:mt-3 sm:w-80 bg-[#0a0c16] border border-[#232a4d] rounded-2xl shadow-2xl z-50 overflow-hidden">
                         <div class="p-4 border-b border-[#232a4d] flex justify-between items-center">
                             <span class="font-orbitron font-bold text-xs text-white">შეტყობინებები</span>
-                            <button onclick="toggleElement('notifDropdown')" class="sm:hidden text-gray-400 text-xs"><i
-                                    class="fa-solid fa-xmark"></i></button>
+                            <button onclick="toggleElement('notifDropdown')" class="sm:hidden text-gray-400 text-xs"><i class="fa-solid fa-xmark"></i></button>
                         </div>
                         <div id="notifDropdownContent" class="max-h-[280px] overflow-y-auto"></div>
                     </div>
                 </div>
 
                 <div id="loginBtn">
-                    <button onclick="toggleElement('loginModal')"
-                        class="gold-btn px-3.5 sm:px-5 py-2 sm:py-2.5 rounded-xl text-[11px] sm:text-xs uppercase font-bold whitespace-nowrap">შესვლა</button>
+                    <button onclick="toggleElement('loginModal')" class="gold-btn px-3.5 sm:px-5 py-2 sm:py-2.5 rounded-xl text-[11px] sm:text-xs uppercase font-bold whitespace-nowrap">შესვლა</button>
                 </div>
 
                 <div id="userProfileBtn" class="hidden relative">
-                    <button onclick="toggleElement('userDropdown')"
-                        class="flex items-center gap-2 sm:gap-3 bg-[#121629] border border-[#232a4d] p-1 sm:p-1.5 sm:pr-4 rounded-xl hover:border-purple-500 transition">
-                        <img id="headerAvatarImg" src=""
-                            class="w-7 h-7 sm:w-8 sm:h-8 rounded-lg object-cover bg-purple-900/20">
-                        <span id="headerUserName"
-                            class="hidden sm:inline text-xs font-bold text-white max-w-[90px] truncate">Player</span>
+                    <button onclick="toggleElement('userDropdown')" class="flex items-center gap-2 sm:gap-3 bg-[#121629] border border-[#232a4d] p-1 sm:p-1.5 sm:pr-4 rounded-xl hover:border-purple-500 transition">
+                        <img id="headerAvatarImg" src="" class="w-7 h-7 sm:w-8 sm:h-8 rounded-lg object-cover bg-purple-900/20">
+                        <span id="headerUserName" class="hidden sm:inline text-xs font-bold text-white max-w-[90px] truncate">Player</span>
                     </button>
-                    <div id="userDropdown"
-                        class="hidden absolute right-0 mt-3 w-52 sm:w-56 bg-[#0a0c16] border border-[#232a4d] rounded-2xl shadow-2xl z-50 overflow-hidden">
+                    <div id="userDropdown" class="hidden absolute right-0 mt-3 w-52 sm:w-56 bg-[#0a0c16] border border-[#232a4d] rounded-2xl shadow-2xl z-50 overflow-hidden">
                         <div class="p-2">
-                            <button onclick="switchTab('profile'); toggleElement('userDropdown');"
-                                class="w-full text-left px-3 py-2.5 rounded-xl text-xs text-white hover:bg-purple-600 transition flex items-center gap-2 mb-1"><i
-                                    class="fa-solid fa-user"></i> ჩემი პროფილი</button>
-                            <button onclick="switchTab('lobby'); toggleElement('userDropdown');"
-                                class="w-full text-left px-3 py-2.5 rounded-xl text-xs text-emerald-400 hover:bg-emerald-500/10 transition flex items-center gap-2 mb-1"><i
-                                    class="fa-solid fa-couch"></i> ჩემი ლობი</button>
-                            <button onclick="switchTab('admin'); toggleElement('userDropdown');" id="dropdownAdminBtn"
-                                class="hidden w-full text-left px-3 py-2.5 rounded-xl text-xs text-red-400 hover:bg-red-500/10 transition flex items-center gap-2"><i
-                                    class="fa-solid fa-gear"></i> ადმინ პანელი</button>
+                            <button onclick="switchTab('profile'); toggleElement('userDropdown');" class="w-full text-left px-3 py-2.5 rounded-xl text-xs text-white hover:bg-purple-600 transition flex items-center gap-2 mb-1"><i class="fa-solid fa-user"></i> ჩემი პროფილი</button>
+                            <button onclick="switchTab('lobby'); toggleElement('userDropdown');" class="w-full text-left px-3 py-2.5 rounded-xl text-xs text-emerald-400 hover:bg-emerald-500/10 transition flex items-center gap-2 mb-1"><i class="fa-solid fa-couch"></i> ჩემი ლობი</button>
+                            <button onclick="switchTab('admin'); toggleElement('userDropdown');" id="dropdownAdminBtn" class="hidden w-full text-left px-3 py-2.5 rounded-xl text-xs text-red-400 hover:bg-red-500/10 transition flex items-center gap-2"><i class="fa-solid fa-gear"></i> ადმინ პანელი</button>
                             <div class="h-px w-full bg-[#232a4d] my-1"></div>
-                            <button onclick="logout()"
-                                class="w-full text-left px-3 py-2.5 rounded-xl text-xs text-gray-400 hover:bg-[#121629] hover:text-white transition flex items-center gap-2"><i
-                                    class="fa-solid fa-right-from-bracket"></i> გასვლა</button>
+                            <button onclick="logout()" class="w-full text-left px-3 py-2.5 rounded-xl text-xs text-gray-400 hover:bg-[#121629] hover:text-white transition flex items-center gap-2"><i class="fa-solid fa-right-from-bracket"></i> გასვლა</button>
                         </div>
                     </div>
                 </div>
@@ -334,37 +238,29 @@
     </header>
 
     <!-- მობილურის ქვედა ნავიგაციის პანელი -->
-    <nav
-        class="md:hidden fixed bottom-0 left-0 right-0 z-50 bg-[#0a0c16]/95 backdrop-blur-xl border-t border-[#232a4d] px-2 py-1.5 flex items-center justify-around shadow-[0_-8px_30px_rgba(0,0,0,0.8)]">
-        <button onclick="switchTab('home')" id="mnav-home"
-            class="mnav-btn mobile-nav-active flex flex-col items-center justify-center py-1.5 px-3 rounded-xl border border-transparent text-gray-400 transition">
+    <nav class="md:hidden fixed bottom-0 left-0 right-0 z-50 bg-[#0a0c16]/95 backdrop-blur-xl border-t border-[#232a4d] px-2 py-1.5 flex items-center justify-around shadow-[0_-8px_30px_rgba(0,0,0,0.8)]">
+        <button onclick="switchTab('home')" id="mnav-home" class="mnav-btn mobile-nav-active flex flex-col items-center justify-center py-1.5 px-3 rounded-xl border border-transparent text-gray-400 transition">
             <i class="fa-solid fa-house text-sm mb-0.5"></i>
             <span class="text-[9px] font-bold">მთავარი</span>
         </button>
-        <button onclick="switchTab('tournaments')" id="mnav-tournaments"
-            class="mnav-btn flex flex-col items-center justify-center py-1.5 px-3 rounded-xl border border-transparent text-gray-400 transition">
+        <button onclick="switchTab('tournaments')" id="mnav-tournaments" class="mnav-btn flex flex-col items-center justify-center py-1.5 px-3 rounded-xl border border-transparent text-gray-400 transition">
             <i class="fa-solid fa-trophy text-sm mb-0.5"></i>
             <span class="text-[9px] font-bold">ტურნირები</span>
         </button>
-        <button onclick="switchTab('lobby')" id="mnav-lobby"
-            class="mnav-btn flex flex-col items-center justify-center py-1.5 px-3 rounded-xl border border-transparent text-gray-400 transition relative">
+        <button onclick="switchTab('lobby')" id="mnav-lobby" class="mnav-btn flex flex-col items-center justify-center py-1.5 px-3 rounded-xl border border-transparent text-gray-400 transition relative">
             <i class="fa-solid fa-couch text-sm mb-0.5"></i>
             <span class="text-[9px] font-bold">ლობი</span>
-            <span id="mobileLobbyDot"
-                class="hidden absolute top-1 right-2 w-2 h-2 rounded-full bg-emerald-400 animate-ping"></span>
+            <span id="mobileLobbyDot" class="hidden absolute top-1 right-2 w-2 h-2 rounded-full bg-emerald-400 animate-ping"></span>
         </button>
-        <button onclick="switchTab('schedule')" id="mnav-schedule"
-            class="mnav-btn flex flex-col items-center justify-center py-1.5 px-3 rounded-xl border border-transparent text-gray-400 transition">
+        <button onclick="switchTab('schedule')" id="mnav-schedule" class="mnav-btn flex flex-col items-center justify-center py-1.5 px-3 rounded-xl border border-transparent text-gray-400 transition">
             <i class="fa-solid fa-calendar-days text-sm mb-0.5"></i>
             <span class="text-[9px] font-bold">განრიგი</span>
         </button>
-        <button onclick="switchTab('leaderboard')" id="mnav-leaderboard"
-            class="mnav-btn flex flex-col items-center justify-center py-1.5 px-3 rounded-xl border border-transparent text-gray-400 transition">
+        <button onclick="switchTab('leaderboard')" id="mnav-leaderboard" class="mnav-btn flex flex-col items-center justify-center py-1.5 px-3 rounded-xl border border-transparent text-gray-400 transition">
             <i class="fa-solid fa-medal text-sm mb-0.5"></i>
             <span class="text-[9px] font-bold">რეიტინგი</span>
         </button>
-        <button onclick="switchTab('admin')" id="mnav-admin"
-            class="hidden mnav-btn flex flex-col items-center justify-center py-1.5 px-2.5 rounded-xl border border-red-500/30 text-red-400 transition">
+        <button onclick="switchTab('admin')" id="mnav-admin" class="hidden mnav-btn flex flex-col items-center justify-center py-1.5 px-2.5 rounded-xl border border-red-500/30 text-red-400 transition">
             <i class="fa-solid fa-shield-halved text-sm mb-0.5"></i>
             <span class="text-[9px] font-bold">ადმინი</span>
         </button>
@@ -373,41 +269,31 @@
     <main class="flex-1 relative z-10">
         <!-- 1. მთავარი გვერდი -->
         <div id="page-home" class="spa-page">
-            <section
-                class="min-h-[78vh] sm:min-h-[82vh] flex items-center justify-center py-12 sm:py-20 px-4 text-center max-w-4xl mx-auto relative">
+            <section class="min-h-[78vh] sm:min-h-[82vh] flex items-center justify-center py-12 sm:py-20 px-4 text-center max-w-4xl mx-auto relative">
                 <div>
-                    <div
-                        class="animate-float inline-flex items-center gap-2 bg-amber-500/10 border border-amber-500/40 px-4 sm:px-5 py-1.5 sm:py-2 rounded-full text-[10px] sm:text-xs font-bold text-amber-400 mb-6 uppercase shadow-[0_0_20px_rgba(245,158,11,0.2)]">
+                    <div class="animate-float inline-flex items-center gap-2 bg-amber-500/10 border border-amber-500/40 px-4 sm:px-5 py-1.5 sm:py-2 rounded-full text-[10px] sm:text-xs font-bold text-amber-400 mb-6 uppercase shadow-[0_0_20px_rgba(245,158,11,0.2)]">
                         <i class="fa-solid fa-bolt animate-pulse"></i> Season 2026 • მზად ხარ ბრძოლისთვის?
                     </div>
-                    <h1
-                        class="font-orbitron font-black text-4xl sm:text-7xl mb-5 sm:mb-6 text-white drop-shadow-[0_0_30px_rgba(168,85,247,0.35)] leading-tight">
+                    <h1 class="font-orbitron font-black text-4xl sm:text-7xl mb-5 sm:mb-6 text-white drop-shadow-[0_0_30px_rgba(168,85,247,0.35)] leading-tight">
                         ROYAL ARENA <br><span class="gold-gradient-text">ESPORTS</span>
                     </h1>
                     <p class="text-xs sm:text-lg text-gray-300 max-w-2xl mx-auto mb-8 sm:mb-10 leading-relaxed px-2">
-                        შემოუერთდი საქართველოს საუკეთესო მოთამაშეებს. იბრძოლე 1v1 დუელებში ან შექმენი შენი საოცნებო 5v5
-                        სქუადის ლობი.
+                        შემოუერთდი საქართველოს საუკეთესო მოთამაშეებს. იბრძოლე 1v1 დუელებში ან შექმენი შენი საოცნებო 5v5 სქუადის ლობი.
                     </p>
                     <div class="flex flex-col sm:flex-row justify-center gap-3 sm:gap-4 mb-10 px-4 sm:px-0">
-                        <button onclick="switchTab('tournaments')"
-                            class="w-full sm:w-auto gold-btn px-8 py-4 rounded-xl text-xs sm:text-sm font-bold uppercase hover:scale-105 transition-transform shadow-[0_0_25px_rgba(245,158,11,0.4)]">
+                        <button onclick="switchTab('tournaments')" class="w-full sm:w-auto gold-btn px-8 py-4 rounded-xl text-xs sm:text-sm font-bold uppercase hover:scale-105 transition-transform shadow-[0_0_25px_rgba(245,158,11,0.4)]">
                             <i class="fa-solid fa-gamepad mr-2"></i> ტურნირები
                         </button>
-                        <button onclick="switchTab('lobby')"
-                            class="w-full sm:w-auto glass-panel hover:border-purple-500 px-8 py-4 rounded-xl text-xs sm:text-sm font-bold uppercase text-white transition hover:scale-105">
+                        <button onclick="switchTab('lobby')" class="w-full sm:w-auto glass-panel hover:border-purple-500 px-8 py-4 rounded-xl text-xs sm:text-sm font-bold uppercase text-white transition hover:scale-105">
                             <i class="fa-solid fa-couch mr-2 text-purple-400"></i> ლობიში შესვლა
                         </button>
                     </div>
 
-                    <div
-                        class="flex flex-wrap items-center justify-center gap-3 sm:gap-4 pt-4 border-t border-[#232a4d]/60 max-w-lg mx-auto">
-                        <a href="https://discord.gg/DhfedTXT2" target="_blank" rel="noopener noreferrer"
-                            class="social-discord flex items-center gap-2.5 px-5 py-2.5 rounded-xl text-xs font-bold">
+                    <div class="flex flex-wrap items-center justify-center gap-3 sm:gap-4 pt-4 border-t border-[#232a4d]/60 max-w-lg mx-auto">
+                        <a href="https://discord.gg/DhfedTXT2" target="_blank" rel="noopener noreferrer" class="social-discord flex items-center gap-2.5 px-5 py-2.5 rounded-xl text-xs font-bold">
                             <i class="fa-brands fa-discord text-base sm:text-lg"></i> Discord სერვერი
                         </a>
-                        <a href="https://www.tiktok.com/@kingofsorrow076?is_from_webapp=1&sender_device=pc"
-                            target="_blank" rel="noopener noreferrer"
-                            class="social-tiktok flex items-center gap-2.5 px-5 py-2.5 rounded-xl text-xs font-bold">
+                        <a href="https://www.tiktok.com/@kingofsorrow076?is_from_webapp=1&sender_device=pc" target="_blank" rel="noopener noreferrer" class="social-tiktok flex items-center gap-2.5 px-5 py-2.5 rounded-xl text-xs font-bold">
                             <i class="fa-brands fa-tiktok text-sm sm:text-base"></i> TikTok არხი
                         </a>
                     </div>
@@ -421,109 +307,71 @@
                 <span class="text-xs font-bold uppercase tracking-widest text-purple-400">Battle Modes</span>
                 <h2 class="font-orbitron font-extrabold text-2xl sm:text-4xl text-white mt-1">შეარჩიე ტურნირი</h2>
                 <div class="glow-line"></div>
-                <p class="text-gray-400 text-xs sm:text-sm mt-4">რეგისტრაციისთანავე მოხვდები სპეციალურ ინტერაქტიულ
-                    ლობიში</p>
+                <p class="text-gray-400 text-xs sm:text-sm mt-4">რეგისტრაციისთანავე მოხვდები სპეციალურ ინტერაქტიულ ლობიში</p>
             </div>
             <div class="grid grid-cols-1 md:grid-cols-3 gap-6 sm:gap-10">
-                <div
-                    class="glass-panel rounded-3xl p-6 sm:p-8 flex flex-col justify-between hover:-translate-y-2 group hover:border-amber-500/60">
+                <div class="glass-panel rounded-3xl p-6 sm:p-8 flex flex-col justify-between hover:-translate-y-2 group hover:border-amber-500/60">
                     <div>
                         <div class="flex justify-between items-center mb-6">
-                            <div
-                                class="animate-float w-12 h-12 sm:w-14 sm:h-14 rounded-2xl bg-amber-500/20 border border-amber-500/30 flex items-center justify-center text-amber-400 text-xl sm:text-2xl">
-                                <i class="fa-solid fa-bolt"></i></div>
-                            <span id="status-1v1 Solo Duel"
-                                class="font-bold text-emerald-400 text-xs bg-emerald-500/10 px-3 py-1 rounded-full border border-emerald-500/20">ღიაა</span>
+                            <div class="animate-float w-12 h-12 sm:w-14 sm:h-14 rounded-2xl bg-amber-500/20 border border-amber-500/30 flex items-center justify-center text-amber-400 text-xl sm:text-2xl"><i class="fa-solid fa-bolt"></i></div>
+                            <span id="status-1v1 Solo Duel" class="font-bold text-emerald-400 text-xs bg-emerald-500/10 px-3 py-1 rounded-full border border-emerald-500/20">ღიაა</span>
                         </div>
-                        <h3
-                            class="font-orbitron font-bold text-xl sm:text-2xl text-white mb-3 group-hover:text-amber-400 transition">
-                            1v1 Solo Duel</h3>
-                        <p class="text-xs sm:text-sm text-gray-400 mb-6 sm:mb-8 leading-relaxed">აირჩიე კატეგორია (მაგ:
-                            Fighter vs Fighter), დაიკავე ადგილი 1v1 ლობიში და დაელოდე მეტოქეს.</p>
+                        <h3 class="font-orbitron font-bold text-xl sm:text-2xl text-white mb-3 group-hover:text-amber-400 transition">1v1 Solo Duel</h3>
+                        <p class="text-xs sm:text-sm text-gray-400 mb-6 sm:mb-8 leading-relaxed">აირჩიე კატეგორია (მაგ: Fighter vs Fighter), დაიკავე ადგილი 1v1 ლობიში და დაელოდე მეტოქეს.</p>
                     </div>
-                    <button onclick="startRegistration('1v1 Solo Duel')" id="btn-1v1 Solo Duel"
-                        class="w-full gold-btn py-3.5 sm:py-4 rounded-xl text-xs sm:text-sm font-bold uppercase">ლობიში
-                        შესვლა</button>
+                    <button onclick="startRegistration('1v1 Solo Duel')" id="btn-1v1 Solo Duel" class="w-full gold-btn py-3.5 sm:py-4 rounded-xl text-xs sm:text-sm font-bold uppercase">ლობიში შესვლა</button>
+                </div>
+                
+                <div class="glass-panel rounded-3xl p-6 sm:p-8 flex flex-col justify-between hover:-translate-y-2 group border-purple-500/40 hover:border-purple-400 relative overflow-hidden">
+                    <div class="absolute top-0 right-0 bg-gradient-to-r from-purple-600 to-indigo-600 text-white text-[10px] font-bold px-4 py-1 rounded-bl-xl uppercase shadow-lg">პრემიუმ</div>
+                    <div>
+                        <div class="flex justify-between items-center mb-6">
+                            <div class="animate-float-delayed w-12 h-12 sm:w-14 sm:h-14 rounded-2xl bg-purple-500/20 border border-purple-500/30 flex items-center justify-center text-purple-400 text-xl sm:text-2xl"><i class="fa-solid fa-users"></i></div>
+                            <span id="status-5v5 Squad" class="font-bold text-emerald-400 text-xs bg-emerald-500/10 px-3 py-1 rounded-full border border-emerald-500/20">ღიაა</span>
+                        </div>
+                        <h3 class="font-orbitron font-bold text-xl sm:text-2xl text-white mb-3 group-hover:text-purple-400 transition">5v5 Squad</h3>
+                        <p class="text-xs sm:text-sm text-gray-400 mb-6 sm:mb-8 leading-relaxed">შექმენი სქუადის ლობი (5 ძირითადი + 2 რეზერვი) ან შეუერთდი მეგობრის ლობის ID-ით და ლინკით.</p>
+                    </div>
+                    <button onclick="startRegistration('5v5 Squad')" id="btn-5v5 Squad" class="w-full bg-purple-600 hover:bg-purple-700 text-white py-3.5 sm:py-4 rounded-xl text-xs sm:text-sm font-bold uppercase transition">ლობის შექმნა / შესვლა</button>
                 </div>
 
-                <div
-                    class="glass-panel rounded-3xl p-6 sm:p-8 flex flex-col justify-between hover:-translate-y-2 group border-purple-500/40 hover:border-purple-400 relative overflow-hidden">
-                    <div
-                        class="absolute top-0 right-0 bg-gradient-to-r from-purple-600 to-indigo-600 text-white text-[10px] font-bold px-4 py-1 rounded-bl-xl uppercase shadow-lg">
-                        პრემიუმ</div>
+                <div class="glass-panel rounded-3xl p-6 sm:p-8 flex flex-col justify-between hover:-translate-y-2 group hover:border-blue-500/60">
                     <div>
                         <div class="flex justify-between items-center mb-6">
-                            <div
-                                class="animate-float-delayed w-12 h-12 sm:w-14 sm:h-14 rounded-2xl bg-purple-500/20 border border-purple-500/30 flex items-center justify-center text-purple-400 text-xl sm:text-2xl">
-                                <i class="fa-solid fa-users"></i></div>
-                            <span id="status-5v5 Squad"
-                                class="font-bold text-emerald-400 text-xs bg-emerald-500/10 px-3 py-1 rounded-full border border-emerald-500/20">ღიაა</span>
+                            <div class="animate-float w-12 h-12 sm:w-14 sm:h-14 rounded-2xl bg-blue-500/20 border border-blue-500/30 flex items-center justify-center text-blue-400 text-xl sm:text-2xl"><i class="fa-solid fa-shuffle"></i></div>
+                            <span id="status-5v5 Random" class="font-bold text-emerald-400 text-xs bg-emerald-500/10 px-3 py-1 rounded-full border border-emerald-500/20">ღიაა</span>
                         </div>
-                        <h3
-                            class="font-orbitron font-bold text-xl sm:text-2xl text-white mb-3 group-hover:text-purple-400 transition">
-                            5v5 Squad</h3>
-                        <p class="text-xs sm:text-sm text-gray-400 mb-6 sm:mb-8 leading-relaxed">შექმენი სქუადის ლობი (5
-                            ძირითადი + 2 რეზერვი) ან შეუერთდი მეგობრის ლობის ID-ით და ლინკით.</p>
+                        <h3 class="font-orbitron font-bold text-xl sm:text-2xl text-white mb-3 group-hover:text-blue-400 transition">5v5 Random</h3>
+                        <p class="text-xs sm:text-sm text-gray-400 mb-6 sm:mb-8 leading-relaxed">აირჩიე შენი როლი (Roam, Jungle, Mid, Gold, EXP) და დაჯექი Random ლობის შესაბამის სავარძელში.</p>
                     </div>
-                    <button onclick="startRegistration('5v5 Squad')" id="btn-5v5 Squad"
-                        class="w-full bg-purple-600 hover:bg-purple-700 text-white py-3.5 sm:py-4 rounded-xl text-xs sm:text-sm font-bold uppercase transition">ლობის
-                        შექმნა / შესვლა</button>
-                </div>
-
-                <div
-                    class="glass-panel rounded-3xl p-6 sm:p-8 flex flex-col justify-between hover:-translate-y-2 group hover:border-blue-500/60">
-                    <div>
-                        <div class="flex justify-between items-center mb-6">
-                            <div
-                                class="animate-float w-12 h-12 sm:w-14 sm:h-14 rounded-2xl bg-blue-500/20 border border-blue-500/30 flex items-center justify-center text-blue-400 text-xl sm:text-2xl">
-                                <i class="fa-solid fa-shuffle"></i></div>
-                            <span id="status-5v5 Random"
-                                class="font-bold text-emerald-400 text-xs bg-emerald-500/10 px-3 py-1 rounded-full border border-emerald-500/20">ღიაა</span>
-                        </div>
-                        <h3
-                            class="font-orbitron font-bold text-xl sm:text-2xl text-white mb-3 group-hover:text-blue-400 transition">
-                            5v5 Random</h3>
-                        <p class="text-xs sm:text-sm text-gray-400 mb-6 sm:mb-8 leading-relaxed">აირჩიე შენი როლი (Roam,
-                            Jungle, Mid, Gold, EXP) და დაჯექი Random ლობის შესაბამის სავარძელში.</p>
-                    </div>
-                    <button onclick="startRegistration('5v5 Random')" id="btn-5v5 Random"
-                        class="w-full bg-blue-600 hover:bg-blue-700 text-white py-3.5 sm:py-4 rounded-xl text-xs sm:text-sm font-bold uppercase transition">ლობიში
-                        დაჯდომა</button>
+                    <button onclick="startRegistration('5v5 Random')" id="btn-5v5 Random" class="w-full bg-blue-600 hover:bg-blue-700 text-white py-3.5 sm:py-4 rounded-xl text-xs sm:text-sm font-bold uppercase transition">ლობიში დაჯდომა</button>
                 </div>
             </div>
         </div>
 
         <!-- რეგისტრაციის კონტეინერი -->
         <div id="page-register" class="spa-page hidden py-10 sm:py-16 px-4 max-w-3xl mx-auto">
-            <button onclick="switchTab('tournaments')"
-                class="text-gray-400 hover:text-white mb-6 flex items-center gap-2 text-xs sm:text-sm transition"><i
-                    class="fa-solid fa-arrow-left"></i> უკან დაბრუნება</button>
+            <button onclick="switchTab('tournaments')" class="text-gray-400 hover:text-white mb-6 flex items-center gap-2 text-xs sm:text-sm transition"><i class="fa-solid fa-arrow-left"></i> უკან დაბრუნება</button>
             <div id="registerContainer" class="glass-panel p-6 sm:p-10 rounded-3xl shadow-2xl"></div>
         </div>
 
         <!-- 3. ლობის გვერდი -->
         <div id="page-lobby" class="spa-page hidden py-8 sm:py-12 px-3 sm:px-4 max-w-6xl mx-auto">
-            <div
-                class="glass-panel p-4 sm:px-6 rounded-2xl mb-6 border border-[#5865F2]/40 flex flex-col sm:flex-row items-center justify-between gap-4 bg-gradient-to-r from-[#5865F2]/15 via-[#121629]/80 to-pink-500/10">
+            <div class="glass-panel p-4 sm:px-6 rounded-2xl mb-6 border border-[#5865F2]/40 flex flex-col sm:flex-row items-center justify-between gap-4 bg-gradient-to-r from-[#5865F2]/15 via-[#121629]/80 to-pink-500/10">
                 <div class="flex items-center gap-3 text-center sm:text-left">
-                    <div
-                        class="w-10 h-10 rounded-xl bg-[#5865F2] hidden sm:flex items-center justify-center text-white text-lg shrink-0">
+                    <div class="w-10 h-10 rounded-xl bg-[#5865F2] hidden sm:flex items-center justify-center text-white text-lg shrink-0">
                         <i class="fa-solid fa-headset"></i>
                     </div>
                     <div>
                         <p class="text-xs sm:text-sm font-bold text-white">მატჩის კოორდინაცია და Voice Chat</p>
-                        <p class="text-[11px] text-gray-400">ლობიში დაჯდომის შემდეგ შემოდი ჩვენს ოფიციალურ Discord
-                            სერვერზე!</p>
+                        <p class="text-[11px] text-gray-400">ლობიში დაჯდომის შემდეგ შემოდი ჩვენს ოფიციალურ Discord სერვერზე!</p>
                     </div>
                 </div>
                 <div class="flex items-center gap-2.5 w-full sm:w-auto justify-center">
-                    <a href="https://discord.gg/DhfedTXT2" target="_blank" rel="noopener noreferrer"
-                        class="social-discord flex-1 sm:flex-initial justify-center px-4 py-2.5 rounded-xl text-xs font-bold uppercase flex items-center gap-2">
+                    <a href="https://discord.gg/DhfedTXT2" target="_blank" rel="noopener noreferrer" class="social-discord flex-1 sm:flex-initial justify-center px-4 py-2.5 rounded-xl text-xs font-bold uppercase flex items-center gap-2">
                         <i class="fa-brands fa-discord"></i> Discord
                     </a>
-                    <a href="https://www.tiktok.com/@kingofsorrow076?is_from_webapp=1&sender_device=pc" target="_blank"
-                        rel="noopener noreferrer"
-                        class="social-tiktok flex-1 sm:flex-initial justify-center px-4 py-2.5 rounded-xl text-xs font-bold uppercase flex items-center gap-2">
+                    <a href="https://www.tiktok.com/@kingofsorrow076?is_from_webapp=1&sender_device=pc" target="_blank" rel="noopener noreferrer" class="social-tiktok flex-1 sm:flex-initial justify-center px-4 py-2.5 rounded-xl text-xs font-bold uppercase flex items-center gap-2">
                         <i class="fa-brands fa-tiktok"></i> TikTok
                     </a>
                 </div>
@@ -536,56 +384,38 @@
         <div id="page-profile" class="spa-page hidden py-10 sm:py-16 px-4 max-w-5xl mx-auto">
             <div class="glass-panel rounded-3xl p-6 sm:p-8 mb-8 flex flex-col md:flex-row items-center gap-6 sm:gap-8">
                 <div class="relative group cursor-pointer">
-                    <img id="profilePageAvatar" src=""
-                        class="w-28 h-28 sm:w-32 sm:h-32 rounded-2xl object-cover border-2 border-purple-500/50 bg-[#121629]">
-                    <div
-                        class="absolute inset-0 bg-black/60 rounded-2xl flex flex-col items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity">
-                        <i class="fa-solid fa-camera text-white text-xl mb-1"></i><span
-                            class="text-[10px] text-white font-bold uppercase">შეცვლა</span>
-                        <input type="file" accept="image/*"
-                            class="absolute inset-0 w-full h-full opacity-0 cursor-pointer"
-                            onchange="changeProfileAvatar(event)">
+                    <img id="profilePageAvatar" src="" class="w-28 h-28 sm:w-32 sm:h-32 rounded-2xl object-cover border-2 border-purple-500/50 bg-[#121629]">
+                    <div class="absolute inset-0 bg-black/60 rounded-2xl flex flex-col items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity">
+                        <i class="fa-solid fa-camera text-white text-xl mb-1"></i><span class="text-[10px] text-white font-bold uppercase">შეცვლა</span>
+                        <input type="file" accept="image/*" class="absolute inset-0 w-full h-full opacity-0 cursor-pointer" onchange="changeProfileAvatar(event)">
                     </div>
                 </div>
                 <div class="flex-1 text-center md:text-left w-full">
-                    <h2 id="profilePageName" class="font-orbitron font-bold text-2xl sm:text-4xl text-white mb-2">
-                        PlayerName</h2>
-                    <p class="text-purple-400 text-xs sm:text-sm font-bold uppercase tracking-widest mb-6">სტატუსი:
-                        <span class="text-emerald-400">აქტიური მოთამაშე</span></p>
+                    <h2 id="profilePageName" class="font-orbitron font-bold text-2xl sm:text-4xl text-white mb-2">PlayerName</h2>
+                    <p class="text-purple-400 text-xs sm:text-sm font-bold uppercase tracking-widest mb-6">სტატუსი: <span class="text-emerald-400">აქტიური მოთამაშე</span></p>
                     <div class="grid grid-cols-3 gap-2.5 sm:flex sm:flex-wrap sm:justify-start sm:gap-5">
                         <div class="bg-[#121629]/80 border border-[#232a4d] px-3 sm:px-6 py-3 rounded-2xl text-center">
-                            <p id="profileWinRate" class="text-lg sm:text-2xl font-bold text-emerald-400 font-orbitron">
-                                0%</p>
+                            <p id="profileWinRate" class="text-lg sm:text-2xl font-bold text-emerald-400 font-orbitron">0%</p>
                             <p class="text-[9px] sm:text-[10px] text-gray-400 uppercase font-bold">Win Rate</p>
                         </div>
                         <div class="bg-[#121629]/80 border border-[#232a4d] px-3 sm:px-6 py-3 rounded-2xl text-center">
                             <p id="profileMatches" class="text-lg sm:text-2xl font-bold text-white font-orbitron">0</p>
                             <p class="text-[9px] sm:text-[10px] text-gray-400 uppercase font-bold">Matches</p>
                         </div>
-                        <div
-                            class="bg-[#121629]/80 border border-amber-500/30 px-3 sm:px-6 py-3 rounded-2xl text-center">
+                        <div class="bg-[#121629]/80 border border-amber-500/30 px-3 sm:px-6 py-3 rounded-2xl text-center">
                             <p id="profilePts" class="text-lg sm:text-2xl font-bold text-amber-400 font-orbitron">0</p>
                             <p class="text-[9px] sm:text-[10px] text-gray-400 uppercase font-bold">PTS</p>
                         </div>
                     </div>
                 </div>
             </div>
-
+            
             <div class="glass-panel p-6 rounded-2xl mb-8 border-l-4 border-l-purple-500">
-                <h3 class="font-orbitron font-bold text-base sm:text-lg text-white mb-4"><i
-                        class="fa-solid fa-gear mr-2 text-purple-400"></i>პროფილის პარამეტრები</h3>
+                <h3 class="font-orbitron font-bold text-base sm:text-lg text-white mb-4"><i class="fa-solid fa-gear mr-2 text-purple-400"></i>პროფილის პარამეტრები</h3>
                 <form onsubmit="saveProfileSettings(event)" class="grid grid-cols-1 md:grid-cols-2 gap-4">
-                    <div><label class="block text-xs font-bold text-gray-400 uppercase mb-2">სახელის
-                            შეცვლა</label><input type="text" id="settingName" required
-                            class="w-full bg-[#121629] border border-[#232a4d] rounded-xl px-4 py-3 text-sm text-white focus:border-purple-500 outline-none">
-                    </div>
-                    <div><label class="block text-xs font-bold text-gray-400 uppercase mb-2">ახალი პაროლი</label><input
-                            type="password" id="settingPassword" placeholder="ცარიელი = არ შეიცვლება"
-                            class="w-full bg-[#121629] border border-[#232a4d] rounded-xl px-4 py-3 text-sm text-white focus:border-purple-500 outline-none">
-                    </div>
-                    <div class="md:col-span-2 mt-2"><button type="submit"
-                            class="w-full sm:w-auto bg-purple-600 hover:bg-purple-700 text-white py-3 px-6 rounded-xl text-xs sm:text-sm font-bold uppercase transition">მონაცემების
-                            შენახვა</button></div>
+                    <div><label class="block text-xs font-bold text-gray-400 uppercase mb-2">სახელის შეცვლა</label><input type="text" id="settingName" required class="w-full bg-[#121629] border border-[#232a4d] rounded-xl px-4 py-3 text-sm text-white focus:border-purple-500 outline-none"></div>
+                    <div><label class="block text-xs font-bold text-gray-400 uppercase mb-2">ახალი პაროლი</label><input type="password" id="settingPassword" placeholder="ცარიელი = არ შეიცვლება" class="w-full bg-[#121629] border border-[#232a4d] rounded-xl px-4 py-3 text-sm text-white focus:border-purple-500 outline-none"></div>
+                    <div class="md:col-span-2 mt-2"><button type="submit" class="w-full sm:w-auto bg-purple-600 hover:bg-purple-700 text-white py-3 px-6 rounded-xl text-xs sm:text-sm font-bold uppercase transition">მონაცემების შენახვა</button></div>
                 </form>
             </div>
         </div>
@@ -598,32 +428,14 @@
                 <div class="glow-line"></div>
             </div>
             <div class="flex flex-wrap justify-center gap-2 sm:gap-3 mb-8 sm:mb-12">
-                <button onclick="showBracket('1v1')" id="br-tab-1v1"
-                    class="px-4 sm:px-6 py-2.5 sm:py-3 rounded-xl text-xs sm:text-sm font-bold bg-gradient-to-r from-amber-400 to-orange-500 text-black shadow-lg">1v1
-                    Solo Duel</button>
-                <button onclick="showBracket('squad')" id="br-tab-squad"
-                    class="px-4 sm:px-6 py-2.5 sm:py-3 rounded-xl text-xs sm:text-sm text-gray-400 hover:text-white glass-panel transition">5v5
-                    Squad</button>
-                <button onclick="showBracket('random')" id="br-tab-random"
-                    class="px-4 sm:px-6 py-2.5 sm:py-3 rounded-xl text-xs sm:text-sm text-gray-400 hover:text-white glass-panel transition">5v5
-                    Random</button>
+                <button onclick="showBracket('1v1')" id="br-tab-1v1" class="px-4 sm:px-6 py-2.5 sm:py-3 rounded-xl text-xs sm:text-sm font-bold bg-gradient-to-r from-amber-400 to-orange-500 text-black shadow-lg">1v1 Solo Duel</button>
+                <button onclick="showBracket('squad')" id="br-tab-squad" class="px-4 sm:px-6 py-2.5 sm:py-3 rounded-xl text-xs sm:text-sm text-gray-400 hover:text-white glass-panel transition">5v5 Squad</button>
+                <button onclick="showBracket('random')" id="br-tab-random" class="px-4 sm:px-6 py-2.5 sm:py-3 rounded-xl text-xs sm:text-sm text-gray-400 hover:text-white glass-panel transition">5v5 Random</button>
             </div>
-
-            <div id="bracket-1v1" class="bracket-section glass-panel p-5 sm:p-8 rounded-3xl">
-                <h3 class="text-amber-400 font-bold mb-6 text-base sm:text-lg border-b border-[#232a4d] pb-2">1v1
-                    აქტიური ლობები / ბადე</h3>
-                <div id="bracket-1v1-content" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4"></div>
-            </div>
-            <div id="bracket-squad" class="bracket-section hidden glass-panel p-5 sm:p-8 rounded-3xl">
-                <h3 class="text-purple-400 font-bold mb-6 text-base sm:text-lg border-b border-[#232a4d] pb-2">5v5 Squad
-                    ბადე</h3>
-                <div id="bracket-squad-content" class="grid grid-cols-1 md:grid-cols-2 gap-4"></div>
-            </div>
-            <div id="bracket-random" class="bracket-section hidden glass-panel p-5 sm:p-8 rounded-3xl">
-                <h3 class="text-blue-400 font-bold mb-6 text-base sm:text-lg border-b border-[#232a4d] pb-2">5v5 Random
-                    ბადე</h3>
-                <div id="bracket-random-content" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4"></div>
-            </div>
+            
+            <div id="bracket-1v1" class="bracket-section glass-panel p-5 sm:p-8 rounded-3xl"><h3 class="text-amber-400 font-bold mb-6 text-base sm:text-lg border-b border-[#232a4d] pb-2">1v1 აქტიური ლობები / ბადე</h3><div id="bracket-1v1-content" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4"></div></div>
+            <div id="bracket-squad" class="bracket-section hidden glass-panel p-5 sm:p-8 rounded-3xl"><h3 class="text-purple-400 font-bold mb-6 text-base sm:text-lg border-b border-[#232a4d] pb-2">5v5 Squad ბადე</h3><div id="bracket-squad-content" class="grid grid-cols-1 md:grid-cols-2 gap-4"></div></div>
+            <div id="bracket-random" class="bracket-section hidden glass-panel p-5 sm:p-8 rounded-3xl"><h3 class="text-blue-400 font-bold mb-6 text-base sm:text-lg border-b border-[#232a4d] pb-2">5v5 Random ბადე</h3><div id="bracket-random-content" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4"></div></div>
         </div>
 
         <!-- 6. ლიდერბორდი -->
@@ -634,21 +446,14 @@
                 <div class="glow-line"></div>
             </div>
             <div class="flex flex-wrap justify-center gap-2 sm:gap-3 mb-8 sm:mb-12">
-                <button onclick="showLeaderboard('teams')" id="lb-tab-teams"
-                    class="px-4 sm:px-6 py-2.5 sm:py-3 rounded-xl text-xs sm:text-sm font-bold bg-gradient-to-r from-amber-400 to-orange-500 text-black shadow-lg">5v5
-                    სქუადები</button>
-                <button onclick="showLeaderboard('players')" id="lb-tab-players"
-                    class="px-4 sm:px-6 py-2.5 sm:py-3 rounded-xl text-xs sm:text-sm text-gray-400 hover:text-white glass-panel transition">1v1
-                    მოთამაშეები</button>
-                <button onclick="showLeaderboard('random')" id="lb-tab-random"
-                    class="px-4 sm:px-6 py-2.5 sm:py-3 rounded-xl text-xs sm:text-sm text-gray-400 hover:text-white glass-panel transition">Random
-                    (5v5)</button>
+                <button onclick="showLeaderboard('teams')" id="lb-tab-teams" class="px-4 sm:px-6 py-2.5 sm:py-3 rounded-xl text-xs sm:text-sm font-bold bg-gradient-to-r from-amber-400 to-orange-500 text-black shadow-lg">5v5 სქუადები</button>
+                <button onclick="showLeaderboard('players')" id="lb-tab-players" class="px-4 sm:px-6 py-2.5 sm:py-3 rounded-xl text-xs sm:text-sm text-gray-400 hover:text-white glass-panel transition">1v1 მოთამაშეები</button>
+                <button onclick="showLeaderboard('random')" id="lb-tab-random" class="px-4 sm:px-6 py-2.5 sm:py-3 rounded-xl text-xs sm:text-sm text-gray-400 hover:text-white glass-panel transition">Random (5v5)</button>
             </div>
-
+            
             <div id="board-teams" class="lb-section glass-panel rounded-3xl overflow-hidden">
                 <div class="p-4 sm:p-6 border-b border-[#232a4d] flex justify-between items-center">
-                    <h3 class="font-orbitron font-bold text-sm sm:text-lg text-amber-400"><i
-                            class="fa-solid fa-ranking-star mr-2"></i>სქუადების რეიტინგი</h3>
+                    <h3 class="font-orbitron font-bold text-sm sm:text-lg text-amber-400"><i class="fa-solid fa-ranking-star mr-2"></i>სქუადების რეიტინგი</h3>
                     <span class="text-[10px] sm:text-[11px] text-gray-400">1 მოგება = +25 PTS</span>
                 </div>
                 <div class="overflow-x-auto">
@@ -669,8 +474,7 @@
 
             <div id="board-players" class="lb-section hidden glass-panel rounded-3xl overflow-hidden">
                 <div class="p-4 sm:p-6 border-b border-[#232a4d] flex justify-between items-center">
-                    <h3 class="font-orbitron font-bold text-sm sm:text-lg text-purple-400"><i
-                            class="fa-solid fa-ranking-star mr-2"></i>1v1 რეიტინგი</h3>
+                    <h3 class="font-orbitron font-bold text-sm sm:text-lg text-purple-400"><i class="fa-solid fa-ranking-star mr-2"></i>1v1 რეიტინგი</h3>
                     <span class="text-[10px] sm:text-[11px] text-gray-400">1 მოგება = +25 PTS</span>
                 </div>
                 <div class="overflow-x-auto">
@@ -692,8 +496,7 @@
 
             <div id="board-random" class="lb-section hidden glass-panel rounded-3xl overflow-hidden">
                 <div class="p-4 sm:p-6 border-b border-[#232a4d] flex justify-between items-center">
-                    <h3 class="font-orbitron font-bold text-sm sm:text-lg text-blue-400"><i
-                            class="fa-solid fa-ranking-star mr-2"></i>Random 5v5 რეიტინგი</h3>
+                    <h3 class="font-orbitron font-bold text-sm sm:text-lg text-blue-400"><i class="fa-solid fa-ranking-star mr-2"></i>Random 5v5 რეიტინგი</h3>
                     <span class="text-[10px] sm:text-[11px] text-gray-400">1 მოგება = +25 PTS</span>
                 </div>
                 <div class="overflow-x-auto">
@@ -718,34 +521,21 @@
         <div id="page-admin" class="spa-page hidden py-10 sm:py-16 px-3 sm:px-4 max-w-7xl mx-auto">
             <h2 class="font-orbitron font-extrabold text-2xl sm:text-3xl text-white mb-6 sm:mb-8">ადმინ პანელი</h2>
             <div class="glass-panel p-5 sm:p-6 rounded-2xl mb-8">
-                <h3 class="text-white font-bold mb-4 border-b border-[#232a4d] pb-2 text-sm sm:text-base">ტურნირების
-                    მართვა</h3>
+                <h3 class="text-white font-bold mb-4 border-b border-[#232a4d] pb-2 text-sm sm:text-base">ტურნირების მართვა</h3>
                 <div class="grid grid-cols-1 sm:grid-cols-3 gap-3 sm:gap-4">
-                    <div class="bg-[#121629] p-4 rounded-xl flex items-center justify-between border border-[#232a4d]">
-                        <span class="text-gray-300 text-xs sm:text-sm">1v1 Solo</span><button
-                            onclick="toggleRegistration('1v1 Solo Duel')" id="adminToggle-1v1"
-                            class="px-3 py-1 rounded text-xs font-bold">ღიაა</button></div>
-                    <div class="bg-[#121629] p-4 rounded-xl flex items-center justify-between border border-[#232a4d]">
-                        <span class="text-gray-300 text-xs sm:text-sm">5v5 Squad</span><button
-                            onclick="toggleRegistration('5v5 Squad')" id="adminToggle-squad"
-                            class="px-3 py-1 rounded text-xs font-bold">ღიაა</button></div>
-                    <div class="bg-[#121629] p-4 rounded-xl flex items-center justify-between border border-[#232a4d]">
-                        <span class="text-gray-300 text-xs sm:text-sm">5v5 Random</span><button
-                            onclick="toggleRegistration('5v5 Random')" id="adminToggle-random"
-                            class="px-3 py-1 rounded text-xs font-bold">ღიაა</button></div>
+                    <div class="bg-[#121629] p-4 rounded-xl flex items-center justify-between border border-[#232a4d]"><span class="text-gray-300 text-xs sm:text-sm">1v1 Solo</span><button onclick="toggleRegistration('1v1 Solo Duel')" id="adminToggle-1v1" class="px-3 py-1 rounded text-xs font-bold">ღიაა</button></div>
+                    <div class="bg-[#121629] p-4 rounded-xl flex items-center justify-between border border-[#232a4d]"><span class="text-gray-300 text-xs sm:text-sm">5v5 Squad</span><button onclick="toggleRegistration('5v5 Squad')" id="adminToggle-squad" class="px-3 py-1 rounded text-xs font-bold">ღიაა</button></div>
+                    <div class="bg-[#121629] p-4 rounded-xl flex items-center justify-between border border-[#232a4d]"><span class="text-gray-300 text-xs sm:text-sm">5v5 Random</span><button onclick="toggleRegistration('5v5 Random')" id="adminToggle-random" class="px-3 py-1 rounded text-xs font-bold">ღიაა</button></div>
                 </div>
             </div>
-
+            
             <div class="grid grid-cols-1 lg:grid-cols-3 gap-6 sm:gap-8">
                 <div class="glass-panel p-5 sm:p-6 rounded-2xl flex flex-col h-full">
                     <h3 class="font-orbitron font-bold text-sm text-white mb-4">შეტყობინების გაგზავნა</h3>
                     <form onsubmit="sendAnnouncement(event)" class="flex flex-col gap-4 mb-6">
-                        <input type="text" id="annTitle" required placeholder="სათაური"
-                            class="bg-[#121629] border border-[#232a4d] rounded-xl px-4 py-3 text-sm text-white">
-                        <textarea id="annText" required rows="2" placeholder="ტექსტი..."
-                            class="bg-[#121629] border border-[#232a4d] rounded-xl px-4 py-3 text-sm text-white"></textarea>
-                        <select id="annLink"
-                            class="bg-[#121629] border border-[#232a4d] rounded-xl px-4 py-3 text-sm text-gray-400 focus:text-white outline-none">
+                        <input type="text" id="annTitle" required placeholder="სათაური" class="bg-[#121629] border border-[#232a4d] rounded-xl px-4 py-3 text-sm text-white">
+                        <textarea id="annText" required rows="2" placeholder="ტექსტი..." class="bg-[#121629] border border-[#232a4d] rounded-xl px-4 py-3 text-sm text-white"></textarea>
+                        <select id="annLink" class="bg-[#121629] border border-[#232a4d] rounded-xl px-4 py-3 text-sm text-gray-400 focus:text-white outline-none">
                             <option value="">არ გადავიდეს არსად (მხოლოდ ტექსტი)</option>
                             <option value="tournaments">გადასვლა: ტურნირები</option>
                             <option value="lobby">გადასვლა: ლობი</option>
@@ -763,9 +553,7 @@
                 <div class="lg:col-span-2 glass-panel p-5 sm:p-6 rounded-2xl overflow-x-auto">
                     <div class="flex flex-wrap justify-between items-center mb-4 gap-2">
                         <h3 class="font-orbitron font-bold text-sm text-white">ლობები & შედეგების მართვა</h3>
-                        <span
-                            class="text-[10px] sm:text-[11px] text-amber-400 bg-amber-500/10 px-3 py-1 rounded-lg border border-amber-500/20">+Win
-                            / +Loss აისახება ლიდერბორდში</span>
+                        <span class="text-[10px] sm:text-[11px] text-amber-400 bg-amber-500/10 px-3 py-1 rounded-lg border border-amber-500/20">+Win / +Loss აისახება ლიდერბორდში</span>
                     </div>
                     <div class="overflow-x-auto">
                         <table class="w-full text-left text-xs sm:text-sm min-w-[500px]">
@@ -786,81 +574,57 @@
         </div>
     </main>
 
-    <!-- FOOTER -->
+    <!-- FOOTER (Royal.png ლოგოთი) -->
     <footer class="relative z-10 bg-[#0a0c16]/90 backdrop-blur-xl border-t border-[#232a4d] mt-16">
-        <div
-            class="max-w-7xl mx-auto px-4 py-8 sm:py-10 flex flex-col md:flex-row items-center justify-between gap-6 text-center md:text-left">
+        <div class="max-w-7xl mx-auto px-4 py-8 sm:py-10 flex flex-col md:flex-row items-center justify-between gap-6 text-center md:text-left">
             <div class="flex flex-col sm:flex-row items-center gap-3">
-                <div class="w-10 h-10 rounded-xl bg-gradient-to-tr from-amber-400 to-purple-600 p-0.5">
-                    <div class="w-full h-full bg-[#0a0c16] rounded-[10px] flex items-center justify-center"><i
-                            class="fa-solid fa-crown text-amber-400 text-sm"></i></div>
+                <div class="w-10 h-10 rounded-xl bg-gradient-to-tr from-amber-400 to-purple-600 p-0.5 overflow-hidden">
+                    <img src="Royal.png" alt="Royal Arena" class="w-full h-full object-cover rounded-[10px] bg-[#0a0c16]">
                 </div>
                 <div>
-                    <h3 class="font-orbitron font-black text-sm tracking-wider gold-gradient-text">ROYAL ARENA GEORGIA
-                    </h3>
+                    <h3 class="font-orbitron font-black text-sm tracking-wider gold-gradient-text">ROYAL ARENA GEORGIA</h3>
                     <p class="text-[11px] text-gray-500">© 2026 ყველა უფლება დაცულია • MLBB Esports Portal</p>
                 </div>
             </div>
 
             <div class="flex items-center gap-3">
-                <a href="https://discord.gg/DhfedTXT2" target="_blank" rel="noopener noreferrer"
-                    class="social-discord px-4 py-2.5 rounded-xl text-xs font-bold flex items-center gap-2">
+                <a href="https://discord.gg/DhfedTXT2" target="_blank" rel="noopener noreferrer" class="social-discord px-4 py-2.5 rounded-xl text-xs font-bold flex items-center gap-2">
                     <i class="fa-brands fa-discord text-base"></i> Discord
                 </a>
-                <a href="https://www.tiktok.com/@kingofsorrow076?is_from_webapp=1&sender_device=pc" target="_blank"
-                    rel="noopener noreferrer"
-                    class="social-tiktok px-4 py-2.5 rounded-xl text-xs font-bold flex items-center gap-2">
+                <a href="https://www.tiktok.com/@kingofsorrow076?is_from_webapp=1&sender_device=pc" target="_blank" rel="noopener noreferrer" class="social-tiktok px-4 py-2.5 rounded-xl text-xs font-bold flex items-center gap-2">
                     <i class="fa-brands fa-tiktok text-sm"></i> TikTok
                 </a>
             </div>
         </div>
     </footer>
 
-    <!-- Login მოდალი -->
-    <div id="loginModal"
-        class="hidden fixed inset-0 z-50 bg-black/90 backdrop-blur-xl flex items-center justify-center p-4">
-        <div
-            class="bg-[#0a0c16] border border-[#232a4d] rounded-3xl w-full max-w-4xl relative shadow-2xl flex overflow-hidden max-h-[92vh] overflow-y-auto">
-            <button onclick="toggleElement('loginModal')"
-                class="absolute top-4 right-4 text-white/50 hover:text-white z-10 text-xl"><i
-                    class="fa-solid fa-xmark"></i></button>
-            <div
-                class="hidden md:flex w-1/2 bg-gradient-to-br from-purple-900 to-[#0a0c16] p-10 flex-col justify-center relative">
-                <div class="relative z-10 text-center"><i
-                        class="fa-solid fa-crown text-6xl text-amber-400 mb-6 animate-float"></i>
+    <!-- Login მოდალი (Royal.png ლოგოთი) -->
+    <div id="loginModal" class="hidden fixed inset-0 z-50 bg-black/90 backdrop-blur-xl flex items-center justify-center p-4">
+        <div class="bg-[#0a0c16] border border-[#232a4d] rounded-3xl w-full max-w-4xl relative shadow-2xl flex overflow-hidden max-h-[92vh] overflow-y-auto">
+            <button onclick="toggleElement('loginModal')" class="absolute top-4 right-4 text-white/50 hover:text-white z-10 text-xl"><i class="fa-solid fa-xmark"></i></button>
+            <div class="hidden md:flex w-1/2 bg-gradient-to-br from-purple-900 to-[#0a0c16] p-10 flex-col justify-center relative">
+                <div class="relative z-10 text-center">
+                    <img src="Royal.png" alt="Royal Arena" class="w-24 h-24 rounded-2xl mx-auto mb-6 object-cover border-2 border-amber-400/50 shadow-[0_0_25px_rgba(251,191,36,0.3)] animate-float">
                     <h2 class="font-orbitron font-black text-3xl text-white mb-4">ROYAL ARENA</h2>
-                    <p class="text-xs text-gray-300">შექმენი პროფილი, დაიკავე ადგილი ლობიში და იბრძოლე ჩემპიონობისთვის!
-                    </p>
+                    <p class="text-xs text-gray-300">შექმენი პროფილი, დაიკავე ადგილი ლობიში და იბრძოლე ჩემპიონობისთვის!</p>
                 </div>
             </div>
             <div class="w-full md:w-1/2 p-6 sm:p-12 bg-[#05070e]">
-                <h3 id="authModalTitle" class="font-orbitron font-bold text-xl sm:text-2xl text-white mb-6">სისტემაში
-                    შესვლა</h3>
+                <h3 id="authModalTitle" class="font-orbitron font-bold text-xl sm:text-2xl text-white mb-6">სისტემაში შესვლა</h3>
                 <div class="flex bg-[#121629] p-1 rounded-xl mb-6 border border-[#232a4d]">
-                    <button onclick="switchAuthTab('login')" id="tabLogin"
-                        class="flex-1 py-2.5 rounded-lg bg-purple-600 text-white text-xs sm:text-sm font-bold shadow-md transition">შესვლა</button>
-                    <button onclick="switchAuthTab('register')" id="tabRegister"
-                        class="flex-1 py-2.5 rounded-lg text-gray-400 hover:text-white text-xs sm:text-sm font-bold transition">რეგისტრაცია</button>
+                    <button onclick="switchAuthTab('login')" id="tabLogin" class="flex-1 py-2.5 rounded-lg bg-purple-600 text-white text-xs sm:text-sm font-bold shadow-md transition">შესვლა</button>
+                    <button onclick="switchAuthTab('register')" id="tabRegister" class="flex-1 py-2.5 rounded-lg text-gray-400 hover:text-white text-xs sm:text-sm font-bold transition">რეგისტრაცია</button>
                 </div>
                 <form onsubmit="handleAuthSubmit(event)" class="flex flex-col gap-4">
-                    <div id="authNameField" class="hidden"><input type="text" id="authName"
-                            placeholder="მეტსახელი (IGN)"
-                            class="w-full bg-[#121629] border border-[#232a4d] focus:border-purple-500 rounded-xl px-4 py-3 text-sm text-white outline-none">
-                    </div>
-                    <input type="email" id="authEmail" required placeholder="ელ-ფოსტა"
-                        class="w-full bg-[#121629] border border-[#232a4d] focus:border-purple-500 rounded-xl px-4 py-3 text-sm text-white outline-none">
-                    <input type="password" id="authPassword" required placeholder="პაროლი"
-                        class="w-full bg-[#121629] border border-[#232a4d] focus:border-purple-500 rounded-xl px-4 py-3 text-sm text-white outline-none">
-                    <button type="submit" id="authSubmitBtn"
-                        class="w-full gold-btn py-3.5 sm:py-4 rounded-xl text-xs sm:text-sm font-bold uppercase mt-1">ავტორიზაცია</button>
-
+                    <div id="authNameField" class="hidden"><input type="text" id="authName" placeholder="მეტსახელი (IGN)" class="w-full bg-[#121629] border border-[#232a4d] focus:border-purple-500 rounded-xl px-4 py-3 text-sm text-white outline-none"></div>
+                    <input type="email" id="authEmail" required placeholder="ელ-ფოსტა" class="w-full bg-[#121629] border border-[#232a4d] focus:border-purple-500 rounded-xl px-4 py-3 text-sm text-white outline-none">
+                    <input type="password" id="authPassword" required placeholder="პაროლი" class="w-full bg-[#121629] border border-[#232a4d] focus:border-purple-500 rounded-xl px-4 py-3 text-sm text-white outline-none">
+                    <button type="submit" id="authSubmitBtn" class="w-full gold-btn py-3.5 sm:py-4 rounded-xl text-xs sm:text-sm font-bold uppercase mt-1">ავტორიზაცია</button>
+                    
                     <div class="flex items-center gap-3 my-1">
-                        <hr class="flex-1 border-[#232a4d]"><span
-                            class="text-[10px] text-gray-500 uppercase font-bold">ან</span>
-                        <hr class="flex-1 border-[#232a4d]">
+                        <hr class="flex-1 border-[#232a4d]"><span class="text-[10px] text-gray-500 uppercase font-bold">ან</span><hr class="flex-1 border-[#232a4d]">
                     </div>
-                    <button type="button" onclick="loginWithDiscord()"
-                        class="w-full bg-[#5865F2] hover:bg-[#4752C4] text-white py-3.5 rounded-xl text-xs sm:text-sm font-bold uppercase transition flex items-center justify-center gap-3 shadow-[0_0_15px_rgba(88,101,242,0.3)]">
+                    <button type="button" onclick="loginWithDiscord()" class="w-full bg-[#5865F2] hover:bg-[#4752C4] text-white py-3.5 rounded-xl text-xs sm:text-sm font-bold uppercase transition flex items-center justify-center gap-3 shadow-[0_0_15px_rgba(88,101,242,0.3)]">
                         <i class="fa-brands fa-discord text-lg sm:text-xl"></i> Discord-ით შესვლა
                     </button>
                 </form>
@@ -911,7 +675,7 @@
         animateParticles();
     </script>
 
-    <script src="js/main.js"></script>
+    <!-- პირდაპირი კავშირი main.js-თან -->
+    <script src="main.js"></script>
 </body>
-
 </html>
